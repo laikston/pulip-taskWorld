@@ -1,0 +1,15 @@
+<ul>
+  <li *ngFor="let d of data;" class="item">
+    taskGroup : {{d.title}}
+    <ul>
+      <li *ngFor="let dd of d.taskList;" (click)="goTaskDetail(dd.id)">
+        taskList : {{dd.title}} {{dd.manager}}
+        <ul>
+          <li *ngFor="let ddd of dd.checkList;">
+            task : {{ddd.title}}
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
