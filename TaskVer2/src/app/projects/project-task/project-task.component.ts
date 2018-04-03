@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ConstantService } from '../../service/constant.service';
 import { ProjectInfoBoxService } from '../../service/project-info-box.service';
 
 export class check{
@@ -7,20 +8,17 @@ export class check{
   title: string;
   complete: boolean;
 }
-
 export class task{
   id: number;
   title: string;
   manager: string;
   checkList: check[];
 }
-
 export class taskGroup{
   id: number;
   title: string;
   taskList: task[];
 }
-
 @Component({
   selector: 'app-project-task',
   templateUrl: './project-task.component.html',
@@ -29,9 +27,12 @@ export class taskGroup{
 export class ProjectTaskComponent implements OnInit {
   @Output()  infoBoxPropEvent = new EventEmitter<any>(); /* 부모 component(project-container)에게 info-box 콘트롤 위한 상태 전달 */
   @Output()  snbEvent = new EventEmitter<any>(); /* 부모 component(project-container)에게 snb 상태 전달 */
-  projectId:number = null;
-  taskId:number;
-  data:taskGroup[] = [
+  gnbTitle: string = 'projects';
+  snbTitle: string = 'task';
+  url: string;
+  projectId: number = null;
+  taskId: number;
+  data: taskGroup[] = [
     { 
       id: 1,
       title: '분석/설계/세팅',
@@ -136,23 +137,30 @@ export class ProjectTaskComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute, 
     private router: Router,
+    private constantService: ConstantService,
     private projectInfoBoxService: ProjectInfoBoxService
   ) { }
-
   ngOnInit() {
-    this.snbEvent.emit('task');
+    this.snbEvent.emit(this.snbTitle);
+    this.url = this.constantService.getLinkUrl(this.gnbTitle); 
     setTimeout(() => {     
       /* 유입 url가 task detail info-box 비활성화일 때 project-container에 info-box세팅할 수 있도록 property 세팅 */
-      let prop:any = { 
+      let prop: any = { 
         projectId : this.activatedRoute.snapshot.params.projectId,
         type : this.projectInfoBoxService.getInfoBoxType(),
         taskId : undefined,
         viewInfo : false
       };
-      this.projectId = this.activatedRoute.snapshot.params.projectId;      
-
+      this.projectId = this.activatedRoute.snapshot.params.projectId;
       /* 유입 url가 task detail info-box 활성화일 때 project-container에 info-box세팅할 수 있도록 property 세팅 */
       if(this.projectInfoBoxService.getInfoBoxType() == 'task'){
+        this.projectInfoBoxService.setProjectId(this.projectId);
+        this.taskId = this.projectInfoBoxService.getTaskId();
+        prop.taskId = this.projectInfoBoxService.getTaskId();
+        prop.viewInfo = true;
+      }
+      /* 유입 url가 project detail info-box 활성화일 때 project-container에 info-box세팅할 수 있도록 property 세팅 */
+      if(this.projectInfoBoxService.getInfoBoxType() == 'project'){
         this.projectInfoBoxService.setProjectId(this.projectId);
         this.taskId = this.projectInfoBoxService.getTaskId();
         prop.taskId = this.projectInfoBoxService.getTaskId();
@@ -162,17 +170,16 @@ export class ProjectTaskComponent implements OnInit {
     });
   }
   goTaskDetail(_taskId){
-    let infoBoxProp: any = {}, url: any;
+    let infoBoxProp: any = {}, url: any, goTitle: string = 'property';
     this.taskId = _taskId;
     infoBoxProp = {
-      type : 'task',
-      projectId : this.projectId,
-      taskId : this.taskId,
-      viewInfo : true
+      type: 'task',
+      projectId: this.projectId,
+      taskId: this.taskId,
+      viewInfo: true
     };
-    this.infoBoxPropEvent.emit(infoBoxProp);    
-    
-    url = '/projects/project/' + this.projectId + '/task/' + _taskId + '/property';   
+    this.infoBoxPropEvent.emit(infoBoxProp);  
+    url = this.url['base'] + this.url[this.snbTitle] + this.projectId + this.url['taskDetail'] +  _taskId + '/' + goTitle;   
     this.router.navigate([url]); 
   }  
 }

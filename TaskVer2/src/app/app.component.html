@@ -1,7 +1,5 @@
 <div>
-  <a routerLink="/home" >home</a>
-  <a routerLink="/summary" >summary</a>
-  <a routerLink="/projects" >projects</a>
+  <a *ngFor="let link of detailLink" [routerLink]="link.link">{{link.title}}</a>
 </div>
 <router-outlet></router-outlet>
 

@@ -6,11 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./task-property.component.css']
 })
 export class TaskPropertyComponent implements OnInit {
-  projectId:number;
-  taskId:number;
+  projectId: number;
+  taskId: number;
   constructor() { }
-
-  ngOnInit() {
-  }
-
+  ngOnInit() { }
 }

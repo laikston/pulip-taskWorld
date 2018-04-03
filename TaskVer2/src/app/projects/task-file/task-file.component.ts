@@ -6,11 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./task-file.component.css']
 })
 export class TaskFileComponent implements OnInit {
-  projectId:number;
-  taskId:number;
+  projectId: number;
+  taskId: number;
   constructor() { }
-
-  ngOnInit() {
-  }
-
+  ngOnInit() { }
 }

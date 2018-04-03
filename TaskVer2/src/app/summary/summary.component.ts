@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ConstantService } from '../service/constant.service';
 
 @Component({
   selector: 'app-summary',
@@ -6,10 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./summary.component.css']
 })
 export class SummaryComponent implements OnInit {
-
-  constructor() { }
+  gnbTitle: string = 'home';
+  detailLink: any;
+  constructor(
+    private constantService: ConstantService
+  ) { }
 
   ngOnInit() {
+    this.detailLink = this.constantService.getSnbDetailLinkUrl(this.gnbTitle);
   }
 
 }

@@ -1,23 +1,26 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, Component}  from '@angular/core';
+import { NgModule, Component }  from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpModule } from '@angular/http';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { AppContainerComponent } from './app-container/app-container.component';
 
+import { ConstantService } from './service/constant.service';
+import { DataService } from './service/data.service';
 import { ProjectInfoBoxService } from './service/project-info-box.service';
 
 import { HomeComponent } from './home/home.component';
 import { HomeContainerComponent } from './home/home-container/home-container.component';
 import { HomeFeedbackComponent } from './home/home-feedback/home-feedback.component';
 import { HomeTaskComponent } from './home/home-task/home-task.component';
-
 import { SummaryComponent } from './summary/summary.component';
 import { SummaryContainerComponent } from './summary/summary-container/summary-container.component';
 import { SummaryTaskComponent } from './summary/summary-task/summary-task.component';
 import { SummaryCalendarComponent } from './summary/summary-calendar/summary-calendar.component';
 import { SummaryTimelineComponent } from './summary/summary-timeline/summary-timeline.component';
-
 import { ProjectsComponent } from './projects/projects.component';
 import { InfoBoxComponent } from './projects/info-box/info-box.component';
 import { InfoBoxContainerComponent } from './projects/info-box-container/info-box-container.component';
@@ -32,7 +35,6 @@ import { ProjectTimelineComponent } from './projects/project-timeline/project-ti
 import { TaskCommentComponent } from './projects/task-comment/task-comment.component';
 import { TaskFileComponent } from './projects/task-file/task-file.component';
 import { TaskPropertyComponent } from './projects/task-property/task-property.component';
-
 let projectInfoBoxTypeProjectDetail:Routes = [
   {
     path: ':projectId/setting',
@@ -253,7 +255,6 @@ const appRoutes: Routes = [
     ]
   }
 ];
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -261,14 +262,12 @@ const appRoutes: Routes = [
     HomeComponent,
     HomeContainerComponent,
     HomeFeedbackComponent,
-    HomeTaskComponent,
-    
+    HomeTaskComponent,    
     SummaryComponent,    
     SummaryContainerComponent ,
     SummaryTaskComponent,
     SummaryCalendarComponent,
-    SummaryTimelineComponent,
-    
+    SummaryTimelineComponent,    
     ProjectsComponent,
     InfoBoxComponent,
     InfoBoxContainerComponent,
@@ -286,9 +285,14 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule, 
+    FormsModule,
+    HttpClientModule,
+    HttpModule,
     RouterModule.forRoot(appRoutes) 
   ],
   providers: [
+    ConstantService,
+    DataService,
     ProjectInfoBoxService
   ],
   bootstrap: [AppComponent]

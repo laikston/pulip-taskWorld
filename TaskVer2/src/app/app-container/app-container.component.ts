@@ -8,14 +8,12 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class AppContainerComponent implements OnInit {
   @ViewChild('depth1Container', { read: ViewContainerRef }) depth1Container: ViewContainerRef;
-
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private componentFactoryResolver: ComponentFactoryResolver,
     private viewContainer: ViewContainerRef
   ) { }
-
   ngOnInit() {
     this.activatedRoute.data
            .subscribe(data => {
@@ -27,5 +25,4 @@ export class AppContainerComponent implements OnInit {
               }
            });
   }
-
 }

@@ -6,10 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./project-setting.component.css']
 })
 export class ProjectSettingComponent implements OnInit {
-  projectId:number;
+  projectId: number;
   constructor() { }
-
-  ngOnInit() {
-  }
-
+  ngOnInit() { }
 }
