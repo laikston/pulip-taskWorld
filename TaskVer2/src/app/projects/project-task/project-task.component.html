@@ -1,15 +1,5 @@
-<ul>
-  <li *ngFor="let d of data;" class="item">
-    taskGroup : {{d.title}}
-    <ul>
-      <li *ngFor="let dd of d.taskList;" (click)="goTaskDetail(dd.id)">
-        taskList : {{dd.title}} {{dd.manager}}
-        <ul>
-          <li *ngFor="let ddd of dd.checkList;">
-            task : {{ddd.title}}
-          </li>
-        </ul>
-      </li>
-    </ul>
+<ul class="row">
+  <li *ngFor="let taskListData of taskListDatas;" class="col-sx-12 col-md-4 col-lg-3">
+    <app-task-list-box [taskListData]="taskListData" (sendTaskIdEvent)="goTaskDetail($event)"></app-task-list-box>
   </li>
 </ul>

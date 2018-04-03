@@ -1,21 +1,31 @@
-<ul>
-  <li class="col-sx-12 col-md-4 col-lg-2" *ngFor="let prj of dummyProjectList" (click)="goProjectDetail(prj.id)">
+<!-- project-list -->
+<div class="project-list">
+  <ul class="row">
+    <!-- project -->
+    <li class="col-sx-12 col-md-4 col-lg-2" *ngFor="let prj of dummyProjectList" (click)="goProjectDetail(prj.seq)">
       <div>
-        <h4>{{prj.title}}</h4>
-        <a href="javascript:;" (click)="viewProjectInfoBox($event, prj.id)">Info</a>
-        <div class="foot-info">
-          <div class="pull-left">
-            <a href="javascript:;">
+        <div class="project-list-hreader">
+          <h4>{{prj.email}}</h4>
+          <a href="javascript:;" (click)="viewProjectInfoBox($event, prj.seq)" class="btn-infomation"><span class="glyphicon glyphicon glyphicon-option-vertical hvr-buzz" aria-hidden="true"></span></a>
+        </div>
+        <div class="project-list-footer">
+          <div class="foot-info">
+            <div class="pull-left">
+              <a href="javascript:;">
                 <span class="glyphicon glyphicon glyphicon-comment" aria-hidden="true"></span>
-                <span class="count">{{prj.comment}}</span>
-            </a>
-            <a href="javascript:;">
+                <span class="count">{{prj.name}}</span>
+              </a>
+              <a href="javascript:;">
                 <span class="glyphicon glyphicon glyphicon-paperclip" aria-hidden="true"></span>
-                <span class="count">{{prj.file}}</span> 
-            </a>
+                <span class="count">{{prj.idx}}</span>
+              </a>
+            </div>
+            <div class="pull-right"></div>
           </div>
-          <div class="pull-right"></div>
         </div>
       </div>
-    </li>   
-</ul>
+    </li>
+    <!-- //project -->
+  </ul>
+</div>
+<!-- //project-list -->

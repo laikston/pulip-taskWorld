@@ -6,10 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./project-activity.component.css']
 })
 export class ProjectActivityComponent implements OnInit {
-  projectId:number;
+  public projectId: number;
   constructor() { }
-
-  ngOnInit() {
-  }
-
+  ngOnInit() { }
 }

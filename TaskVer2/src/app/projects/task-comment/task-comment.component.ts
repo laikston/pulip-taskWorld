@@ -6,11 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./task-comment.component.css']
 })
 export class TaskCommentComponent implements OnInit {
-  projectId:number;
-  taskId:number;  
+  public projectId: number;
+  public taskId: number;  
   constructor() { }
-
-  ngOnInit() {
-  }
-
+  ngOnInit() { }
 }

@@ -1,25 +1,8 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { TaskListBox } from '../task-list-box/task-list-box';
+import { ConstantService } from '../../service/constant.service';
 import { ProjectInfoBoxService } from '../../service/project-info-box.service';
-
-export class check{
-  id: number;
-  title: string;
-  complete: boolean;
-}
-
-export class task{
-  id: number;
-  title: string;
-  manager: string;
-  checkList: check[];
-}
-
-export class taskGroup{
-  id: number;
-  title: string;
-  taskList: task[];
-}
 
 @Component({
   selector: 'app-project-task',
@@ -27,106 +10,198 @@ export class taskGroup{
   styleUrls: ['./project-task.component.css']
 })
 export class ProjectTaskComponent implements OnInit {
-  @Output()  infoBoxPropEvent = new EventEmitter<any>(); /* 부모 component(project-container)에게 info-box 콘트롤 위한 상태 전달 */
-  @Output()  snbEvent = new EventEmitter<any>(); /* 부모 component(project-container)에게 snb 상태 전달 */
-  projectId:number = null;
-  taskId:number;
-  data:taskGroup[] = [
-    { 
-      id: 1,
-      title: '분석/설계/세팅',
-      taskList: [
+  @Output()  public infoBoxPropEvent: EventEmitter<any> = new EventEmitter<any>(); /* 부모 component(project-container)에게 info-box 콘트롤 위한 상태 전달 */
+  @Output()  public snbEvent: EventEmitter<string> = new EventEmitter<string>(); /* 부모 component(project-container)에게 snb 상태 전달 */
+  public gnbTitle: string = 'projects';
+  public snbTitle: string = 'task';
+  public url: string;
+  public projectId: number = null;
+  public taskId: number;
+  public taskListDatas: TaskListBox[] = [
+    {
+      "Idx": 1,
+      "Name": "분석/설계/세팅",
+      "Parent_idx": 0,
+      "Level": 1,
+      "Order": 1,
+      "Reg_date": "2018-12-12",
+      "Last_date": "2018-12-12",
+      "Task": [
         {
-          id: 1001,
-          title: '서버 세팅',
-          manager: '김종환',
-          checkList: [
+          "Idx": 2, 
+          "Name":"서버 세팅1", 
+          "Parent_idx":1, 
+          "Level":2, 
+          "Order":1, 
+          "Start_date":"2018-12-12", 
+          "End_date":"2018-12-30", 
+          "Complete":"N", 
+          "Reg_date":"2018-12-12", 
+          "Last_date":"2018-12-12", 
+          "AssiMember":[], 
+          "Tag":[], 
+          "File":[], 
+          "CheckList":[]
+        },
+        {
+          "Idx": 3, 
+          "Name":"DB분석및 설계1", 
+          "Parent_idx":1, 
+          "Level":2, 
+          "Order":1, 
+          "Start_date":"2018-12-12", 
+          "End_date":"2018-12-30", 
+          "Complete":"N", 
+          "Reg_date":"2018-12-12", 
+          "Last_date":"2018-12-12", 
+          "AssiMember":[
             {
-              id: 100101,
-              title: '서버세팅 체크1',
-              complete: false
+              "Idx":100, 
+              "User_idx":999, 
+              "Task_idx":3
+            }, 
+            {
+              "Idx":101, 
+              "User_idx":888, 
+              "Task_idx":3
+            }
+          ], 
+          "Tag":[], 
+          "File":[], 
+          "CheckList":[
+            {
+              "Idx":4, 
+              "Name":"프로젝트리스트 쿼리", 
+              "Level":3, 
+              "Order":1, 
+              "Complete":"N", 
+              "Reg_date":"2018-12-12", 
+              "Last_date":"2017-1212"
             }
           ]
         },
         {
-          id: 1002,
-          title: 'DB분석및 설계',
-          manager: '김종환',
-          checkList: [
+          "Idx": 5, 
+          "Name":"개발환경 세팅1", 
+          "Parent_idx":1, 
+          "Level":2, 
+          "Order":1, 
+          "Start_date":"2018-12-12", 
+          "End_date":"2018-12-30", 
+          "Complete":"Y", 
+          "Reg_date":"2018-12-12", 
+          "Last_date":"2018-12-12", 
+          "AssiMember":[], 
+          "Tag":[], 
+          "File":[], 
+          "CheckList":[
             {
-              id: 100201,
-              title: '프로젝트리스트 쿼리',
-              complete: false
-            },
-            {
-              id: 100202,
-              title: '프로젝트리스트 쿼리2',
-              complete: false
+              "Idx":4, 
+              "Name":"프로젝트리스트 쿼리", 
+              "Level":3, 
+              "Order":1, 
+              "Complete":"Y", 
+              "Reg_date":"2018-12-12", 
+              "Last_date":"2017-12-2"
             }
           ]
         }
       ]
     },
-    { 
-      id: 2,
-      title: '클라이언트 개발',
-      taskList: [
+    {
+      "Idx": 2,
+      "Name": "분석/설계/세팅2",
+      "Parent_idx": 0,
+      "Level": 1,
+      "Order": 1,
+      "Reg_date": "2018-12-12",
+      "Last_date": "2018-12-12",
+      "Task": [
         {
-          id: 2001,
-          title: '프로젝트 리스트화면 개발',
-          manager: '김은주',
-          checkList: [
+          "Idx": 2, 
+          "Name":"서버 세팅2", 
+          "Parent_idx":1, 
+          "Level":2, 
+          "Order":1, 
+          "Start_date":"2018-12-12", 
+          "End_date":"2018-12-30", 
+          "Complete":"N", 
+          "Reg_date":"2018-12-12", 
+          "Last_date":"2018-12-12", 
+          "AssiMember":[], 
+          "Tag":[], 
+          "File":[], 
+          "CheckList":[]
+        },
+        {
+          "Idx": 3, 
+          "Name":"DB분석및 설계2", 
+          "Parent_idx":1, 
+          "Level":2, 
+          "Order":1, 
+          "Start_date":"2018-12-12", 
+          "End_date":"2018-12-30", 
+          "Complete":"N", 
+          "Reg_date":"2018-12-12", 
+          "Last_date":"2018-12-12", 
+          "AssiMember":[
             {
-              id: 200101,
-              title: '캘린더 플러그인찾기',
-              complete: false
+              "Idx":100, 
+              "User_idx":999, 
+              "Task_idx":3
+            }, 
+            {
+              "Idx":101, 
+              "User_idx":888, 
+              "Task_idx":3
+            }
+          ], 
+          "Tag":[], 
+          "File":[], 
+          "CheckList":[
+            {
+              "Idx":4, 
+              "Name":"프로젝트리스트 쿼리", 
+              "Level":3, 
+              "Order":1, 
+              "Complete":"N", 
+              "Reg_date":"2018-12-12", 
+              "Last_date":"2017-1212"
             },
             {
-              id: 200101,
-              title: '드레그인드랍 플로그인찾기',
-              complete: false
+              "Idx":5, 
+              "Name":"프로젝트리스트 쿼리2", 
+              "Level":3, 
+              "Order":1, 
+              "Complete":"N", 
+              "Reg_date":"2018-12-12", 
+              "Last_date":"2017-1212"
             }
           ]
         },
         {
-          id: 2002,
-          title: '업무화면 개발1',
-          manager: 'ㅈㅈㅈ',
-          checkList: [
+          "Idx": 5, 
+          "Name":"개발환경 세팅2", 
+          "Parent_idx":1, 
+          "Level":2, 
+          "Order":1, 
+          "Start_date":"2018-12-12", 
+          "End_date":"2018-12-30", 
+          "Complete":"Y", 
+          "Reg_date":"2018-12-12", 
+          "Last_date":"2018-12-12", 
+          "AssiMember":[], 
+          "Tag":[], 
+          "File":[], 
+          "CheckList":[
             {
-              id: 200201,
-              title: 'nested router 구조잡기',
-              complete: false
-            }
-          ]
-        }
-      ]
-    },
-    { 
-      id: 3,
-      title: '서버개발',
-      taskList: [
-        {
-          id: 3001,
-          title: '업무화면  API',
-          manager: '김종환',
-          checkList: [
-            {
-              id: 300101,
-              title: '서버개발 체크1',
-              complete: false
-            }
-          ]
-        },
-        {
-          id: 3002,
-          title: 'socket로직 개발',
-          manager: '김종환',
-          checkList: [
-            {
-              id: 300201,
-              title: 'socket로직 개발 체크1',
-              complete: false
+              "Idx":4, 
+              "Name":"프로젝트리스트 쿼리", 
+              "Level":3, 
+              "Order":1, 
+              "Complete":"Y", 
+              "Reg_date":"2018-12-12", 
+              "Last_date":"2017-12-2"
             }
           ]
         }
@@ -136,23 +211,30 @@ export class ProjectTaskComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute, 
     private router: Router,
+    private constantService: ConstantService,
     private projectInfoBoxService: ProjectInfoBoxService
   ) { }
-
   ngOnInit() {
-    this.snbEvent.emit('task');
+    this.snbEvent.emit(this.snbTitle);
+    this.url = this.constantService.getLinkUrl(this.gnbTitle); 
     setTimeout(() => {     
       /* 유입 url가 task detail info-box 비활성화일 때 project-container에 info-box세팅할 수 있도록 property 세팅 */
-      let prop:any = { 
+      let prop: any = { 
         projectId : this.activatedRoute.snapshot.params.projectId,
         type : this.projectInfoBoxService.getInfoBoxType(),
         taskId : undefined,
         viewInfo : false
       };
-      this.projectId = this.activatedRoute.snapshot.params.projectId;      
-
+      this.projectId = this.activatedRoute.snapshot.params.projectId;
       /* 유입 url가 task detail info-box 활성화일 때 project-container에 info-box세팅할 수 있도록 property 세팅 */
       if(this.projectInfoBoxService.getInfoBoxType() == 'task'){
+        this.projectInfoBoxService.setProjectId(this.projectId);
+        this.taskId = this.projectInfoBoxService.getTaskId();
+        prop.taskId = this.projectInfoBoxService.getTaskId();
+        prop.viewInfo = true;
+      }
+      /* 유입 url가 project detail info-box 활성화일 때 project-container에 info-box세팅할 수 있도록 property 세팅 */
+      if(this.projectInfoBoxService.getInfoBoxType() == 'project'){
         this.projectInfoBoxService.setProjectId(this.projectId);
         this.taskId = this.projectInfoBoxService.getTaskId();
         prop.taskId = this.projectInfoBoxService.getTaskId();
@@ -162,17 +244,16 @@ export class ProjectTaskComponent implements OnInit {
     });
   }
   goTaskDetail(_taskId){
-    let infoBoxProp: any = {}, url: any;
+    let infoBoxProp: any = {}, url: any, goTitle: string = 'property';
     this.taskId = _taskId;
     infoBoxProp = {
-      type : 'task',
-      projectId : this.projectId,
-      taskId : this.taskId,
-      viewInfo : true
+      type: 'task',
+      projectId: this.projectId,
+      taskId: this.taskId,
+      viewInfo: true
     };
-    this.infoBoxPropEvent.emit(infoBoxProp);    
-    
-    url = '/projects/project/' + this.projectId + '/task/' + _taskId + '/property';   
+    this.infoBoxPropEvent.emit(infoBoxProp);  
+    url = this.url['base'] + this.url[this.snbTitle] + this.projectId + this.url['taskDetail'] +  _taskId + '/' + goTitle;   
     this.router.navigate([url]); 
   }  
 }

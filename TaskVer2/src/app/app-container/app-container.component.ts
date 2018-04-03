@@ -7,15 +7,13 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./app-container.component.css']
 })
 export class AppContainerComponent implements OnInit {
-  @ViewChild('depth1Container', { read: ViewContainerRef }) depth1Container: ViewContainerRef;
-
+  @ViewChild('depth1Container', { read: ViewContainerRef }) public depth1Container: ViewContainerRef;
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private componentFactoryResolver: ComponentFactoryResolver,
     private viewContainer: ViewContainerRef
   ) { }
-
   ngOnInit() {
     this.activatedRoute.data
            .subscribe(data => {
@@ -27,5 +25,4 @@ export class AppContainerComponent implements OnInit {
               }
            });
   }
-
 }

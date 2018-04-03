@@ -1,0 +1,6 @@
+<div [hidden]="!viewSnb">
+  <div><a *ngFor="let link of detailLink;" [routerLink]="setSnbRouterLink(link.link)" (click)="changeInfoBoxState(false)">{{link.title}}</a></div>
+  <div><a [routerLink]="setProjectInfoBoxRouterLink()" (click)="changeInfoBoxState(true, 'project')">project-info</a></div>
+</div>
+<div #depth2Container></div>
+<app-info-box [type]="type" [projectId]="projectId" [taskId]="taskId" [hidden]="!viewInfo" (changeInfoBoxStateEvent)="changeInfoBoxState($event)"></app-info-box>

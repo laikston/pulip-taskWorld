@@ -1,7 +1,37 @@
-<div>
-  <a routerLink="/home" >home</a>
-  <a routerLink="/summary" >summary</a>
-  <a routerLink="/projects" >projects</a>
-</div>
-<router-outlet></router-outlet>
+<!-- socket test
+<ul id="messages">
+  <li *ngFor="let message of messages">
+      <span [innerHTML]="isSystemMessage(message)"></span>
+  </li>
+</ul>
+<form action="">
+  <input [(ngModel)]="chatBox" [ngModelOptions]="{standalone: true}" autocomplete="off" />
+  <button (click)="send()">전송aa</button>
+</form>
+socket test -->
 
+<!-- top navi -->
+<nav class="navbar navbar-inverse navbar-fixed-top bggr01">
+  <div class="container">
+    <div class="navbar-header">
+      <h1>PulipTask</h1>
+    </div>
+  </div>
+</nav>
+<!-- //top navi -->
+
+<!-- content -->
+<div class="content">
+  <!-- container -->
+  <div class="container">
+      <router-outlet></router-outlet>
+  </div>
+</div>
+
+<!-- todo 메뉴추가 -->
+<aside class="aside">
+  <ul>
+    <li *ngFor="let link of detailLink"><a [routerLink]="link.link">{{link.title}}</a></li>
+  </ul>
+</aside>
+<!-- //todo 메뉴추가 -->
