@@ -49,6 +49,7 @@ export class ProjectListComponent implements OnInit {
         this.infoBoxPropEvent.emit(prop);
       }
     }); 
+    this.dummyProjectList
   }
   private setData(_data, _this){ // data 수신   
     _this.dummyProjectList = _data;
