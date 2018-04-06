@@ -1,7 +1,81 @@
-<p>
-  task-property works! 
-  <br>
-  projectId : {{projectId}}
-  <br>
-  taskId : {{taskId}}
-</p>
+<dl>
+  <dt>위치</dt>
+  <dd>
+    <a href="javascript:;">+</a>
+    <div class="location"><span class="project">{{projectName}}</span><span>{{taskName}}</span></div>
+  </dd>
+</dl>
+<dl>
+  <dt>시작일</dt>
+  <dd>
+    <a href="javascript:;">+</a>
+    <div *ngIf="data">{{data.Reg_date}}</div>
+  </dd>
+</dl>
+<dl>
+  <dt>마감일</dt>
+  <dd>
+    <a href="javascript:;">+</a>
+    <div *ngIf="data">{{data.Last_date}}</div>
+  </dd>
+  
+</dl>
+<dl>
+  <dt>배정된 멤버</dt>
+  <dd>
+    <a href="javascript:;">+</a>
+    <ul>
+      <li></li>
+    </ul>
+  </dd>
+</dl>
+<dl>
+  <dt>팔로워</dt>
+  <dd>
+    <a href="javascript:;">+</a>
+    <ul>
+      <li></li>
+    </ul>
+  </dd>
+</dl>
+<dl>
+  <dt>태그</dt>
+  <dd>
+    <a href="javascript:;">+</a>
+    <ul>
+      <li></li>
+    </ul>
+  </dd>
+</dl>
+<dl>
+  <dt>작업시간</dt>
+  <dd>
+    <a href="javascript:;">+</a>
+    <ul>
+      <li></li>
+    </ul>
+  </dd>
+</dl>
+<dl>
+  <dt>포인트</dt>
+  <dd>
+    <select>
+      <option>평가되지 않음</option>
+    </select>
+  </dd>
+</dl>
+<dl>
+  <dt>색상라벨</dt>
+  <dd>
+    <a href="javascript:;">+</a>
+    <ul>
+      <li></li>
+    </ul>
+  </dd>
+</dl>
+<dl *ngIf="data" >
+  <dt>체크리스트</dt>
+  <dd><app-check-list-box [checkListdata]="data.CheckList"></app-check-list-box></dd>
+</dl>
+
+

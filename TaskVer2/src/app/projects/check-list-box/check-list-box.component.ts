@@ -10,7 +10,7 @@ export class CheckListBoxComponent implements OnInit {
 
   constructor() { }
   ngOnInit() {
-    console.log('checkListdata :: ', this.checkListdata);
+    // console.log('checkListdata :: ', this.checkListdata);
   }
 
 }

@@ -52,6 +52,7 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+a{text-decoration: none;}
  
 h3{font-size: 18px;color: #6d6e8c;}
 h4{font-size: 16px;color: #6d6e8c;}
@@ -61,3 +62,5 @@ h5{font-size: 14px;color: #6d6e8c;}
 .foot-info{margin-top: 15px;overflow: hidden;}
 .foot-info .pull-left a{margin-right: 15px;}
 .foot-info .pull-left a span{color: #cbcbd6;font-size: 12px;}
+
+.complete{text-decoration:line-through;}

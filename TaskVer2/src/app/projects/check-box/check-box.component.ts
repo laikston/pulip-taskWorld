@@ -8,9 +8,18 @@ import { CheckBox } from '../check-box/check-box';
 })
 export class CheckBoxComponent implements OnInit {
   @Input()  public checkData: CheckBox;
+  public isComplete: boolean;
+  public editMode: boolean = false;
   constructor() { }
   ngOnInit() {
-    console.log('checkData :: ', this.checkData);
+    // console.log('checkData :: ', this.checkData);
+    this.isComplete = (this.checkData.Complete == 'Y') ? true : false ;
+  }
+  changeCompleteState(){
+    console.log(this.isComplete)
+  }
+  changeTitle(){
+    this.editMode = true;
   }
 
 }

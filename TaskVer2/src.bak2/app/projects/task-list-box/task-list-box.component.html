@@ -1,0 +1,6 @@
+<div>
+  <h4>{{taskListData.Name}}</h4>
+  <ul>
+    <li *ngFor="let taskData of taskListData['Task'];let idx=index;"><app-task-box [taskData]="taskData" (sendTaskIdEvent)="sendTaskId($event)"></app-task-box></li>        
+  </ul>
+</div>

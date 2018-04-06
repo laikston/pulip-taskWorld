@@ -4,10 +4,10 @@ import { Injectable } from '@angular/core';
 export class ConstantService {
   constructor() { }
   /* api url */
-  private apiBaseUrl: string = 'http://team.titleist.co.kr/titleist-surefit/surefit/';
+  private apiBaseUrl: string = 'http://localhost:4000/api/';
   private apiUrl: any = {
     projects : {
-      list : this.apiBaseUrl + 'fiter'
+      list : this.apiBaseUrl + 'getProjectList'
     }
   };
   getApiUrl(_gnbTitle, _snbTitle){

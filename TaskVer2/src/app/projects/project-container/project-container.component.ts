@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ViewContainerRef, ComponentFactoryResolve
 import { Router, ActivatedRoute } from '@angular/router';
 import { ConstantService } from '../../service/constant.service';
 import { ProjectInfoBoxService } from '../../service/project-info-box.service';
+import { TaskListBox } from '../task-list-box/task-list-box';
 
 @Component({
   selector: 'app-project-container',
@@ -14,11 +15,14 @@ export class ProjectContainerComponent implements OnInit {
   public detailLink: any;   
   public type: string;
   public projectId: number;
+  public projectName: string;
   public taskId: number;
+  public taskName: string;
   public viewInfo: boolean = false;
   public viewSnb: boolean = false;
   public currentSnb: string;
   public childComponent: ComponentRef<any>;
+  public infoBoxData: TaskListBox;
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -38,6 +42,7 @@ export class ProjectContainerComponent implements OnInit {
                   let instance = this.childComponent.instance;
                   if(instance['infoBoxPropEvent'])  instance['infoBoxPropEvent'].subscribe((data) => this.changeInfoBoxProp(data));
                   if(instance['snbEvent'])    instance['snbEvent'].subscribe((data) => this.changeSnb(data));  
+                  if(instance['setInfoBoxDataEvent'])  instance['setInfoBoxDataEvent'].subscribe((data) => this.setInfoBoxData(data));
                 });
               }
            });
@@ -50,8 +55,10 @@ export class ProjectContainerComponent implements OnInit {
   changeInfoBoxProp(_prop){ /* ViewChild(project-list, project-task, project-timeline, project-analysis, project-file)에서 info-box가 콘트롤 되어야 할 때 info-box 상태 전달 받음 */
     this.type = _prop.type;
     this.projectId = _prop.projectId;
+    this.projectName = (_prop.projectName) ? _prop.projectName : undefined ;
     this.viewInfo = _prop.viewInfo;
     this.taskId = _prop.taskId;
+    this.taskName = (_prop.taskName) ? _prop.taskName : undefined ;
   }    
   changeSnb(_isView){ /* 각 ViewChild(project-list, project-task, project-timeline, project-analysis, project-file)에 따른 snb 상태 전달 받음 */
     let view: boolean = (_isView == 'list') ? false : true ;    
@@ -71,4 +78,7 @@ export class ProjectContainerComponent implements OnInit {
         url: string = serviceUrl.base + serviceUrl.task + this.projectId + '/' + this.currentSnb + '/setting';
     return url;
   }  
+  setInfoBoxData(_e: TaskListBox){
+    this.infoBoxData = _e;    
+  }
 }

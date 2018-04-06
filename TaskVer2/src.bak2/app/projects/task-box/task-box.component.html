@@ -1,0 +1,22 @@
+  <div (click)="goTaskDetail(taskData.Idx)">
+    <div class="head-info">
+      <span>
+        <input type="checkbox" aria-label="...">
+      </span>
+      <h5>{{taskData.Name}}</h5>
+    </div>
+    <app-check-list-box [checkListdata]="taskData['CheckList']"></app-check-list-box>
+    <div class="foot-info">
+      <div class="pull-left">
+        <a href="javascript:;">
+            <span class="glyphicon glyphicon glyphicon-comment" aria-hidden="true"></span>
+            <span class="count">21</span>
+        </a>
+        <a href="javascript:;">
+            <span class="glyphicon glyphicon glyphicon-paperclip" aria-hidden="true"></span>
+            <span class="count">21</span>
+        </a>
+      </div>
+      <div class="pull-right"></div>
+    </div>
+  </div>

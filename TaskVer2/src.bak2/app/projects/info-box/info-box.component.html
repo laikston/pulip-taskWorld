@@ -1,0 +1,16 @@
+<aside class="info-box" id="infoBox">
+  <div class="info-box-close"><a href="javascript:;" (click)="changeInfoBoxState()"><span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span></a></div>
+  <div class="info-box-header">
+    <h3>projectId : {{projectId}}</h3>
+    <ul>
+      <li *ngFor="let link of detailLink[type]" ><a [routerLink]="setSnbRouterLink(link.link)">{{link.title}}</a></li>
+    </ul>
+    <div>
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</aside>
+
+
+
+
