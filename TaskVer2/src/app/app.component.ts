@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RouterModule, Route } from '@angular/router';
-import { ConstantService } from './service/constant.service';
 import { SocketService } from "./service/socket.service";
 
 @Component({
@@ -11,10 +10,8 @@ import { SocketService } from "./service/socket.service";
 export class AppComponent implements OnInit, OnDestroy {
     public messages: Array<any>;
     public chatBox: string;
-    public detailLink: Array<any>;
 
     public constructor(
-        private constantService: ConstantService,
         private socket: SocketService
     ) {
         this.messages = [];
@@ -22,7 +19,6 @@ export class AppComponent implements OnInit, OnDestroy {
     }
 
     public ngOnInit() {
-        this.detailLink = this.constantService.getGnbDetailLinkUrl();
         this.socket.getEventListener().subscribe(event => {
             if(event.type == "message") {
                 let data = event.data.content;
@@ -55,5 +51,7 @@ export class AppComponent implements OnInit, OnDestroy {
     public isSystemMessage(message: string) {
         return message.startsWith("/") ? "<strong>" + message.substring(1) + "</strong>" : message;
     }
+
+    
 
 }

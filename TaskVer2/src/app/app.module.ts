@@ -40,6 +40,7 @@ import { TaskListBoxComponent } from './projects/task-list-box/task-list-box.com
 import { TaskBoxComponent } from './projects/task-box/task-box.component';
 import { CheckListBoxComponent } from './projects/check-list-box/check-list-box.component';
 import { CheckBoxComponent } from './projects/check-box/check-box.component';
+import { OrderByPipe } from './pipe/order-by.pipe';
 let projectInfoBoxTypeProjectDetail:Routes = [
   {
     path: ':projectId/setting',
@@ -290,14 +291,15 @@ const appRoutes: Routes = [
     TaskListBoxComponent,
     TaskBoxComponent,
     CheckListBoxComponent,
-    CheckBoxComponent
+    CheckBoxComponent,
+    OrderByPipe
   ],
   imports: [
     BrowserModule, 
     FormsModule,
     HttpClientModule,
     HttpModule,
-    RouterModule.forRoot(appRoutes) 
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [
     ConstantService,

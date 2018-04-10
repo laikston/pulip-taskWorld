@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { DataService } from '../../service/data.service';
+import { ConstantService } from '../../service/constant.service';
 
 @Component({
   selector: 'app-project-setting',
@@ -7,6 +10,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProjectSettingComponent implements OnInit {
   public projectId: number;
+  public projectName: string;
+  public data: any;
   constructor() { }
   ngOnInit() { }
 }

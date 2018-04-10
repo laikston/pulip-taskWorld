@@ -34,7 +34,6 @@ export class InfoBoxContainerComponent implements OnInit {
                   this.childComponent.instance['projectName'] = this.projectName = this.projectInfoBoxService.getProjectName(); /* 처음 로드된 ViewChild에 projectInfoBoxService를 이용하여 projectName 전달 */
                   this.childComponent.instance['taskId'] = this.taskId = this.projectInfoBoxService.getTaskId(); /* 처음 로드된 ViewChild에 projectInfoBoxService를 이용하여 taskId 전달 */
                   this.childComponent.instance['taskName'] = this.taskName = this.projectInfoBoxService.getTaskName(); /* 처음 로드된 ViewChild에 projectInfoBoxService를 이용하여 taskName 전달 */
-                                                      
                   if(this.projectInfoBoxService.getInfoBoxType() == undefined){ /* 유입 url이 info-box를 포함하는 경우 projectInfoBoxService 통해서 (info-box가 포함된 project-container에) type 전달 */
                     if(this.childComponent.componentType.name == 'ProjectSettingComponent' || this.childComponent.componentType.name == 'ProjectActivityComponent'){
                       this.type = 'project';                     

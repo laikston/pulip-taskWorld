@@ -16,6 +16,7 @@ export class ProjectContainerComponent implements OnInit {
   public type: string;
   public projectId: number;
   public projectName: string;
+  public projectData: any;
   public taskId: number;
   public taskName: string;
   public viewInfo: boolean = false;
@@ -32,21 +33,21 @@ export class ProjectContainerComponent implements OnInit {
     private projectInfoBoxService: ProjectInfoBoxService
   ) { }
   ngOnInit() {
-    this.detailLink = this.constantService.getSnbDetailLinkUrl(this.gnbTitle); 
     this.activatedRoute.data
            .subscribe(data => {
               if(!!data && !!data.depth2contents && data.depth2contents.length > 0){
                 data.depth2contents.map(depth2content => {
                   let componentFactory = this.componentFactoryResolver.resolveComponentFactory(depth2content);
-                  this.childComponent = this.depth2Container.createComponent(componentFactory);
-                  let instance = this.childComponent.instance;
+                  this.childComponent = this.depth2Container.createComponent(componentFactory);           
+                  let instance = this.childComponent.instance;       
                   if(instance['infoBoxPropEvent'])  instance['infoBoxPropEvent'].subscribe((data) => this.changeInfoBoxProp(data));
                   if(instance['snbEvent'])    instance['snbEvent'].subscribe((data) => this.changeSnb(data));  
                   if(instance['setInfoBoxDataEvent'])  instance['setInfoBoxDataEvent'].subscribe((data) => this.setInfoBoxData(data));
                 });
               }
-           });
-  }  
+           }); 
+    this.detailLink = this.constantService.getSnbDetailLinkUrl(this.gnbTitle);     
+  } 
   changeInfoBoxState(_isView, _type){ /* info-box state control */
     this.viewInfo = _isView;
     (_type != undefined) ? this.projectInfoBoxService.setInfoBoxType(_type) : this.projectInfoBoxService.setInfoBoxType(undefined) ;     
@@ -56,6 +57,7 @@ export class ProjectContainerComponent implements OnInit {
     this.type = _prop.type;
     this.projectId = _prop.projectId;
     this.projectName = (_prop.projectName) ? _prop.projectName : undefined ;
+    this.infoBoxData = (_prop.projectData) ? _prop.projectData : undefined ;
     this.viewInfo = _prop.viewInfo;
     this.taskId = _prop.taskId;
     this.taskName = (_prop.taskName) ? _prop.taskName : undefined ;
@@ -79,6 +81,7 @@ export class ProjectContainerComponent implements OnInit {
     return url;
   }  
   setInfoBoxData(_e: TaskListBox){
-    this.infoBoxData = _e;    
+    this.infoBoxData = _e;  
+    console.log(this.infoBoxData)  
   }
 }

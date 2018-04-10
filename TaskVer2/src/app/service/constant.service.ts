@@ -4,10 +4,11 @@ import { Injectable } from '@angular/core';
 export class ConstantService {
   constructor() { }
   /* api url */
-  private apiBaseUrl: string = 'http://localhost:4000/api/';
+  private apiBaseUrl: string = 'https://taskapi.pulipinc.com/'
   private apiUrl: any = {
     projects : {
-      list : this.apiBaseUrl + 'getProjectList'
+      list : this.apiBaseUrl + 'getprojectlist',
+      Detail : this.apiBaseUrl + 'getProjectDetail'
     }
   };
   getApiUrl(_gnbTitle, _snbTitle){
@@ -94,12 +95,16 @@ export class ConstantService {
     project : [
       {
         link : '/setting',
-        title : '설정'
-      },
-      {
-        link : '/activity',
-        title : '모든활동'
+        title : '정보'
       }
+      // {
+      //   link : '/setting',
+      //   title : '설정'
+      // },
+      // {
+      //   link : '/activity',
+      //   title : '모든활동'
+      // }
     ],
     task : [
       {

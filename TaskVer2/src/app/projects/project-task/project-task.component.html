@@ -1,5 +1,5 @@
 <ul class="row">
-  <li *ngFor="let taskListData of taskListDatas;" class="col-sx-12 col-md-4 col-lg-3">
+  <li *ngFor="let taskListData of taskListDatas|orderBy:order:ascending" class="col-sx-12 col-md-4 col-lg-3">
     <app-task-list-box [taskListData]="taskListData" (sendTaskPropEvent)="goTaskDetail($event)"></app-task-list-box>
   </li>
 </ul>

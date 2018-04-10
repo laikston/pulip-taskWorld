@@ -1,5 +1,7 @@
-import { Component, OnInit, ViewChild, ViewContainerRef, ComponentFactoryResolver } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewContainerRef, ComponentFactoryResolver, ComponentRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ConstantService } from '../service/constant.service';
+import { ProjectInfoBoxService } from '../service/project-info-box.service';
 
 @Component({
   selector: 'app-app-container',
@@ -8,21 +10,29 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class AppContainerComponent implements OnInit {
   @ViewChild('depth1Container', { read: ViewContainerRef }) public depth1Container: ViewContainerRef;
+  public detailLink: Array<any>;
+  public childComponent: ComponentRef<any>;
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private componentFactoryResolver: ComponentFactoryResolver,
-    private viewContainer: ViewContainerRef
+    private viewContainer: ViewContainerRef,
+    private constantService: ConstantService,
+    private projectInfoBoxService: ProjectInfoBoxService
   ) { }
   ngOnInit() {
+    this.detailLink = this.constantService.getGnbDetailLinkUrl();
     this.activatedRoute.data
            .subscribe(data => {
               if(!!data && !!data.depth1contents && data.depth1contents.length > 0){
                 data.depth1contents.map(depth1content => {
                   let componentFactory = this.componentFactoryResolver.resolveComponentFactory(depth1content);
-                  this.depth1Container.createComponent(componentFactory);
+                  this.childComponent = this.depth1Container.createComponent(componentFactory);
+                  let instance = this.childComponent.instance;              
                 });
               }
            });
+  }
+  initGnb(_link: any){
   }
 }

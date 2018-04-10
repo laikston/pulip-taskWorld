@@ -1,0 +1,6 @@
+.form-control{border:0;}
+.input-group-addon{border: 0;border-radius: 0;}
+.checkbox-wrap{padding:0 0 0 15px;}
+input[type=checkbox]{margin-top:10px;}
+.checkbox-title, .checkbox-title{padding-left:0;display: inline-block;width: 100%;padding:0 10px;text-overflow:ellipsis;white-space:nowrap;word-wrap:normal;overflow:hidden;font-size: 14px;color: #6d6e8c;line-height: 30px;white-space:nowrap;}
+.checkbox-title.hidden{display:none;}

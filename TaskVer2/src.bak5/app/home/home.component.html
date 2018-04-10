@@ -1,0 +1,7 @@
+<p>
+    home works!
+  </p>
+  <div>
+    <a *ngFor="let link of detailLink" [routerLink]="link.link">{{link.title}}</a>
+  </div>
+  <router-outlet></router-outlet>
