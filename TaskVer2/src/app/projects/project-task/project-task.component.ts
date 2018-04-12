@@ -18,10 +18,10 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
   public gnbTitle: string = 'projects';
   public snbTitle: string = 'task';
   public url: string;
-  public projectId: number = null;
-  public projectName: string;
+  public projectId: number;
+  public projectData: any;
   public taskId: number;
-  public taskName: string;
+  public taskData: any;
   public type: string;
   public taskListDatas: TaskListBox[] = [
     {
@@ -39,6 +39,8 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
           "Parent_idx":1, 
           "Level":2, 
           "Order":2, 
+          "Writer":"안정화",
+          "Write_date":"2018-12-12",
           "Start_date":"2018-12-12", 
           "End_date":"2018-12-30", 
           "Complete":"N", 
@@ -55,6 +57,8 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
           "Parent_idx":1, 
           "Level":2, 
           "Order":3, 
+          "Writer":"안정화",
+          "Write_date":"2018-12-12",
           "Start_date":"2018-12-12", 
           "End_date":"2018-12-30", 
           "Complete":"Y", 
@@ -101,6 +105,8 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
           "Parent_idx":1, 
           "Level":2, 
           "Order":1, 
+          "Writer":"안정화",
+          "Write_date":"2018-12-12",
           "Start_date":"2018-12-12", 
           "End_date":"2018-12-30", 
           "Complete":"N", 
@@ -183,6 +189,8 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
           "Parent_idx":2, 
           "Level":2, 
           "Order":3, 
+          "Writer":"안정화",
+          "Write_date":"2018-12-12",
           "Start_date":"2018-12-12", 
           "End_date":"2018-12-30", 
           "Complete":"N", 
@@ -199,11 +207,13 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
           "Parent_idx":2, 
           "Level":2, 
           "Order":1, 
-          "Start_date":"2018-12-12", 
-          "End_date":"2018-12-30", 
+          "Writer":"안정화2",
+          "Write_date":"2018-12-1222",
+          "Start_date":"2018-12-1222", 
+          "End_date":"2018-12-3022", 
           "Complete":"N", 
-          "Reg_date":"2018-12-12", 
-          "Last_date":"2018-12-12", 
+          "Reg_date":"2018-12-1222", 
+          "Last_date":"2018-12-1222", 
           "AssiMember":[
             {
               "Idx":100, 
@@ -221,7 +231,7 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
           "CheckList":[
             {
               "Idx":4, 
-              "Name":"프로젝트리스트 쿼리", 
+              "Name":"프로젝트리스트 쿼리 454545", 
               "Level":3, 
               "Order":1, 
               "Complete":"Y", 
@@ -245,6 +255,8 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
           "Parent_idx":2, 
           "Level":2, 
           "Order":2, 
+          "Writer":"안정화",
+          "Write_date":"2018-12-12",
           "Start_date":"2018-12-12", 
           "End_date":"2018-12-30", 
           "Complete":"Y", 
@@ -256,7 +268,7 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
           "CheckList":[
             {
               "Idx":1, 
-              "Name":"프로젝트리스트 쿼리", 
+              "Name":"프로젝트리스트 쿼리 1212", 
               "Level":3, 
               "Order":1, 
               "Complete":"Y", 
@@ -279,76 +291,83 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
     private projectInfoBoxService: ProjectInfoBoxService
   ) { }
   ngOnInit() {
-    this.location.onPopState(() => { /* history back */
-      this.projectInfoBoxService.setInfoBoxType(undefined);
+    this.projectId = this.projectInfoBoxService.getProjectId();
+    this.projectData = this.projectInfoBoxService.getProjectData();
+    if(!this.projectId){ // 유입 url info-box 포함일 때
+      this.projectId = Number(this.activatedRoute.snapshot.params.projectId);
+      this.projectInfoBoxService.setProjectId(this.projectId);
+      this.dataService.getProjectList({}, this.setProjectData, this); 
+    }else{
       setTimeout(() => { this.init(); });
+    }    
+    this.location.onPopState(() => { /* history back */
+      this.type = undefined;
+      this.projectInfoBoxService.setInfoBoxType(this.type);            
+      setTimeout(() => { 
+        this.type = this.projectInfoBoxService.getInfoBoxType();
+        this.init(); 
+      });
     });
     this.snbEvent.emit(this.snbTitle);
-    this.url = this.constantService.getLinkUrl(this.gnbTitle); 
-
-    /* 유입 url이 project-list를 통과하지 않을 때 */
-    if(!this.projectInfoBoxService.getProjectName()){
-      this.dataService.getProjectList({}, this.setData, this);
-    }else{
-      this.projectName = this.projectInfoBoxService.getProjectName();
-      setTimeout(() => { this.init(); });
-    }
+    this.url = this.constantService.getLinkUrl(this.gnbTitle);     
+  }
+  setProjectData(_data, _this){
+    _this.projectData = _this.projectInfoBoxService.filterProjectData(_data, Number(_this.projectId));
+    _this.setTaskData();
+  }
+  setTaskData(){
+    this.type = this.projectInfoBoxService.getInfoBoxType();
+    if(this.type == 'task'){
+      this.taskId = this.projectInfoBoxService.getTaskId();
+      this.taskData = this.projectInfoBoxService.filterTaskData(this.taskListDatas, this.type, this.projectId, this.taskId);        
+    }   
+    this.init();
   }
   ngOnDestroy(){ 
     window.removeEventListener('popstate', () => { /* history back event destroyed */
-      this.projectInfoBoxService.setInfoBoxType(undefined);
-      setTimeout(() => { this.init(); });
+      this.type = undefined;
+      this.projectInfoBoxService.setInfoBoxType(this.type);            
+      setTimeout(() => { 
+        this.type = this.projectInfoBoxService.getInfoBoxType();
+        this.init(); 
+      });
     });
   }
   init(){
-    let type: string, viewInfo: boolean, prop: any = {}, data: TaskListBox; 
-    type = this.type = this.projectInfoBoxService.getInfoBoxType(); 
-    this.projectId = Number(this.activatedRoute.snapshot.params.projectId);
-    if(type == undefined){ /* 유입 url가 task detail info-box 비활성화일 때 project-container에 info-box세팅할 수 있도록 property 세팅 */      
-      viewInfo = false;   
-      this.taskId = undefined;   
-      this.taskName = undefined;
-    }else{ /* 유입 url가 project/task detail info-box 활성화일 때 project-container에 info-box세팅할 수 있도록 property 세팅 */
-      this.projectInfoBoxService.setProjectId(this.projectId);
-      this.taskId = this.projectInfoBoxService.getTaskId();
-      data = this.projectInfoBoxService.filterInfoBoxData(this.taskListDatas, type, this.projectId, this.taskId);
+    let viewInfo: boolean, prop: any = {}, data: TaskListBox;     
+    if(this.type == undefined){ /* 유입 url가 info-box 비활성 */  
+      viewInfo = false;  
+    }else{ /* 유입 url가 info-box 활성 */  
       viewInfo = true;
-      if(!this.projectInfoBoxService.getTaskName()){
-        if(data)  this.taskName = data.Name;
-      }
+      data = (this.type == 'project') ? this.projectData : this.taskData ;      
     }
     prop = { 
       projectId : this.projectId,
-      projectName : this.projectName,
+      infoBoxData : data,
       type : this.type,
       taskId : this.taskId,
-      taskName : this.taskName,
       viewInfo : viewInfo
     };
-    this.projectInfoBoxService.setInfoBoxData(data);
-    this.setInfoBoxDataEvent.emit(this.projectInfoBoxService.getInfoBoxData());
+    this.setInfoBoxDataEvent.emit(data);
     this.infoBoxPropEvent.emit(prop);
   }
-  setData(_data, _this){
-    _this.projectInfoBoxService.filterProjectName(_data, Number(_this.activatedRoute.snapshot.params.projectId), _this);
-    setTimeout(() => { _this.init(); });
-  }
-  goTaskDetail(_taskProp){
+  goTaskDetail(_taskId: number){
     let infoBoxProp: any = {}, url: any, goTitle: string = 'property';
-    //console.log(_taskProp)
-    this.taskId = _taskProp.id;
-    this.taskName = _taskProp.name;
+    this.taskId = _taskId;
+    this.type = 'task';
+    this.taskData = this.projectInfoBoxService.filterTaskData(this.taskListDatas, this.type, this.projectId, this.taskId);
     infoBoxProp = {
-      type: 'task',
       projectId: this.projectId,
-      projectName : this.projectName,
+      type: this.type,
       taskId: this.taskId,
-      taskName: this.taskName,
+      infoBoxData: this.taskData,
       viewInfo: true
     };
     this.infoBoxPropEvent.emit(infoBoxProp);      
-    this.projectInfoBoxService.setInfoBoxData(this.projectInfoBoxService.filterInfoBoxData(this.taskListDatas, infoBoxProp.type, infoBoxProp.projectId, infoBoxProp.taskId));
-    this.setInfoBoxDataEvent.emit(this.projectInfoBoxService.getInfoBoxData());
+    this.projectInfoBoxService.setTaskId(this.taskId);
+    this.projectInfoBoxService.setInfoBoxType(this.type);
+    this.setInfoBoxDataEvent.emit(this.taskData);    
+    
     url = this.url['base'] + this.url[this.snbTitle] + infoBoxProp.projectId + this.url['taskDetail'] + infoBoxProp.taskId + '/' + goTitle;   
     this.router.navigate([url]); 
   }  

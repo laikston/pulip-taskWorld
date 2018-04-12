@@ -6,6 +6,8 @@ export class TaskBox {
   public Parent_idx: number;
   public Level: number;
   public Order: number;
+  public Writer: string;
+  public Write_date: string;
   public Start_date: string;
   public End_date: string;
   public Complete: string;

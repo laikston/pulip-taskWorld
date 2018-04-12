@@ -15,6 +15,7 @@ export class InfoBoxContainerComponent implements OnInit {
   public taskId: number;
   public taskName: string;
   public type: string;
+  public data: any;
   public currentSnb: string;
   constructor(
     private router: Router,
@@ -24,32 +25,60 @@ export class InfoBoxContainerComponent implements OnInit {
     private projectInfoBoxService: ProjectInfoBoxService
   ) { }
   ngOnInit() {
+    this.type = this.projectInfoBoxService.getInfoBoxType();
     this.activatedRoute.data
            .subscribe(data => {
               if(!!data && !!data.infoBoxcontents && data.infoBoxcontents.length > 0){
                 data.infoBoxcontents.map(infoBoxcontent => {
                   let componentFactory = this.componentFactoryResolver.resolveComponentFactory(infoBoxcontent);
-                  this.childComponent = this.infoBoxcontents.createComponent(componentFactory); /* ViewChild cache */
-                  this.childComponent.instance['projectId'] = this.projectId = this.projectInfoBoxService.getProjectId(); /* 처음 로드된 ViewChild에 projectInfoBoxService를 이용하여 projectId 전달 */
-                  this.childComponent.instance['projectName'] = this.projectName = this.projectInfoBoxService.getProjectName(); /* 처음 로드된 ViewChild에 projectInfoBoxService를 이용하여 projectName 전달 */
-                  this.childComponent.instance['taskId'] = this.taskId = this.projectInfoBoxService.getTaskId(); /* 처음 로드된 ViewChild에 projectInfoBoxService를 이용하여 taskId 전달 */
-                  this.childComponent.instance['taskName'] = this.taskName = this.projectInfoBoxService.getTaskName(); /* 처음 로드된 ViewChild에 projectInfoBoxService를 이용하여 taskName 전달 */
-                  if(this.projectInfoBoxService.getInfoBoxType() == undefined){ /* 유입 url이 info-box를 포함하는 경우 projectInfoBoxService 통해서 (info-box가 포함된 project-container에) type 전달 */
+                  this.childComponent = this.infoBoxcontents.createComponent(componentFactory);                                
+                  
+                  /* 유입 url이 info-box를 포함하는 경우 type, projectId, taskId 저장 */
+                  if(!this.projectInfoBoxService.getInfoBoxType()){ 
                     if(this.childComponent.componentType.name == 'ProjectSettingComponent' || this.childComponent.componentType.name == 'ProjectActivityComponent'){
-                      this.type = 'project';                     
+                      this.type = 'project';   
+                      this.projectInfoBoxService.setProjectId(this.activatedRoute.snapshot.params.projectId);
                     }else if(this.childComponent.componentType.name == 'TaskPropertyComponent' || this.childComponent.componentType.name == 'TaskCommentComponent' || this.childComponent.componentType.name == 'TaskFileComponent'){
                       this.type = 'task';
+                      this.projectInfoBoxService.setTaskId(Number(this.activatedRoute.snapshot.params.taskId));
                     }else{
                       this.type = 'undefined';
                     }
-                    this.projectInfoBoxService.setInfoBoxType(this.type);
-                  }else if(this.projectInfoBoxService.getInfoBoxType() == 'project'){ /* task페이지 내에서 이벤트 발생시켜 project-info 띄울 때 */
+                    this.projectInfoBoxService.setInfoBoxType(this.type);                    
+                    
+                  /* task페이지 내에서 이벤트 발생시켜 project-info 띄울 때 */
+                  }else if(this.projectInfoBoxService.getInfoBoxType() == 'project'){ 
                     this.type = this.projectInfoBoxService.getInfoBoxType();
+                    this.projectId = this.projectInfoBoxService.getProjectId();
+                    this.taskId = this.projectInfoBoxService.getTaskId();
                   }
-                  setTimeout(() => {
-                    this.childComponent.instance['data'] = this.projectInfoBoxService.getInfoBoxData(); /* 처음 로드된 ViewChild에 projectInfoBoxService를 이용하여 data 전달 */ 
-                  });
+
+                  /* history back */
+                  if(this.activatedRoute.snapshot.params){
+                    this.type = 'project';
+                    this.projectInfoBoxService.setInfoBoxType(this.type);
+                    if(this.activatedRoute.snapshot.params.taskId){
+                      this.type = 'task';
+                      this.projectInfoBoxService.setInfoBoxType(this.type);
+                      this.projectInfoBoxService.setTaskId(this.activatedRoute.snapshot.params.taskId);
+                    }
+                  }                  
+
+                  /* 처음 로드된 ViewChild에 projectId, taskId 전달 */
+                  this.childComponent.instance['projectId'] = this.projectId = this.projectInfoBoxService.getProjectId();
+                  this.childComponent.instance['taskId'] = this.taskId = this.projectInfoBoxService.getTaskId();
                   
+                  /* type에 따른 data 지정 */
+                  setTimeout(() => {
+                    if(this.type == 'project'){
+                      this.childComponent.instance['data'] = this.data = this.projectInfoBoxService.getProjectData();
+                    }else if(this.type == 'task'){
+                      this.childComponent.instance['data'] = this.data = this.projectInfoBoxService.getTaskData();
+                    }else{
+                      this.childComponent.instance['data'] = this.data = undefined;
+                    }
+                  });    
+
                   /* info-box 내에 탭 활성화 컨트롤 */
                   let arrSnb = this.activatedRoute.routeConfig.path.split('/');
                   this.currentSnb = (arrSnb.length > 1) ? '/' + arrSnb[1] : '/' + arrSnb[0];
@@ -57,32 +86,21 @@ export class InfoBoxContainerComponent implements OnInit {
                 });
               }
            });
-    /* 이미 로드된 ViewChild에 projectInfoBoxService를 이용(projectId 바뀔 때 마다), projectId 전달 */
+    /* 이미 로드된 ViewChild에 projectInfoBoxService를 이용(projectId 바뀔 때 마다), projectId, data 세팅 */
     this.projectInfoBoxService.getProjectIdEvent.subscribe((_id) => { 
       this.childComponent.instance['projectId'] = this.projectId = this.projectInfoBoxService.getProjectId();
-    });    
-    /* 이미 로드된 ViewChild에 projectInfoBoxService를 이용(projectName 바뀔 때 마다), projectName 전달 */
-    this.projectInfoBoxService.getProjectNameEvent.subscribe((_name) => { 
-      this.childComponent.instance['projectName'] = this.projectName = this.projectInfoBoxService.getProjectName();
-    }); 
-    /* 이미 로드된 ViewChild에 projectInfoBoxService를 이용(taskId 바뀔 때 마다), taskId 전달 */
+      //this.childComponent.instance['data'] = this.projectInfoBoxService.getProjectData();
+    });  
+    this.projectInfoBoxService.getProjectDataEvent.subscribe((_data) => { 
+      if(this.type == 'project')  this.childComponent.instance['data'] = this.projectInfoBoxService.getProjectData();
+    });
+    /* 이미 로드된 ViewChild에 projectInfoBoxService를 이용(taskId 바뀔 때 마다), taskId, data 세팅 */
     this.projectInfoBoxService.getTaskIdEvent.subscribe((_id) => { 
       this.childComponent.instance['taskId'] = this.taskId = this.projectInfoBoxService.getTaskId();
+      //this.childComponent.instance['data'] = this.projectInfoBoxService.getTaskData();
     });
-    /* 이미 로드된 ViewChild에 projectInfoBoxService를 이용(taskId 바뀔 때 마다), taskId 전달 */
-    this.projectInfoBoxService.getTaskNameEvent.subscribe((_name) => { 
-      this.childComponent.instance['taskName'] = this.taskName = this.projectInfoBoxService.getTaskName();
-    });    
-    /* 이미 로드된 ViewChild에 projectInfoBoxService를 이용(data 바뀔 때 마다), data 전달 */
-    this.projectInfoBoxService.getInfoBoxDataEvent.subscribe((_data) => { 
-      this.childComponent.instance['data'] = this.projectInfoBoxService.getInfoBoxData();
+    this.projectInfoBoxService.getTaskDataEvent.subscribe((_data) => { 
+      if(this.type == 'task')  this.childComponent.instance['data'] = this.projectInfoBoxService.getTaskData();
     });
-    /* 유입 url이 info-box를 포함하는 경우 projectInfoBoxService 통해서 (info-box가 포함된 project-container에) projectId 전달 */
-    if(this.activatedRoute.snapshot.params['projectId']){ /* type이 'project'일 때 */
-      this.projectInfoBoxService.setProjectId(Number(this.activatedRoute.snapshot.params['projectId']));
-    }else{ /* type이 'task'일 때 */
-    }
-    /* 유입 url이 info-box를 포함하는 경우 projectInfoBoxService 통해서 (info-box가 포함된 project-container에) taskId 전달 */
-    if(this.activatedRoute.snapshot.params['taskId']){this.projectInfoBoxService.setTaskId(Number(this.activatedRoute.snapshot.params['taskId']));}
   }  
 }

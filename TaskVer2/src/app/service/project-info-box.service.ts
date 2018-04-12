@@ -12,23 +12,25 @@ export class ProjectInfoBoxService {
   }
   getProjectId(){
     return this.projectId;
+  }  
+  private projectData: any = {};
+  getProjectDataEvent = new EventEmitter();
+  setProjectData(_data){
+    this.projectData = _data;    
+    this.getProjectDataEvent.emit(_data);
   }
-  private projectName: string;
-  getProjectNameEvent = new EventEmitter();
-  setProjectName(_name){
-    this.projectName = _name;    
-    this.getProjectNameEvent.emit(_name);
+  getProjectData(){
+    return this.projectData;
   }
-  getProjectName(){
-    return this.projectName;
-  }
-  filterProjectName(_data: any, _projectId: number, _this: any){
+  filterProjectData(_data: any, _projectId: number){
+    let data: any;
     _data.forEach((value: any, key: number) => {
       if(value.projectid == _projectId){
-        _this.projectName = value.projectname;
-        _this.projectInfoBoxService.setProjectName(value.projectname);
+        this.projectData = value;
+        this.setProjectData(value);        
       }
     });
+    return this.projectData;
   }
   private taskId: number;
   getTaskIdEvent = new EventEmitter();
@@ -39,14 +41,27 @@ export class ProjectInfoBoxService {
   getTaskId(){
     return this.taskId;
   }
-  private taskName: string;
-  getTaskNameEvent = new EventEmitter();
-  setTaskName(_name){
-    this.taskName = _name;
-    this.getTaskNameEvent.emit(_name);
+  private taskData: TaskListBox;
+  getTaskDataEvent = new EventEmitter();
+  setTaskData(_data){
+    this.taskData = _data;
+    this.getTaskDataEvent.emit(_data);
   }
-  getTaskName(){
-    return this.taskName;
+  getTaskData(){
+    return this.taskData;
+  }
+  filterTaskData(_data: TaskListBox[], _type: string, _projectId: number, _taskId: number){
+    let taskData: TaskListBox;    
+    _data.forEach((value: any, key: number) => {
+      if(value.Parent_idx == Number(_projectId)){
+        value['Task'].forEach((v: any, k: any) => {
+          if(v.Idx == Number(_taskId)){
+            this.setTaskData(v);
+          }          
+        });
+      }
+    });
+    return this.taskData;
   }
   private infoBoxType: string;
   getInfoBoxTypeEvent = new EventEmitter();
@@ -74,32 +89,5 @@ export class ProjectInfoBoxService {
   }
   getCurrentSnb(){
     return this.currentSnb;
-  }
-  private infoBoxData: TaskListBox;
-  getInfoBoxDataEvent = new EventEmitter();
-  setInfoBoxData(_data){
-    this.infoBoxData = _data;
-    this.getInfoBoxDataEvent.emit(this.infoBoxData);
-  }
-  getInfoBoxData(){
-    return this.infoBoxData;
-  }
-  filterInfoBoxData(_data: TaskListBox[], _type: string, _projectId: number, _taskId: number){
-    let projectData: TaskListBox, data: TaskListBox;
-    _data.forEach((val: any, key: any) => {
-      if(val.Parent_idx == Number(_projectId)){
-        if(_type == 'project'){
-          data = val;
-        }else{
-          projectData = val;
-          projectData['Task'].forEach((v :any, k: any) => {
-            if(v.Idx == Number(_taskId)){
-              data = v;
-            }          
-          });
-        }
-      }      
-    });
-    return data;
   }
 }

@@ -1,0 +1,8 @@
+<!-- todo 메뉴추가 -->
+<aside class="aside">
+    <ul>
+      <li *ngFor="let link of detailLink"><a [routerLink]="link.link" (click)="initGnb(link)">{{link.title}}</a></li>
+    </ul>
+  </aside>
+  <!-- //todo 메뉴추가 -->
+<div #depth1Container></div>

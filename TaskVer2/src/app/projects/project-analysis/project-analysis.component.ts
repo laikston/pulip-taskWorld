@@ -3,7 +3,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { PlatformLocation } from '@angular/common';
 import { TaskListBox } from '../task-list-box/task-list-box';
 import { DataService } from '../../service/data.service';
-import { ConstantService } from '../../service/constant.service';
 import { ProjectInfoBoxService } from '../../service/project-info-box.service';
 
 @Component({
@@ -21,12 +20,13 @@ export class ProjectAnalysisComponent implements OnInit, OnDestroy {
   public projectName: string;
   public type: string;
   public taskListDatas: TaskListBox[] = [
+    
     {
       "Idx": 1,
       "Name": "태스크 리스트1",
       "Parent_idx": 3080,
       "Level": 1,
-      "Order": 1,
+      "Order": 2,
       "Reg_date": "2018-12-12",
       "Last_date": "2018-12-12",
       "Task": [
@@ -35,7 +35,9 @@ export class ProjectAnalysisComponent implements OnInit, OnDestroy {
           "Name":"태스크 리스트1 태스크1", 
           "Parent_idx":1, 
           "Level":2, 
-          "Order":1, 
+          "Order":2, 
+          "Writer":"안정화",
+          "Write_date":"2018-12-12",
           "Start_date":"2018-12-12", 
           "End_date":"2018-12-30", 
           "Complete":"N", 
@@ -51,7 +53,9 @@ export class ProjectAnalysisComponent implements OnInit, OnDestroy {
           "Name":"태스크 리스트1 태스크2", 
           "Parent_idx":1, 
           "Level":2, 
-          "Order":1, 
+          "Order":3, 
+          "Writer":"안정화",
+          "Write_date":"2018-12-12",
           "Start_date":"2018-12-12", 
           "End_date":"2018-12-30", 
           "Complete":"Y", 
@@ -98,6 +102,8 @@ export class ProjectAnalysisComponent implements OnInit, OnDestroy {
           "Parent_idx":1, 
           "Level":2, 
           "Order":1, 
+          "Writer":"안정화",
+          "Write_date":"2018-12-12",
           "Start_date":"2018-12-12", 
           "End_date":"2018-12-30", 
           "Complete":"N", 
@@ -177,9 +183,11 @@ export class ProjectAnalysisComponent implements OnInit, OnDestroy {
         {
           "Idx": 4, 
           "Name":"태스크 리스트2 태스크1", 
-          "Parent_idx":1, 
+          "Parent_idx":2, 
           "Level":2, 
-          "Order":1, 
+          "Order":3, 
+          "Writer":"안정화",
+          "Write_date":"2018-12-12",
           "Start_date":"2018-12-12", 
           "End_date":"2018-12-30", 
           "Complete":"N", 
@@ -193,14 +201,16 @@ export class ProjectAnalysisComponent implements OnInit, OnDestroy {
         {
           "Idx": 5, 
           "Name":"태스크 리스트2 태스크2", 
-          "Parent_idx":1, 
+          "Parent_idx":2, 
           "Level":2, 
           "Order":1, 
-          "Start_date":"2018-12-12", 
-          "End_date":"2018-12-30", 
+          "Writer":"안정화2",
+          "Write_date":"2018-12-1222",
+          "Start_date":"2018-12-1222", 
+          "End_date":"2018-12-3022", 
           "Complete":"N", 
-          "Reg_date":"2018-12-12", 
-          "Last_date":"2018-12-12", 
+          "Reg_date":"2018-12-1222", 
+          "Last_date":"2018-12-1222", 
           "AssiMember":[
             {
               "Idx":100, 
@@ -218,7 +228,7 @@ export class ProjectAnalysisComponent implements OnInit, OnDestroy {
           "CheckList":[
             {
               "Idx":4, 
-              "Name":"프로젝트리스트 쿼리", 
+              "Name":"프로젝트리스트 쿼리 454545", 
               "Level":3, 
               "Order":1, 
               "Complete":"Y", 
@@ -239,9 +249,11 @@ export class ProjectAnalysisComponent implements OnInit, OnDestroy {
         {
           "Idx": 6, 
           "Name":"태스크 리스트2 태스크3", 
-          "Parent_idx":1, 
+          "Parent_idx":2, 
           "Level":2, 
-          "Order":1, 
+          "Order":2, 
+          "Writer":"안정화",
+          "Write_date":"2018-12-12",
           "Start_date":"2018-12-12", 
           "End_date":"2018-12-30", 
           "Complete":"Y", 
@@ -253,7 +265,7 @@ export class ProjectAnalysisComponent implements OnInit, OnDestroy {
           "CheckList":[
             {
               "Idx":1, 
-              "Name":"프로젝트리스트 쿼리", 
+              "Name":"프로젝트리스트 쿼리 1212", 
               "Level":3, 
               "Order":1, 
               "Complete":"Y", 
@@ -273,51 +285,8 @@ export class ProjectAnalysisComponent implements OnInit, OnDestroy {
     private projectInfoBoxService: ProjectInfoBoxService
   ) { }
   ngOnInit() {
-    this.location.onPopState(() => { /* history back */
-      this.projectInfoBoxService.setInfoBoxType(undefined);
-      setTimeout(() => { this.init(); });
-    });
-    this.snbEvent.emit(this.snbTitle);
-
-    /* 유입 url이 project-list를 통과하지 않을 때 */
-    if(!this.projectInfoBoxService.getProjectName()){
-      this.dataService.getProjectList({}, this.setData, this);
-    }else{
-      this.projectName = this.projectInfoBoxService.getProjectName();
-      setTimeout(() => { this.init(); });
-    }
+    this.snbEvent.emit(this.snbTitle); 
   }
   ngOnDestroy(){
-    window.removeEventListener('popstate', () => { /* history back event destroyed */
-      this.projectInfoBoxService.setInfoBoxType(undefined);
-      setTimeout(() => { this.init(); });
-    });
-  }
-  init(){
-    let type: string, viewInfo: boolean, prop: any = {}, data: TaskListBox; 
-    type = this.type = this.projectInfoBoxService.getInfoBoxType(); 
-    this.projectId = Number(this.activatedRoute.snapshot.params.projectId);
-    if(type == undefined){ /* 유입 url가 task detail info-box 비활성화일 때 project-container에 info-box세팅할 수 있도록 property 세팅 */      
-      viewInfo = false;   
-    }else{ /* 유입 url가 project/task detail info-box 활성화일 때 project-container에 info-box세팅할 수 있도록 property 세팅 */
-      this.projectInfoBoxService.setProjectId(this.projectId);
-      this.projectInfoBoxService.filterProjectName(this.taskListDatas, this.projectId, this);
-      viewInfo = true;
-    }
-    prop = { 
-      projectId : this.projectId,
-      projectName : this.projectName,
-      type : this.type,
-      taskId : undefined,
-      taskName : undefined,
-      viewInfo : viewInfo
-    };
-    this.projectInfoBoxService.setInfoBoxData(data);
-    this.setInfoBoxDataEvent.emit(this.projectInfoBoxService.getInfoBoxData());
-    this.infoBoxPropEvent.emit(prop);
-  }
-  setData(_data, _this){
-    _this.projectInfoBoxService.filterProjectName(_data, Number(_this.activatedRoute.snapshot.params.projectId), _this);
-    setTimeout(() => { _this.init(); });
   }
 }

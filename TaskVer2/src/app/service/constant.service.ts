@@ -8,7 +8,7 @@ export class ConstantService {
   private apiUrl: any = {
     projects : {
       list : this.apiBaseUrl + 'getprojectlist',
-      Detail : this.apiBaseUrl + 'getProjectDetail'
+      detail : this.apiBaseUrl + 'getProjectDetail'
     }
   };
   getApiUrl(_gnbTitle, _snbTitle){
@@ -113,11 +113,11 @@ export class ConstantService {
       },
       {
         link : '/comment',
-        title : '코멘트'
+        title : '댓글'
       },
       {
         link : '/file',
-        title : '파일 & 링크'
+        title : '파일'
       }
     ]
   };

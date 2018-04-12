@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewContainerRef, ComponentFactoryResolver, ComponentRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewContainerRef, ComponentFactoryResolver, ComponentRef} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ConstantService } from '../../service/constant.service';
 import { ProjectInfoBoxService } from '../../service/project-info-box.service';
@@ -16,9 +16,7 @@ export class ProjectContainerComponent implements OnInit {
   public type: string;
   public projectId: number;
   public projectName: string;
-  public projectData: any;
   public taskId: number;
-  public taskName: string;
   public viewInfo: boolean = false;
   public viewSnb: boolean = false;
   public currentSnb: string;
@@ -32,14 +30,23 @@ export class ProjectContainerComponent implements OnInit {
     private constantService: ConstantService,
     private projectInfoBoxService: ProjectInfoBoxService
   ) { }
-  ngOnInit() {
+  ngOnInit() {    
+    if(this.projectInfoBoxService.getProjectId())  this.projectId = this.projectInfoBoxService.getProjectId();
+    if(this.projectInfoBoxService.getTaskId())  this.taskId = this.projectInfoBoxService.getTaskId();
+    if(this.projectInfoBoxService.getInfoBoxType())  this.projectInfoBoxService.getInfoBoxType();    
+    this.projectName = this.projectInfoBoxService.getProjectData()['projectname'];
+    this.projectInfoBoxService.getProjectDataEvent.subscribe((_data) => {
+      this.projectName = this.projectInfoBoxService.getProjectData()['projectname'];
+    });
+      
+    
     this.activatedRoute.data
            .subscribe(data => {
               if(!!data && !!data.depth2contents && data.depth2contents.length > 0){
                 data.depth2contents.map(depth2content => {
                   let componentFactory = this.componentFactoryResolver.resolveComponentFactory(depth2content);
                   this.childComponent = this.depth2Container.createComponent(componentFactory);           
-                  let instance = this.childComponent.instance;       
+                  let instance = this.childComponent.instance; 
                   if(instance['infoBoxPropEvent'])  instance['infoBoxPropEvent'].subscribe((data) => this.changeInfoBoxProp(data));
                   if(instance['snbEvent'])    instance['snbEvent'].subscribe((data) => this.changeSnb(data));  
                   if(instance['setInfoBoxDataEvent'])  instance['setInfoBoxDataEvent'].subscribe((data) => this.setInfoBoxData(data));
@@ -48,25 +55,38 @@ export class ProjectContainerComponent implements OnInit {
            }); 
     this.detailLink = this.constantService.getSnbDetailLinkUrl(this.gnbTitle);     
   } 
-  changeInfoBoxState(_isView, _type){ /* info-box state control */
+  changeInfoBoxState(_isView: boolean, _type: string){ /* info-box state control */
     this.viewInfo = _isView;
-    (_type != undefined) ? this.projectInfoBoxService.setInfoBoxType(_type) : this.projectInfoBoxService.setInfoBoxType(undefined) ;     
-    this.type = _type;
+    if(_type != undefined){
+      this.type = _type;
+    }
+    if(_isView == false){
+      this.type = undefined
+    }else{
+      if(this.type == 'project'){
+        this.infoBoxData = this.projectInfoBoxService.getProjectData();
+      }else if(this.type == 'task'){
+        this.infoBoxData = this.projectInfoBoxService.getTaskData();
+      }else{
+        this.infoBoxData = undefined;
+      }
+    }
+    this.projectInfoBoxService.setInfoBoxType(this.type);    
   }
-  changeInfoBoxProp(_prop){ /* ViewChild(project-list, project-task, project-timeline, project-analysis, project-file)에서 info-box가 콘트롤 되어야 할 때 info-box 상태 전달 받음 */
-    this.type = _prop.type;
+  changeInfoBoxProp(_prop: any){ /* ViewChild info-box 상태 전달 받음 */    
     this.projectId = _prop.projectId;
-    this.projectName = (_prop.projectName) ? _prop.projectName : undefined ;
-    this.infoBoxData = (_prop.projectData) ? _prop.projectData : undefined ;
-    this.viewInfo = _prop.viewInfo;
     this.taskId = _prop.taskId;
-    this.taskName = (_prop.taskName) ? _prop.taskName : undefined ;
+    this.type = _prop.type;
+    this.infoBoxData = _prop.infoBoxData;
+    // if(this.type == 'project')  this.projectInfoBoxService.setProjectData(_prop.infoBoxData);
+    // if(this.type == 'task')  this.projectInfoBoxService.setTaskData(_prop.infoBoxData);    
+    this.viewInfo = _prop.viewInfo;   
   }    
-  changeSnb(_isView){ /* 각 ViewChild(project-list, project-task, project-timeline, project-analysis, project-file)에 따른 snb 상태 전달 받음 */
-    let view: boolean = (_isView == 'list') ? false : true ;    
+  changeSnb(_currentView: string){ /* 각 ViewChild(project-list, project-task, project-timeline, project-analysis, project-file)에 따른 snb 상태 전달 받음 */
+    let view: boolean = (_currentView == 'list') ? false : true ;    
     this.viewSnb = view;
     setTimeout(() => { 
-      this.currentSnb = _isView;
+      this.currentSnb = _currentView;
       this.projectInfoBoxService.setCurrentPage(this.currentSnb);
     });    
   }
@@ -75,13 +95,12 @@ export class ProjectContainerComponent implements OnInit {
         url: string = serviceUrl.base + serviceUrl.task + this.projectId + _link;
     return url;
   }
-  setProjectInfoBoxRouterLink(){
+  setProjectInfoBoxRouterLink(){ 
     var serviceUrl: any = this.constantService.getLinkUrl(this.gnbTitle),
-        url: string = serviceUrl.base + serviceUrl.task + this.projectId + '/' + this.currentSnb + '/setting';
+        url: string = serviceUrl.base + serviceUrl.task + this.projectId + '/' + this.currentSnb + '/setting';               
     return url;
   }  
   setInfoBoxData(_e: TaskListBox){
     this.infoBoxData = _e;  
-    console.log(this.infoBoxData)  
   }
 }

@@ -12,10 +12,8 @@ import { ProjectInfoBoxService } from '../../service/project-info-box.service';
 export class InfoBoxComponent implements OnInit {
   @Input()  public type: string;
   @Input()  public projectId: number;
-  @Input()  public projectName: string;
   @Input()  public taskId: number;
-  @Input()  public taskName: string;
-  @Input()  public infoBoxData: TaskListBox[];
+  @Input()  public infoBoxData: any;
   @Output()  public changeInfoBoxStateEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output()  public setInfoBoxDataEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
   public url: any = {};
@@ -31,12 +29,11 @@ export class InfoBoxComponent implements OnInit {
     this.detailLink = this.constantService.getProjectInfoBoxDetailLinkUrl();
     this.url = this.constantService.getLinkUrl('projects'); 
   }
-  ngOnChanges(changes: SimpleChanges) { /* url route 변수 바뀌었을 때(init 제외) projectInfoBoxService에 해당 변수 저장(info-box-container에 전달하기 위한) */
-    if(changes.projectId != undefined)  this.projectInfoBoxService.setProjectId(changes.projectId.currentValue);  
-    if(changes.projectName != undefined)  this.projectInfoBoxService.setProjectName(changes.projectName.currentValue);
-    if(changes.taskId != undefined)  this.projectInfoBoxService.setTaskId(changes.taskId.currentValue);
-    if(changes.taskName != undefined)  this.projectInfoBoxService.setTaskName(changes.taskName.currentValue);
-    if(changes.infoBoxData != undefined)  this.projectInfoBoxService.setInfoBoxData(changes.infoBoxData.currentValue);
+  ngOnChanges(changes: SimpleChanges) { /* input 변수 바뀌었을 때(init 제외) projectInfoBoxService에 해당 변수 저장(info-box-container에 전달하기 위한) */
+    // if(changes.projectId != undefined)  this.projectInfoBoxService.setProjectId(changes.projectId.currentValue);  
+    // if(changes.taskId != undefined)  this.projectInfoBoxService.setTaskId(changes.taskId.currentValue);
+    // if(changes.type != undefined)  this.projectInfoBoxService.setInfoBoxType(changes.type.currentValue);
+    // if(changes.infoBoxData != undefined)  console.log(changes.infoBoxData)
   }
   changeInfoBoxState(_type){ /* info-box 열기, 닫기, routing */
     var currentPage: string = this.projectInfoBoxService.getCurrentPage(), type: string = this.type, url: string; 

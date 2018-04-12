@@ -1,0 +1,14 @@
+/* navi */
+.navbar{border: 0;box-shadow: 1px 1px 1px 1px #ccc;}
+.navbar h1{margin: 0;font-size: 25px;color: #fff;font-weight: bold;line-height: 57px;}
+.bggr01{background:linear-gradient(to bottom right, #8f9efb 0%, #64aaf7 100%);}
+
+/* aside */
+.aside{position: fixed;top:57px; left: 0;bottom: 0;width: 40px;}
+
+/* content */
+.content{margin-top: 57px;}
+.content .container{padding: 30px;}
+.content .container .content-header{}
+
+.content .container .content-body{margin-top: 15px;}
