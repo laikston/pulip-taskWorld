@@ -1,0 +1,61 @@
+<dl>
+  <dt>설명</dt>
+  <dd>
+    <input type="text" />
+  </dd>
+</dl>
+<dl>
+  <dt>프로젝트</dt>
+  <dd>
+    <a href="javascript:;">+</a>
+    <div>{{projectName}}</div>
+  </dd>
+</dl>
+<dl>
+  <dt>시작일</dt>
+  <dd>
+    <a href="javascript:;">+</a>
+    <div *ngIf="data">{{data.Reg_date}}</div>
+  </dd>
+</dl>
+<dl>
+  <dt>마감일</dt>
+  <dd>
+    <a href="javascript:;">+</a>
+    <div *ngIf="data">{{data.Last_date}}</div>
+  </dd>
+  
+</dl>
+<dl>
+  <dt>배정된 멤버</dt>
+  <dd>
+    <a href="javascript:;">+</a>
+    <ul>
+      <li></li>
+    </ul>
+  </dd>
+</dl>
+<dl>
+  <dt>태그</dt>
+  <dd>
+    <a href="javascript:;">+</a>
+    <ul>
+      <li></li>
+    </ul>
+  </dd>
+</dl>
+<dl>
+  <dt>작업시간</dt>
+  <dd>
+    <a href="javascript:;">+</a>
+    <ul>
+      <li></li>
+    </ul>
+  </dd>
+</dl>
+<dl *ngIf="data" >
+  <dt>체크리스트</dt>
+  <dd><app-check-list-box [checkListdata]="data.CheckList"></app-check-list-box></dd>
+</dl>
+
+

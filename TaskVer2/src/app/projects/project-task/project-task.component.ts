@@ -313,6 +313,7 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
   }
   setProjectData(_data, _this){
     _this.projectData = _this.projectInfoBoxService.filterProjectData(_data, Number(_this.projectId));
+    _this.projectInfoBoxService.setProjectListData(_data);
     _this.setTaskData();
   }
   setTaskData(){

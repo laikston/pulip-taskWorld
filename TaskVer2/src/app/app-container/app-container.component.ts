@@ -31,8 +31,11 @@ export class AppContainerComponent implements OnInit {
                   let instance = this.childComponent.instance;              
                 });
               }
-           });
+           });    
   }
   initGnb(_link: any){
+    if(_link.title == 'projects'){
+      this.projectInfoBoxService.setViewInfoEvent(false);
+    }
   }
 }

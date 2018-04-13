@@ -60,9 +60,8 @@ h3{font-size: 18px;color: #6d6e8c;}
 h4{font-size: 16px;color: #6d6e8c;}
 h5{font-size: 14px;color: #6d6e8c;}
 .bggr01{background:linear-gradient(to bottom right, #8f9efb 0%, #64aaf7 100%);}
-
-.foot-info{margin-top: 15px;overflow: hidden;}
-.foot-info .pull-left a{margin-right: 15px;}
-.foot-info .pull-left a span{color: #cbcbd6;font-size: 12px;}
-
+.foot-info{overflow: hidden;margin-top:15px;}
+.foot-info .pull-left{font-size: 12px;}
+.foot-info .pull-right a{margin-left: 5px;}
+.foot-info .pull-right a span{color: #cbcbd6;font-size: 12px;}
 .complete{text-decoration:line-through;}

@@ -1,26 +1,24 @@
-<aside class="info-box" id="infoBox">
+<aside class="info-box">
   <div class="info-box-close"><a href="javascript:;" (click)="changeInfoBoxState()"><span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span></a></div>
   <div class="info-box-header">
-    <h3>
-      <div *ngIf="type == 'project'">{{infoBoxData['projectname']}}</div>
-      <div *ngIf="type == 'task'">{{infoBoxData['Name']}}</div>      
-    </h3>
-    <dl *ngIf="type == 'project'">
-      <dt>프로젝트 코드 :</dt>
+    <h3 *ngIf="type == 'project'">{{infoBoxData['projectname']}}</h3>
+    <h3 *ngIf="type == 'task'">{{infoBoxData['Name']}}</h3>
+    <dl class="head-txt" *ngIf="type == 'project'">
+      <dt>프로젝트 코드 : </dt>
       <dd *ngIf="infoBoxData['projectcode']">{{infoBoxData['projectcode']}}</dd>
     </dl>
-    <dl *ngIf="type == 'task'">
-        <dt>작성자 :</dt>
+    <dl class="head-txt" *ngIf="type == 'task'">
+        <dt>작성자 : </dt>
         <dd *ngIf="infoBoxData">{{infoBoxData['Writer']}}</dd>
-        <dt>작성일 :</dt>
+        <dt>작성일 : </dt>
         <dd *ngIf="infoBoxData">{{infoBoxData['Write_date']}}</dd>
       </dl>
-    <ul [ngClass]="{'project':type==='project','task':type==='task'}">
+    <ul class="head-tab" [ngClass]="{'project':type==='project','task':type==='task'}">
       <li *ngFor="let link of detailLink[type];let idx=index;" [ngClass]="{'active':(currentSnb == link.link)}"><a [routerLink]="setSnbRouterLink(link.link)" (click)="currentSnb = link.link">{{link.title}}</a></li>
-    </ul>
-    <div>
-      <router-outlet></router-outlet>
-    </div>
+    </ul>    
+  </div>
+  <div class="info-box-body">
+    <router-outlet></router-outlet>
   </div>
 </aside>
 

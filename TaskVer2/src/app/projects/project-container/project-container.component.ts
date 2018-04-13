@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ConstantService } from '../../service/constant.service';
 import { ProjectInfoBoxService } from '../../service/project-info-box.service';
 import { TaskListBox } from '../task-list-box/task-list-box';
+import { ProjectListBox } from '../project-list-box/project-list-box';
 
 @Component({
   selector: 'app-project-container',
@@ -13,15 +14,18 @@ export class ProjectContainerComponent implements OnInit {
   @ViewChild('depth2Container', { read: ViewContainerRef }) public depth2Container: ViewContainerRef;
   public gnbTitle: string = 'projects';
   public detailLink: any;   
+  public url: string;
   public type: string;
   public projectId: number;
-  public projectName: string;
+  public projectName: string;  
+  public projectListData: ProjectListBox[];
   public taskId: number;
   public viewInfo: boolean = false;
   public viewSnb: boolean = false;
   public currentSnb: string;
   public childComponent: ComponentRef<any>;
   public infoBoxData: TaskListBox;
+  public viewProjectList: boolean = false;
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -31,15 +35,18 @@ export class ProjectContainerComponent implements OnInit {
     private projectInfoBoxService: ProjectInfoBoxService
   ) { }
   ngOnInit() {    
+    this.url = this.constantService.getLinkUrl(this.gnbTitle); 
     if(this.projectInfoBoxService.getProjectId())  this.projectId = this.projectInfoBoxService.getProjectId();
     if(this.projectInfoBoxService.getTaskId())  this.taskId = this.projectInfoBoxService.getTaskId();
-    if(this.projectInfoBoxService.getInfoBoxType())  this.projectInfoBoxService.getInfoBoxType();    
+    if(this.projectInfoBoxService.getInfoBoxType())  this.projectInfoBoxService.getInfoBoxType();        
+    this.projectListData = this.projectInfoBoxService.getProjectListData();
+    this.projectInfoBoxService.getProjectListDataEvent.subscribe((_data) => {
+      this.projectListData = this.projectInfoBoxService.getProjectListData();
+    }); 
     this.projectName = this.projectInfoBoxService.getProjectData()['projectname'];
     this.projectInfoBoxService.getProjectDataEvent.subscribe((_data) => {
       this.projectName = this.projectInfoBoxService.getProjectData()['projectname'];
-    });
-      
-    
+    });   
     this.activatedRoute.data
            .subscribe(data => {
               if(!!data && !!data.depth2contents && data.depth2contents.length > 0){
@@ -53,7 +60,10 @@ export class ProjectContainerComponent implements OnInit {
                 });
               }
            }); 
-    this.detailLink = this.constantService.getSnbDetailLinkUrl(this.gnbTitle);     
+    this.detailLink = this.constantService.getSnbDetailLinkUrl(this.gnbTitle); 
+    this.projectInfoBoxService.getViewInfoEvent.subscribe((_isView) => {
+      this.viewInfo = false;
+    });    
   } 
   changeInfoBoxState(_isView: boolean, _type: string){ /* info-box state control */
     this.viewInfo = _isView;
@@ -77,9 +87,7 @@ export class ProjectContainerComponent implements OnInit {
     this.projectId = _prop.projectId;
     this.taskId = _prop.taskId;
     this.type = _prop.type;
-    this.infoBoxData = _prop.infoBoxData;
-    // if(this.type == 'project')  this.projectInfoBoxService.setProjectData(_prop.infoBoxData);
-    // if(this.type == 'task')  this.projectInfoBoxService.setTaskData(_prop.infoBoxData);    
+    this.infoBoxData = _prop.infoBoxData; 
     this.viewInfo = _prop.viewInfo;   
   }    
   changeSnb(_currentView: string){ /* 각 ViewChild(project-list, project-task, project-timeline, project-analysis, project-file)에 따른 snb 상태 전달 받음 */
@@ -102,5 +110,9 @@ export class ProjectContainerComponent implements OnInit {
   }  
   setInfoBoxData(_e: TaskListBox){
     this.infoBoxData = _e;  
+  }
+  changeProjectList(){
+    this.viewProjectList = !this.viewProjectList;
+    if(this.viewInfo == true)  this.viewInfo = false;
   }
 }

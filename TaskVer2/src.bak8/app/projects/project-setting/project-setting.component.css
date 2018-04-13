@@ -1,0 +1,6 @@
+dl{overflow: hidden;}
+dt, dd, div{float:left;padding:10px 0;}
+dt{width:20%;white-space: nowrap;}
+dd{padding-left:10px;overflow: hidden;width:80%;}
+dd div{font-size:13px;}
+dd a{display:block;padding:7px;background:#e71a2e;margin-right:10px;color:#fff;border-radius:5px;font-size:16px;line-height:16px;float:left;}

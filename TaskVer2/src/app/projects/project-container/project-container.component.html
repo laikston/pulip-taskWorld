@@ -1,6 +1,11 @@
 <div [hidden]="!viewSnb">
   <div class="content-header">
-    <h3 class="text-lowercase" *ngIf="projectName">{{projectName}}</h3>
+    <h3 class="text-lowercase" *ngIf="projectName"  class="project-name" (click)="changeProjectList()">{{projectName}}<span class="glyphicon" [ngClass]="{'glyphicon-menu-down':viewProjectList==false, 'glyphicon-menu-up':viewProjectList==true}"></span></h3>
+    <div *ngIf="viewProjectList">
+      <ul *ngIf="projectListData" class="project-list">
+        <li *ngFor="let prj of projectListData;"><a href="javascript:;"><app-project-list-header-box [projectData]="prj" [url]="url" [router]="router" ></app-project-list-header-box></a></li>
+      </ul>
+    </div>
   </div>
   <div><a *ngFor="let link of detailLink;" [routerLink]="setSnbRouterLink(link.link)" (click)="changeInfoBoxState(false)">{{link.title}}</a></div>
   <div><a [routerLink]="setProjectInfoBoxRouterLink()" (click)="changeInfoBoxState(true, 'project')">project-info</a></div>

@@ -1,3 +1,4 @@
+<div class="info-box-project-setting">
   <dl>
     <dt>설명</dt>
     <dd>
@@ -32,50 +33,49 @@
       <div *ngIf="data">{{data.opendate}}</div>
     </dd>    
   </dl>
-<dl>
+  <dl>
     <dt>PD</dt>
     <dd>
         <a href="javascript:;">+</a>
         <div *ngIf="data">{{data.orderpd}}</div>
     </dd>
-</dl>
-<dl>
-  <dt>PM</dt>
-  <dd>
-    <a href="javascript:;">+</a>
-    <div *ngIf="data">{{data.offerpm}}</div>
-  </dd>
-</dl>
-<dl>
-  <dt>팀원</dt>
-  <dd>
-    <a href="javascript:;">+</a>
-    <ul *ngIf="data">
-      <li *ngFor="let team of data.team;"><!--{{team}}--></li>
-    </ul>
-  </dd>
-</dl>
-<dl>
-  <dt>목표수익률</dt>
-  <dd>
-    <a href="javascript:;">+</a>
-    <div *ngIf="data">{{data.goalrate}}%</div>
-  </dd>
-</dl>
-<dl>
-  <dt>현재수익률</dt>
-  <dd>
-    <a href="javascript:;">+</a>
-    <div *ngIf="data">{{data.earnrate}}%</div>
-  </dd>
-</dl>
-<dl>
-  <dt>프로젝트 보고서</dt>
-  <dd>
-    <a href="javascript:;">+</a>
-    <div *ngIf="data">
-      <!-- {{data.report.title}}
-                                {{data.report.reg_date}} -->
-    </div>
-  </dd>
-</dl>
+  </dl>
+  <dl>
+    <dt>PM</dt>
+    <dd>
+      <a href="javascript:;">+</a>
+      <div *ngIf="data">{{data.offerpm}}</div>
+    </dd>
+  </dl>
+  <dl>
+    <dt>팀원</dt>
+    <dd>
+      <a href="javascript:;">+</a>
+      <ul *ngIf="data">
+        <li *ngFor="let team of data.team;"><!--{{team}}--></li>
+      </ul>
+    </dd>
+  </dl>
+  <dl>
+    <dt>목표수익률</dt>
+    <dd>
+      <a href="javascript:;">+</a>
+      <div *ngIf="data">{{data.goalrate}}%</div>
+    </dd>
+  </dl>
+  <dl>
+    <dt>현재수익률</dt>
+    <dd>
+      <a href="javascript:;">+</a>
+      <div *ngIf="data">{{data.earnrate}}%</div>
+    </dd>
+  </dl>
+  <dl>
+    <dt>프로젝트 보고서</dt>
+    <dd>
+      <a href="javascript:;">+</a>
+      <div *ngIf="data">
+      </div>
+    </dd>
+  </dl>
+</div>

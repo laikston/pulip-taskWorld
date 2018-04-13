@@ -30,6 +30,8 @@ import { ProjectAnalysisComponent } from './projects/project-analysis/project-an
 import { ProjectContainerComponent } from './projects/project-container/project-container.component';
 import { ProjectFileComponent } from './projects/project-file/project-file.component';
 import { ProjectListComponent } from './projects/project-list/project-list.component';
+import { ProjectListBoxComponent } from './projects/project-list-box/project-list-box.component';
+import { ProjectListHeaderBoxComponent } from './projects/project-list-header-box/project-list-header-box.component';
 import { ProjectSettingComponent } from './projects/project-setting/project-setting.component';
 import { ProjectTaskComponent } from './projects/project-task/project-task.component';
 import { ProjectTimelineComponent } from './projects/project-timeline/project-timeline.component';
@@ -41,6 +43,7 @@ import { TaskBoxComponent } from './projects/task-box/task-box.component';
 import { CheckListBoxComponent } from './projects/check-list-box/check-list-box.component';
 import { CheckBoxComponent } from './projects/check-box/check-box.component';
 import { OrderByPipe } from './pipe/order-by.pipe';
+
 let projectInfoBoxTypeProjectDetail:Routes = [
   {
     path: ':projectId/setting',
@@ -282,6 +285,8 @@ const appRoutes: Routes = [
     ProjectContainerComponent,
     ProjectFileComponent,
     ProjectListComponent,
+    ProjectListBoxComponent,
+    ProjectListHeaderBoxComponent,
     ProjectSettingComponent,
     ProjectTaskComponent,
     ProjectTimelineComponent,

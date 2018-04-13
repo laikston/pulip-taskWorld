@@ -1,17 +1,11 @@
 import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PlatformLocation } from '@angular/common';
+import { ProjectListBox } from '../project-list-box/project-list-box';
 import { TaskListBox } from '../task-list-box/task-list-box';
 import { DataService } from '../../service/data.service';
 import { ConstantService } from '../../service/constant.service';
 import { ProjectInfoBoxService } from '../../service/project-info-box.service';
-
-export class ProjectBox{
-  seq: string;
-  email: string;
-  name: string;
-  idx: number;
-}
 @Component({
   selector: 'app-project-list',
   templateUrl: './project-list.component.html',
@@ -25,8 +19,8 @@ export class ProjectListComponent implements OnInit, OnDestroy {
   public url: string;
   public type: string;
   public projectId: number;
-  public projectData: any;
-  public projectListData: ProjectBox[]; 
+  public projectData: ProjectListBox;
+  public projectListData: ProjectListBox[]; 
   constructor(
     private activatedRoute: ActivatedRoute, 
     private router: Router,
@@ -81,38 +75,10 @@ export class ProjectListComponent implements OnInit, OnDestroy {
       _this.projectData = _this.projectInfoBoxService.filterProjectData(_data, _this.projectInfoBoxService.getProjectId());
     }       
     _this.projectListData = _data;
+    _this.projectInfoBoxService.setProjectListData(_data)
     setTimeout(() => { _this.init(); });
   }
-  viewProjectInfoBox(_e:Event, _projectId: number){
-    let infoBoxProp: object = {}, url: any, goTitle: string = 'project';
-    this.type = 'project';
-    this.projectId = _projectId;
-    this.projectData = this.projectInfoBoxService.filterProjectData(this.projectListData, this.projectId);
-    infoBoxProp = {
-      type: this.type,
-      projectId: this.projectId,
-      infoBoxData: this.projectData,
-      taskId: undefined,
-      viewInfo: true
-    };
-    this.infoBoxPropEvent.emit(infoBoxProp); // project-container에 info-box 상태 전달  
-    _e.stopPropagation();     
-
-    this.projectInfoBoxService.setProjectId(this.projectId);
-    this.projectInfoBoxService.setInfoBoxType(this.type);
-
-    url = this.url['base'] + this.url[goTitle] + _projectId + '/setting';
-    this.router.navigate([url]);   
-  }
-  goProjectDetail(_projectId: number){
-    let infoBoxProp: object = {}, url: any, goTitle: string = 'task';   
-
-    this.projectInfoBoxService.filterProjectData(this.projectListData, _projectId);
-    this.projectInfoBoxService.setProjectId(_projectId);
-    this.projectInfoBoxService.setInfoBoxType(undefined);  
-    this.projectInfoBoxService.setTaskId(undefined);
-      
-    url = this.url['base'] + this.url[goTitle] + _projectId + '/' + goTitle;
-    this.router.navigate([url]);   
+  infoBoxProp(_data){
+    this.infoBoxPropEvent.emit(_data);
   }
 }
