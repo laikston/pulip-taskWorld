@@ -280,6 +280,7 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
       ]
     }
   ];
+  public isAddList: boolean = false;
   public order: string = "Order";
   public ascending: boolean = true;    
   constructor(
@@ -372,4 +373,12 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
     url = this.url['base'] + this.url[this.snbTitle] + infoBoxProp.projectId + this.url['taskDetail'] + infoBoxProp.taskId + '/' + goTitle;   
     this.router.navigate([url]); 
   }  
+  addTaskList(){
+    this.isAddList = true;
+  }
+  cancelAddTaskList(){    
+    setTimeout(() => {
+      this.isAddList = false;    
+    });
+  }
 }

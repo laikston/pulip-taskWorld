@@ -2,6 +2,10 @@
 .project-list-box-wrap::before{content: '';position: absolute;left: 0;top: 0; right: 0;height: 3px;background:linear-gradient(to bottom right, #c474e8  0%, #da6b84 100%);}
 .glyphicon { top:2px;}
 .btn-infomation{width: 30px;height: 30px;line-height: 30px;text-align: center;background: none;color: #6d6e8c;border: 0;overflow: hidden;position: absolute;right: 5px;top: 11px;z-index:2;}
+.high-rate{color:#a50c0c;}
+.low-rate{color:#0c3fa5;}
+
+.project-list-header{position: relative;height:100%;padding: 15px 15px 0;z-index:1;}
 
 .foot-info{overflow: hidden;}
 .foot-info .pull-left{font-size: 12px;}
@@ -24,6 +28,3 @@
 
 /* footer */
 .project-list-footer {position: absolute;  bottom: 10px; width: 100%;padding: 15px 15px 0;}
-
-
-.project-list-header{position: relative;height:100%;padding: 15px 15px 0;z-index:1;}

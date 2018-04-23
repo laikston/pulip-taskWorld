@@ -8,6 +8,7 @@ import { CheckBox } from '../check-box/check-box';
 })
 export class CheckBoxComponent implements OnInit {
   @Input()  public checkData: CheckBox;
+  @Input()  public hasEdit: boolean;
   public isComplete: boolean;
   public editMode: boolean = false;
   constructor() { }
@@ -18,8 +19,8 @@ export class CheckBoxComponent implements OnInit {
   changeCompleteState(){ 
     console.log(this.isComplete)
   }
-  changeTitle(){
-    this.editMode = true;
-  }
+  // changeTitle(){
+  //   this.editMode = true;
+  // }
 
 }

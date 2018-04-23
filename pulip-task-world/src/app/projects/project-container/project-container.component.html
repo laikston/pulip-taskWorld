@@ -1,14 +1,19 @@
-<div [hidden]="!viewSnb">
+<div [hidden]="!viewSnb" class="projects-snb">
   <div class="content-header">
-    <h3 class="text-lowercase" *ngIf="projectName"  class="project-name" (click)="changeProjectList()">{{projectName}}<span class="glyphicon" [ngClass]="{'glyphicon-menu-down':viewProjectList==false, 'glyphicon-menu-up':viewProjectList==true}"></span></h3>
-    <div *ngIf="viewProjectList">
+    <h3 *ngIf="projectName" class="project-name direct-text"><input type="text" [(ngModel)]="projectName"/></h3>
+    <a href="javascript:;" (click)="changeProjectList()" class="btn btn-default btn-sm project-list-toggle"><span class="glyphicon" [ngClass]="{'glyphicon-menu-down':viewProjectList==false, 'glyphicon-menu-up':viewProjectList==true}"></span></a>
+    <div *ngIf="viewProjectList" class="project-list-wrap">
       <ul *ngIf="projectListData" class="project-list">
         <li *ngFor="let prj of projectListData;"><a href="javascript:;"><app-project-list-header-box [projectData]="prj" [url]="url" [router]="router" ></app-project-list-header-box></a></li>
       </ul>
     </div>
   </div>
-  <div><a *ngFor="let link of detailLink;" [routerLink]="setSnbRouterLink(link.link)" (click)="changeInfoBoxState(false)">{{link.title}}</a></div>
-  <div><a [routerLink]="setProjectInfoBoxRouterLink()" (click)="changeInfoBoxState(true, 'project')">project-info</a></div>
+  <div class="projects-tab">
+    <ul>
+      <li *ngFor="let link of detailLink;" [ngClass]="{'active':setCurrentSnb(link.link)}"><a [routerLink]="setSnbRouterLink(link.link)" (click)="changeInfoBoxState(false)">{{link.title}}</a></li>
+    </ul>
+  </div>  
+  <div class="projects-info"><a href="javascript:;" [routerLink]="setProjectInfoBoxRouterLink()" (click)="changeInfoBoxState(true, 'project')" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-asterisk"></span></a></div>  
 </div>
-<div #depth2Container></div>
+<div class="depth2Container" #depth2Container></div>
 <app-info-box [type]="type" [projectId]="projectId" [taskId]="taskId" [hidden]="!viewInfo" [infoBoxData]="infoBoxData" (changeInfoBoxStateEvent)="changeInfoBoxState($event)" (setInfoBoxDataEvent)="setInfoBoxDataEvent($event)"></app-info-box>

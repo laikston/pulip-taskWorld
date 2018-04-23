@@ -1,2 +1,7 @@
 /* aside */
-.aside{position: fixed;top:57px; left: 0;bottom: 0;width: 40px;}
+.aside{position: fixed;top:57px; left: 0;bottom: 0;width: 60px;background:#fff;}
+ul{margin-top:15px;}
+li a{display:block;padding:15px 20px;}
+li.active a{background: #2f4c7d;}
+li a span{color:#7d8798;}
+li.active a span{color:#fff;}

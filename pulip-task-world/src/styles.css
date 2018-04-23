@@ -55,6 +55,7 @@ table {
 	border-spacing: 0;
 }
 a{text-decoration: none;}
+a:hover{text-decoration: none;}
  
 h3{font-size: 18px;color: #6d6e8c;}
 h4{font-size: 16px;color: #6d6e8c;}
@@ -65,3 +66,12 @@ h5{font-size: 14px;color: #6d6e8c;}
 .foot-info .pull-right a{margin-left: 5px;}
 .foot-info .pull-right a span{color: #cbcbd6;font-size: 12px;}
 .complete{text-decoration:line-through;}
+
+.direct-text input[type="text"], .direct-text textarea{width: 100%;height:auto;border-radius:6px;border:none;background:#fff;padding:8px 5px;font-size:13px;line-height:15px;}
+.direct-text input[type="text"]:hover, .direct-text input[type="text"]:focus, .direct-text textarea:hover, .direct-text textarea:focus{background:#f5f5f5;}
+.pick-option{float:left;margin-right:10px;}
+
+.dropdown-menu{left:auto;right:10px;top:30px;padding:0;}
+.dropdown-menu a{display:block;padding:10px;border-bottom:1px dashed #cbcbcb;color:#555a63;}
+.dropdown-menu a:last-child{border:none;}
+.dropdown-menu a:hover{background-color: #f2f2f2;}

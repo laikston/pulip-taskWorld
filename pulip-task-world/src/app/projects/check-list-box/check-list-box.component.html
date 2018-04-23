@@ -1,7 +1,19 @@
 <div class="check-list" *ngIf="checkListdata.length != 0">
   <ul class="row">
-    <li class="col-lg-12" *ngFor="let checkData of checkListdata;let idx=index;" >
-        <app-check-box [checkData]="checkData"></app-check-box>
+    <li class="col-lg-12" *ngFor="let checkData of checkListdata;">
+        <app-check-box [checkData]="checkData" [hasEdit]="hasEdit"></app-check-box>
+    </li>
+    <li class="col-lg-12 add-check-list-wrap" *ngIf="hasAddListItem">
+      <a href="javascript:;" class="add-check-list" (click)="addCheckList()" [ngClass]="{'input-mode':isAddList }">
+        <div class="add-check-list-title" *ngIf="!isAddList">
+          <span class="glyphicon glyphicon-plus"></span>
+           체크리스트 항목 추가
+        </div>
+        <div class="add-check-list-title" *ngIf="isAddList">
+            <button type="button" class="close" aria-label="Close" (click)="cancelAddCheckList()"><span aria-hidden="true">&times;</span></button>
+          <input type="text">
+        </div>
+      </a>
     </li>
   </ul>
 </div>

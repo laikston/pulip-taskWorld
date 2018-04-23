@@ -1,1 +1,9 @@
 li{padding: 15px;}
+.add-task-list{display:block;position: relative;padding: 15px;background: #f5f7fc;border-radius: 5px;box-shadow: 0 1px 8px 0 rgba(0,0,0,0.15);overflow: hidden;}
+.add-task-list::before{content: '';position: absolute;left: 0;top: 0; right: 0;height: 3px;background:linear-gradient(to bottom right, #c1c2d6  0%, #494b6b 100%);}
+.add-task-list-title{font-size:15px;line-height:15px;color:#6d6e8c;}
+.add-task-list-title .glyphicon-plus{font-size:12px;padding-right:10px;}
+.add-task-list-title input[type="text"]{width: calc(100% - 30px);height:auto;border-radius:6px;border:1px solid #c1c2d6;;background:#fff;padding:8px 5px;font-size:13px;line-height:15px;}
+.add-task-list-title button{opacity:1;}
+.add-task-list-title button span{color:#6d6e8c;font-size:25px;}
+.add-task-list.input-mode{padding:7px 15px 5px;}

@@ -1,6 +1,11 @@
 .form-control{border:0;}
 .input-group-addon{border: 0;border-radius: 0;}
 .checkbox-wrap{padding:0 0 0 15px;}
-input[type=checkbox]{margin-top:10px;}
-.checkbox-title, .checkbox-title{padding-left:0;display: inline-block;width: 100%;padding:0 10px;text-overflow:ellipsis;white-space:nowrap;word-wrap:normal;overflow:hidden;font-size: 14px;color: #6d6e8c;line-height: 30px;white-space:nowrap;}
-.checkbox-title.hidden{display:none;}
+.row{margin:0;overflow:hidden;padding:5px 0;}
+input[type=checkbox]{margin-top:10px;float:left;}
+.checkbox-title{float:left;padding-left:0;display: inline-block;padding:0 0 0 10px;text-overflow:ellipsis;word-wrap:normal;overflow:hidden;font-size: 12px;color: #6d6e8c;line-height: 30px;white-space:nowrap;width:calc(100% - 13px);}
+
+div.direct-text{width:calc(100% - 25px);float:left;}
+div.direct-text input[type="text"]{font-size:13px;line-height:13px;background:#f2f2f2;margin-left:10px;color:#6d6e8c;}
+div.direct-text input[type="text"]:hover, div.direct-text input[type="text"]:focus{background:#fff;}
+div.direct-text input[type="text"].complete{text-decoration:line-through;}

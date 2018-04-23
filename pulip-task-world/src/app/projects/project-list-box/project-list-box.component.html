@@ -17,7 +17,7 @@
   <div class="project-list-footer">
     <div class="foot-info">
       <div class="pull-left">
-        15.4% (목표 18%)
+        <span [ngClass]="{'high-rate':(projectData.goalrate > projectData.earnrate), 'low-rate':(projectData.goalrate < projectData.earnrate)}">{{projectData.earnrate}} %</span> (목표 <span>{{projectData.goalrate}}%</span>)
       </div>
       <div class="pull-right">
         <a href="">

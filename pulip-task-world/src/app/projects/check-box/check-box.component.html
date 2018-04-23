@@ -1,7 +1,7 @@
   <div class="row">
-      <input type="checkbox" class="col-md-2 col-lg-2 checkbox-wrap" [id]="checkData.Idx" [(ngModel)]="isComplete" (change)="changeCompleteState()" required>
-      <label [for]="checkData.Idx" class="col-md-10 col-lg-10 checkbox-title" [ngClass]="{'complete':isComplete, 'hidden':editMode}" (click)="changeTitle()">{{checkData.Name}}</label>
-      <input type="text" class="col-md-10 col-lg-10" [hidden]="!editMode" [(ngModel)]="checkData.Name">
+      <input type="checkbox" class="checkbox-wrap" [id]="checkData.Idx" [(ngModel)]="isComplete" (change)="changeCompleteState()" required>
+      <div *ngIf="hasEdit" class="direct-text"><input type="text" [ngClass]="{'complete':isComplete}" [(ngModel)]="checkData['Name']"/></div>
+      <label *ngIf="!hasEdit" class="checkbox-title" [ngClass]="{'complete':isComplete}">{{checkData.Name}}</label>
   </div>
   <!-- <li class="col-lg-12" *ngFor="let ddd of dd.checkList">
         <div class="row">

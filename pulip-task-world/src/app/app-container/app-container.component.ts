@@ -12,6 +12,7 @@ export class AppContainerComponent implements OnInit {
   @ViewChild('depth1Container', { read: ViewContainerRef }) public depth1Container: ViewContainerRef;
   public detailLink: Array<any>;
   public childComponent: ComponentRef<any>;
+  public currentGnb: string;
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -28,7 +29,8 @@ export class AppContainerComponent implements OnInit {
                 data.depth1contents.map(depth1content => {
                   let componentFactory = this.componentFactoryResolver.resolveComponentFactory(depth1content);
                   this.childComponent = this.depth1Container.createComponent(componentFactory);
-                  let instance = this.childComponent.instance;              
+                  let instance = this.childComponent.instance;     
+                  this.currentGnb = instance.gnbTitle;
                 });
               }
            });    

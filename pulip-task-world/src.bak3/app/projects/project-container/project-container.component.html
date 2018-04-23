@@ -1,9 +1,0 @@
-<div [hidden]="!viewSnb">
-  <div class="content-header">
-    <h3 class="text-lowercase">프로젝트 네임</h3>
-  </div>
-  <div><a *ngFor="let link of detailLink;" [routerLink]="setSnbRouterLink(link.link)" (click)="changeInfoBoxState(false)">{{link.title}}</a></div>
-  <div><a [routerLink]="setProjectInfoBoxRouterLink()" (click)="changeInfoBoxState(true, 'project')">project-info</a></div>
-</div>
-<div #depth2Container></div>
-<app-info-box [type]="type" [projectId]="projectId" [taskId]="taskId" [hidden]="!viewInfo" [infoBoxData]="infoBoxData" (changeInfoBoxStateEvent)="changeInfoBoxState($event)" (setInfoBoxDataEvent)="setInfoBoxDataEvent($event)"></app-info-box>

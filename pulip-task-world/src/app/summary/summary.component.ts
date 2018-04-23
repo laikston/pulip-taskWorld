@@ -7,7 +7,7 @@ import { ConstantService } from '../service/constant.service';
   styleUrls: ['./summary.component.css']
 })
 export class SummaryComponent implements OnInit {
-  public gnbTitle: string = 'home';
+  public gnbTitle: string = 'summary';
   public detailLink: Array<any>;
   constructor(
     private constantService: ConstantService

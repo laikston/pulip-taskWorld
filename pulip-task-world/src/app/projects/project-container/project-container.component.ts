@@ -54,6 +54,7 @@ export class ProjectContainerComponent implements OnInit {
                   let componentFactory = this.componentFactoryResolver.resolveComponentFactory(depth2content);
                   this.childComponent = this.depth2Container.createComponent(componentFactory);           
                   let instance = this.childComponent.instance; 
+                  this.currentSnb = instance.snbTitle;
                   if(instance['infoBoxPropEvent'])  instance['infoBoxPropEvent'].subscribe((data) => this.changeInfoBoxProp(data));
                   if(instance['snbEvent'])    instance['snbEvent'].subscribe((data) => this.changeSnb(data));  
                   if(instance['setInfoBoxDataEvent'])  instance['setInfoBoxDataEvent'].subscribe((data) => this.setInfoBoxData(data));
@@ -114,5 +115,9 @@ export class ProjectContainerComponent implements OnInit {
   changeProjectList(){
     this.viewProjectList = !this.viewProjectList;
     if(this.viewInfo == true)  this.viewInfo = false;
+  }
+  setCurrentSnb(_link: string){
+    var hasClass: any = _link.split('/')[1] == this.currentSnb;
+    return hasClass;
   }
 }
