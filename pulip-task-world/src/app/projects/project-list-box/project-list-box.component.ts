@@ -18,7 +18,7 @@ export class ProjectListBoxComponent implements OnInit {
     private projectInfoBoxService: ProjectInfoBoxService
   ) { }
   ngOnInit() { }
-  viewProjectInfoBox(_e:Event, _projectId: number){
+  viewProjectInfoBox(_e: Event, _projectId: number){
     let infoBoxProp: object = {}, url: any, goTitle: string = 'project';    
     infoBoxProp = {
       type: 'project',

@@ -7,12 +7,14 @@ export class ConstantService {
   private apiBaseUrl: string = 'https://taskapi.pulipinc.com/'
   private apiUrl: any = {
     projects : {
-      list : this.apiBaseUrl + 'getprojectlist',
-      detail : this.apiBaseUrl + 'getProjectDetail'
+      list: this.apiBaseUrl + 'getprojectlist',
+      detail: this.apiBaseUrl + 'getProjectDetail',      
+      taskgroup: this.apiBaseUrl + 'taskgroup',
+      task: this.apiBaseUrl + 'task'
     }
   };
-  getApiUrl(_gnbTitle, _snbTitle){
-    return this.apiUrl[_gnbTitle][_snbTitle];
+  getApiUrl(_gnbTitle, _sectionTitle){
+    return this.apiUrl[_gnbTitle][_sectionTitle];
   }
 
   /* link url */

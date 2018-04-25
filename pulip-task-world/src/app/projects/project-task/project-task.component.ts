@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, OnDestroy, ViewChild, ElementRef, ChangeDetectionStrategy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PlatformLocation } from '@angular/common';
 import { TaskListBox } from '../task-list-box/task-list-box';
@@ -9,9 +9,11 @@ import { ProjectInfoBoxService } from '../../service/project-info-box.service';
 @Component({
   selector: 'app-project-task',
   templateUrl: './project-task.component.html',
-  styleUrls: ['./project-task.component.css']
+  styleUrls: ['./project-task.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProjectTaskComponent implements OnInit, OnDestroy {
+  @ViewChild('taskGroupName')  public taskGroupName: ElementRef;
   @Output()  public infoBoxPropEvent: EventEmitter<any> = new EventEmitter<any>(); /* 부모 component(project-container)에게 info-box 콘트롤 위한 상태 전달 */
   @Output()  public snbEvent: EventEmitter<string> = new EventEmitter<string>(); /* 부모 component(project-container)에게 snb 상태 전달 */
   @Output()  public setInfoBoxDataEvent: EventEmitter<any> = new EventEmitter<any>();
@@ -23,6 +25,14 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
   public taskId: number;
   public taskData: any;
   public type: string;
+  public isCancel: boolean = false;
+  public newTaskList: any = {};
+  public newTask: any = {
+    'task_group_idx': undefined,
+    'Task_name': undefined,
+    'Order_no': undefined,
+    'memberidx': 31321
+  };
   public taskListDatas: TaskListBox[] = [
     {
       "Idx": 1,
@@ -310,7 +320,8 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
       });
     });
     this.snbEvent.emit(this.snbTitle);
-    this.url = this.constantService.getLinkUrl(this.gnbTitle);     
+    this.url = this.constantService.getLinkUrl(this.gnbTitle);         
+    this.initNewTaskList();
   }
   setProjectData(_data, _this){
     _this.projectData = _this.projectInfoBoxService.filterProjectData(_data, Number(_this.projectId));
@@ -373,12 +384,52 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
     url = this.url['base'] + this.url[this.snbTitle] + infoBoxProp.projectId + this.url['taskDetail'] + infoBoxProp.taskId + '/' + goTitle;   
     this.router.navigate([url]); 
   }  
-  addTaskList(){
-    this.isAddList = true;
+  private initNewTaskList(){
+    this.newTaskList = {
+      'task_group_name': undefined,
+      'projectid': this.projectId,
+      'order_no': undefined,
+      'memberidx': 31321
+    };
   }
-  cancelAddTaskList(){    
-    setTimeout(() => {
-      this.isAddList = false;    
+  openAddTaskListInput(_e){    
+    if(this.isCancel == false){
+      this.isAddList = true;
+      setTimeout(() => this.taskGroupName.nativeElement.focus(), 0);
+    }
+  }
+  cancelAddTaskListInput(){  
+    this.isCancel = true;
+    this.isAddList = false;     
+    this.newTaskList['task_group_name'] = undefined;
+    setTimeout(() => this.isCancel = false, 100);
+  }
+  addTaskList(){
+    if(this.newTaskList['task_group_name'] == undefined){
+      this.isAddList = false;
+    }else{
+      this.dataService.addTaskGroup(this.newTaskList, this.addTaskGroupComplete, this);
+    }
+  }
+  addTaskGroupComplete(_data, _this){
+    setTimeout(() => { // socket으로 받기
+      let newTaskList: any = { // dummy
+        'Idx': 3,
+        'Name': _this.newTaskList['task_group_name'],
+        'Parent_idx': _this.newTaskList['projectid'],
+        'Level': undefined,
+        'Order': 3,
+        'Reg_date': undefined,
+        'Last_date': undefined,
+        'Task': []
+      },
+      element: HTMLElement = document.getElementById('closeTaskListInputBtn') as HTMLElement;
+      _this.taskListDatas.push(newTaskList);
+      _this.initNewTaskList();
+      element.click();
     });
+    
+    // 완료
+
   }
 }

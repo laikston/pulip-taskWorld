@@ -8,6 +8,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { AppContainerComponent } from './app-container/app-container.component';
 
+import { CommonService } from './service/common.service';
 import { ConstantService } from './service/constant.service';
 import { DataService } from './service/data.service';
 import { ProjectInfoBoxService } from './service/project-info-box.service';
@@ -42,6 +43,7 @@ import { TaskListBoxComponent } from './projects/task-list-box/task-list-box.com
 import { TaskBoxComponent } from './projects/task-box/task-box.component';
 import { CheckListBoxComponent } from './projects/check-list-box/check-list-box.component';
 import { CheckBoxComponent } from './projects/check-box/check-box.component';
+
 import { OrderByPipe } from './pipe/order-by.pipe';
 
 let projectInfoBoxTypeProjectDetail:Routes = [
@@ -307,6 +309,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes)
   ],
   providers: [
+    CommonService,
     ConstantService,
     DataService,
     ProjectInfoBoxService,

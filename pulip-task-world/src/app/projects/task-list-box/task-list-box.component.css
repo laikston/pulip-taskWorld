@@ -1,4 +1,4 @@
-div.task-list-wrap{position: relative;padding: 15px;background: #f5f7fc;border-radius: 5px;box-shadow: 0 1px 8px 0 rgba(0,0,0,0.15);overflow: hidden;}
+div.task-list-wrap{position: relative;padding: 15px;background: #f5f7fc;border-radius: 5px;box-shadow: 0 1px 8px 0 rgba(0,0,0,0.15);}
 div.task-list-wrap::before{content: '';position: absolute;left: 0;top: 0; right: 0;height: 3px;background:linear-gradient(to bottom right, #c474e8  0%, #da6b84 100%);}
 ul{padding-top:10px;}
 li{margin-top: 10px;background: #fff;border-radius: 5px;box-shadow: 0 1px 8px 0 rgba(0,0,0,0.15);}
