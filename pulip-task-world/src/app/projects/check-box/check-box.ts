@@ -1,5 +1,6 @@
 export class CheckBox {
     public Idx: number;
+    public Parent_idx: number;
     public Name: string;
     public Level: number;
     public Order: number;

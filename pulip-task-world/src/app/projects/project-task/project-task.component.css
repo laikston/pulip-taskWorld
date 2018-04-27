@@ -7,3 +7,4 @@ li{padding: 15px;}
 .add-task-list-title button{opacity:1;}
 .add-task-list-title button span{color:#6d6e8c;font-size:25px;}
 .add-task-list.input-mode{padding:7px 15px 5px;}
+#focusoutInput{position: absolute;left:-10000px;}

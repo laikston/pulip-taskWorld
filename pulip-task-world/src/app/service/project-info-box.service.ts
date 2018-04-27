@@ -21,8 +21,8 @@ export class ProjectInfoBoxService {
   private projectId: number;
   getProjectIdEvent = new EventEmitter<number>();
   setProjectId(_id){
-    this.projectId = _id;    
-    this.getProjectIdEvent.emit(_id);
+    this.projectId = Number(_id);    
+    this.getProjectIdEvent.emit(this.projectId);
   }
   getProjectId(){
     return this.projectId;
@@ -48,17 +48,31 @@ export class ProjectInfoBoxService {
   private taskId: number;
   getTaskIdEvent = new EventEmitter<number>();
   setTaskId(_id){
-    this.taskId = _id;
-    this.getTaskIdEvent.emit(_id);
+    this.taskId = Number(_id);
+    this.getTaskIdEvent.emit(this.taskId);
   }
   getTaskId(){
     return this.taskId;
   }
+  private taskListId: number;
+  getTaskListEvent = new EventEmitter<number>();
+  setTaskListId(_id){
+    this.taskListId = Number(_id);
+    this.getTaskListEvent.emit(this.taskListId);
+  }
+  getTaskListId(){
+    return this.taskListId;
+  }
   private taskData: TaskListBox;
   getTaskDataEvent = new EventEmitter<TaskListBox>();
+  getTaskSubDataEvent = new EventEmitter<TaskListBox>();
   setTaskData(_data){
     this.taskData = _data;
-    this.getTaskDataEvent.emit(_data);
+    this.getTaskDataEvent.emit(this.taskData);
+  }
+  setTaskSubData(_key, _data){
+    this.taskData[_key] = _data;
+    this.getTaskSubDataEvent.emit(this.taskData);
   }
   getTaskData(){
     return this.taskData;

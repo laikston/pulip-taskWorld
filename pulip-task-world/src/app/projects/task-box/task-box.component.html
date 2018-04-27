@@ -1,3 +1,4 @@
+  <a href="javascript:;" (click)="updateView()" class="updateView"></a>
   <div (click)="goTaskDetail(taskData.Idx, taskData.Name)" class="task-wrap">
     <div class="head-info">
       <input type="checkbox" [id]="taskData.Idx" [(ngModel)]="isComplete" required (change)="changeCompleteState()">

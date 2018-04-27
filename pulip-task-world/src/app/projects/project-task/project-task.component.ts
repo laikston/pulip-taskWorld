@@ -13,7 +13,7 @@ import { ProjectInfoBoxService } from '../../service/project-info-box.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProjectTaskComponent implements OnInit, OnDestroy {
-  @ViewChild('taskGroupName')  public taskGroupName: ElementRef;
+  @ViewChild('taskListName')  public taskListName: ElementRef;
   @Output()  public infoBoxPropEvent: EventEmitter<any> = new EventEmitter<any>(); /* 부모 component(project-container)에게 info-box 콘트롤 위한 상태 전달 */
   @Output()  public snbEvent: EventEmitter<string> = new EventEmitter<string>(); /* 부모 component(project-container)에게 snb 상태 전달 */
   @Output()  public setInfoBoxDataEvent: EventEmitter<any> = new EventEmitter<any>();
@@ -23,6 +23,7 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
   public projectId: number;
   public projectData: any;
   public taskId: number;
+  public taskListId: number;
   public taskData: any;
   public type: string;
   public isCancel: boolean = false;
@@ -59,7 +60,8 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
           "AssiMember":[], 
           "Tag":[], 
           "File":[], 
-          "CheckList":[]
+          "CheckList":[],
+          "Content":"태스크 리스트1 태스크1 Content"
         },
         {
           "Idx": 2, 
@@ -91,6 +93,7 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
           "CheckList":[
             {
               "Idx":4, 
+              "Parent_idx":2, // 추가
               "Name":"프로젝트리스트 쿼리, 프로젝트리스트 쿼리", 
               "Level":3, 
               "Order":1, 
@@ -100,6 +103,7 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
             },
             {
               "Idx":5, 
+              "Parent_idx":2, // 추가
               "Name":"프로젝트리스트, 프로젝트리스트 쿼리", 
               "Level":3, 
               "Order":1, 
@@ -107,7 +111,8 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
               "Reg_date":"2018-12-12", 
               "Last_date":"2017-1212"
             }
-          ]
+          ],
+          "Content":"태스크 리스트1 태스크2 Content"
         },
         {
           "Idx": 3, 
@@ -128,6 +133,7 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
           "CheckList":[
             {
               "Idx":1, 
+              "Parent_idx":3, // 추가
               "Name":"프로젝트리스트 쿼리 2018-12-12", 
               "Level":3, 
               "Order":1, 
@@ -137,6 +143,7 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
             },
             {
               "Idx":2, 
+              "Parent_idx":3, // 추가
               "Name":"프로젝트리스트 쿼리 2017-12-2", 
               "Level":3, 
               "Order":1, 
@@ -146,6 +153,7 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
             },
             {
               "Idx":3, 
+              "Parent_idx":3, // 추가
               "Name":"프로젝트리스트 쿼리 33333333333", 
               "Level":3, 
               "Order":1, 
@@ -155,6 +163,7 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
             },
             {
               "Idx":4, 
+              "Parent_idx":3, // 추가
               "Name":"프로젝트리스트 쿼리 2018-12-12", 
               "Level":3, 
               "Order":1, 
@@ -164,6 +173,7 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
             },
             {
               "Idx":6, 
+              "Parent_idx":3, // 추가
               "Name":"프로젝트리스트 쿼리 2017-12-2", 
               "Level":3, 
               "Order":1, 
@@ -173,6 +183,7 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
             },
             {
               "Idx":5, 
+              "Parent_idx":3, // 추가
               "Name":"프로젝트리스트 쿼리 33333333333", 
               "Level":3, 
               "Order":1, 
@@ -180,7 +191,8 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
               "Reg_date":"2018-12-12", 
               "Last_date":"2017-12-2"
             }
-          ]
+          ],
+          "Content":"태스크 리스트1 태스크3 Content"
         }
       ]
     },
@@ -209,7 +221,8 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
           "AssiMember":[], 
           "Tag":[], 
           "File":[], 
-          "CheckList":[]
+          "CheckList":[],
+          "Content":"태스크 리스트2 태스크1 Content"
         },
         {
           "Idx": 5, 
@@ -241,6 +254,7 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
           "CheckList":[
             {
               "Idx":4, 
+              "Parent_idx":5, // 추가
               "Name":"프로젝트리스트 쿼리 454545", 
               "Level":3, 
               "Order":1, 
@@ -250,6 +264,7 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
             },
             {
               "Idx":5, 
+              "Parent_idx":5, // 추가
               "Name":"프로젝트리스트 쿼리2", 
               "Level":3, 
               "Order":1, 
@@ -257,7 +272,8 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
               "Reg_date":"2018-12-12", 
               "Last_date":"2017-1212"
             }
-          ]
+          ],
+          "Content":"태스크 리스트2 태스크2 Content"
         },
         {
           "Idx": 6, 
@@ -278,6 +294,7 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
           "CheckList":[
             {
               "Idx":1, 
+              "Parent_idx":6, // 추가
               "Name":"프로젝트리스트 쿼리 1212", 
               "Level":3, 
               "Order":1, 
@@ -285,9 +302,20 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
               "Reg_date":"2018-12-12", 
               "Last_date":"2017-12-2"
             }
-          ]
+          ],
+          "Content":"태스크 리스트2 태스크3 Content"
         }
       ]
+    },
+    {
+      "Idx": 15,
+      "Name": "태스크 test",
+      "Parent_idx": 3080,
+      "Level": 1,
+      "Order": 3,
+      "Reg_date": "2018-04-24",
+      "Last_date": "2018-04-24",
+      "Task": []
     }
   ];
   public isAddList: boolean = false;
@@ -332,7 +360,9 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
     this.type = this.projectInfoBoxService.getInfoBoxType();
     if(this.type == 'task'){
       this.taskId = this.projectInfoBoxService.getTaskId();
-      this.taskData = this.projectInfoBoxService.filterTaskData(this.taskListDatas, this.type, this.projectId, this.taskId);        
+      this.taskData = this.projectInfoBoxService.filterTaskData(this.taskListDatas, this.type, this.projectId, this.taskId);    
+      this.taskListId = this.taskData['Parent_idx'];    
+      this.projectInfoBoxService.setTaskListId(this.taskListId);
     }   
     this.init();
   }
@@ -354,36 +384,35 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
       viewInfo = true;
       data = (this.type == 'project') ? this.projectData : this.taskData ;      
     }
-    prop = { 
-      projectId : this.projectId,
-      infoBoxData : data,
-      type : this.type,
-      taskId : this.taskId,
-      viewInfo : viewInfo
-    };
     this.setInfoBoxDataEvent.emit(data);
-    this.infoBoxPropEvent.emit(prop);
+    this.infoBoxPropEvent.emit(this.infoBoxEvent(viewInfo, data));
   }
   goTaskDetail(_taskId: number){
     let infoBoxProp: any = {}, url: any, goTitle: string = 'property';
     this.taskId = _taskId;
-    this.type = 'task';
+    this.type = 'task';    
     this.taskData = this.projectInfoBoxService.filterTaskData(this.taskListDatas, this.type, this.projectId, this.taskId);
-    infoBoxProp = {
-      projectId: this.projectId,
-      type: this.type,
-      taskId: this.taskId,
-      infoBoxData: this.taskData,
-      viewInfo: true
-    };
+    this.taskListId = this.taskData['Parent_idx'];
+    this.projectInfoBoxService.setTaskListId(this.taskListId);
+    this.setInfoBoxDataEvent.emit(this.taskData);    
+    infoBoxProp = this.infoBoxEvent(true, this.taskData);
     this.infoBoxPropEvent.emit(infoBoxProp);      
     this.projectInfoBoxService.setTaskId(this.taskId);
-    this.projectInfoBoxService.setInfoBoxType(this.type);
-    this.setInfoBoxDataEvent.emit(this.taskData);    
+    this.projectInfoBoxService.setInfoBoxType(this.type);    
     
     url = this.url['base'] + this.url[this.snbTitle] + infoBoxProp.projectId + this.url['taskDetail'] + infoBoxProp.taskId + '/' + goTitle;   
     this.router.navigate([url]); 
   }  
+  private infoBoxEvent(_isView, _data){
+    let infoBoxProp: any = {
+      projectId: this.projectId,
+      type: this.type,
+      taskId: this.taskId,
+      infoBoxData: this.taskData,
+      viewInfo: _isView
+    };
+    return infoBoxProp;    
+  }
   private initNewTaskList(){
     this.newTaskList = {
       'task_group_name': undefined,
@@ -395,7 +424,7 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
   openAddTaskListInput(_e){    
     if(this.isCancel == false){
       this.isAddList = true;
-      setTimeout(() => this.taskGroupName.nativeElement.focus(), 0);
+      setTimeout(() => this.taskListName.nativeElement.focus(), 0);
     }
   }
   cancelAddTaskListInput(){  
@@ -408,10 +437,10 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
     if(this.newTaskList['task_group_name'] == undefined){
       this.isAddList = false;
     }else{
-      this.dataService.addTaskGroup(this.newTaskList, this.addTaskGroupComplete, this);
+      this.dataService.addTaskList(this.newTaskList, this.addTaskListComplete, this);
     }
   }
-  addTaskGroupComplete(_data, _this){
+  addTaskListComplete(_data, _this){
     setTimeout(() => { // socket으로 받기
       let newTaskList: any = { // dummy
         'Idx': 3,
@@ -428,8 +457,8 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
       _this.initNewTaskList();
       element.click();
     });
-    
-    // 완료
-
+  }
+  changeTaskListData(_e){
+    console.log(_e)
   }
 }

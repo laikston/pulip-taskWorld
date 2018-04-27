@@ -17,4 +17,5 @@ export class TaskBox {
   public Tag: Array<any>;
   public File: Array<any>;
   public CheckList: Array<CheckBox>;
+  public Content: string;
 }

@@ -19,6 +19,7 @@ export class InfoBoxComponent implements OnInit {
   public url: any = {};
   public detailLink: any = {};
   public currentSnb: string;
+  public firedEnterKeyEvent: boolean = false;
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -65,5 +66,20 @@ export class InfoBoxComponent implements OnInit {
     }     
     if(this.currentSnb !== currentSnb)  setTimeout(() => {this.currentSnb = this.projectInfoBoxService.getCurrentSnb();})    
     return link;
+  }
+  changeDataTaskName(_e){
+    let element: HTMLElement = document.querySelector('#focusoutInput') as HTMLElement;
+    if(_e){
+      this.firedEnterKeyEvent = true;
+      this.projectInfoBoxService.setTaskSubData('Name', this.infoBoxData['Name']);
+      element.focus();
+    }else{
+      if(this.firedEnterKeyEvent == false){
+        this.projectInfoBoxService.setTaskSubData('Name', this.infoBoxData['Name']);
+      }else{
+        this.firedEnterKeyEvent = false;
+        element.focus();
+      }
+    }
   }
 }

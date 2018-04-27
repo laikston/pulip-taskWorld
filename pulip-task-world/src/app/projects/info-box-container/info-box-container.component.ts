@@ -100,7 +100,7 @@ export class InfoBoxContainerComponent implements OnInit {
       //this.childComponent.instance['data'] = this.projectInfoBoxService.getTaskData();
     });
     this.projectInfoBoxService.getTaskDataEvent.subscribe((_data) => { 
-      if(this.type == 'task')  this.childComponent.instance['data'] = this.projectInfoBoxService.getTaskData();
+      if(this.type == 'task')  console.log(_data);this.childComponent.instance['data'] = this.projectInfoBoxService.getTaskData();
     });
   }  
 }

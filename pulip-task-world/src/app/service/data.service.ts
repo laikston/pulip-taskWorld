@@ -36,9 +36,9 @@ export class DataService {
       )
     );
   }
-  addTaskGroup(_params, _completeFunc, _component) {
+  addTaskList(_params, _completeFunc, _component) {
     let params = _params,
-        url = this.constantService.getApiUrl('projects', 'taskgroup'),
+        url = this.constantService.getApiUrl('projects', 'tasklist'),
         data = this.http.post(url, params, postOptions);
     data.subscribe(
       data => {
@@ -52,9 +52,9 @@ export class DataService {
       )
     );
   }
-  deleteTaskGroup(_params, _completeFunc, _component) {
+  deleteTaskList(_params, _completeFunc, _component) {
     let params = _params, data,
-        url = this.constantService.getApiUrl('projects', 'taskgroup');
+        url = this.constantService.getApiUrl('projects', 'tasklist');
     deleteOptions.body = _params;
     data = this.http.delete(url, deleteOptions);
     data.subscribe(
@@ -69,9 +69,9 @@ export class DataService {
       )
     );
   }  
-  updateTaskGroup(_params, _completeFunc, _component) {
+  updateTaskList(_params, _completeFunc, _component) {
     let params = _params, data,
-        url = this.constantService.getApiUrl('projects', 'taskgroup');
+        url = this.constantService.getApiUrl('projects', 'tasklist');
     deleteOptions.body = _params;
     data = this.http.put(url, _params ,updateOptions);
     data.subscribe(
