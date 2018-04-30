@@ -41,8 +41,8 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
       "Parent_idx": 3080,
       "Level": 1,
       "Order": 2,
-      "Reg_date": "2018-12-12",
-      "Last_date": "2018-12-12",
+      "Reg_date": "2018-02-12",
+      "Last_date": "2018-03-12",
       "Task": [
         {
           "Idx": 1, 
@@ -51,12 +51,12 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
           "Level":2, 
           "Order":2, 
           "Writer":"안정화",
-          "Write_date":"2018-12-12",
-          "Start_date":"2018-12-12", 
-          "End_date":"2018-12-30", 
+          "Write_date":"2018-02-12",
+          "Start_date":"2018-03-22", 
+          "End_date":"2018-03-30", 
           "Complete":"N", 
-          "Reg_date":"2018-12-12", 
-          "Last_date":"2018-12-20", 
+          "Reg_date":"2018-02-12", 
+          "Last_date":"2018-04-20", 
           "AssiMember":[], 
           "Tag":[], 
           "File":[], 
@@ -70,12 +70,12 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
           "Level":2, 
           "Order":3, 
           "Writer":"안정화",
-          "Write_date":"2018-12-12",
-          "Start_date":"2018-12-12", 
-          "End_date":"2018-12-30", 
+          "Write_date":"2018-04-12",
+          "Start_date":"2018-04-12", 
+          "End_date":"2018-06-30", 
           "Complete":"Y", 
-          "Reg_date":"2018-12-12", 
-          "Last_date":"2018-12-12", 
+          "Reg_date":"2018-04-12", 
+          "Last_date":"2018-06-30", 
           "AssiMember":[
             {
               "Idx":100, 
@@ -98,8 +98,8 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
               "Level":3, 
               "Order":1, 
               "Complete":"Y", 
-              "Reg_date":"2018-12-12", 
-              "Last_date":"2017-1212"
+              "Reg_date":"2018-03-12", 
+              "Last_date":"2017-06-30"
             },
             {
               "Idx":5, 
@@ -108,8 +108,8 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
               "Level":3, 
               "Order":1, 
               "Complete":"Y", 
-              "Reg_date":"2018-12-12", 
-              "Last_date":"2017-1212"
+              "Reg_date":"2018-03-15", 
+              "Last_date":"2017-05-12"
             }
           ],
           "Content":"태스크 리스트1 태스크2 Content"
@@ -121,12 +121,12 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
           "Level":2, 
           "Order":1, 
           "Writer":"안정화",
-          "Write_date":"2018-12-12",
-          "Start_date":"2018-12-12", 
-          "End_date":"2018-12-30", 
+          "Write_date":"2018-05-12",
+          "Start_date":"2018-05-12", 
+          "End_date":"2018-06-30", 
           "Complete":"N", 
-          "Reg_date":"2018-12-12", 
-          "Last_date":"2018-12-12", 
+          "Reg_date":"2018-06-12", 
+          "Last_date":"2018-07-12", 
           "AssiMember":[], 
           "Tag":[], 
           "File":[], 
@@ -134,12 +134,12 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
             {
               "Idx":1, 
               "Parent_idx":3, // 추가
-              "Name":"프로젝트리스트 쿼리 2018-12-12", 
+              "Name":"프로젝트리스트 쿼리 2018-06-12", 
               "Level":3, 
               "Order":1, 
               "Complete":"Y", 
-              "Reg_date":"2018-12-12", 
-              "Last_date":"2017-12-2"
+              "Reg_date":"2018-06-02", 
+              "Last_date":"2018-06-12"
             },
             {
               "Idx":2, 
@@ -148,8 +148,8 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
               "Level":3, 
               "Order":1, 
               "Complete":"Y", 
-              "Reg_date":"2018-12-12", 
-              "Last_date":"2017-12-2"
+              "Reg_date":"2018-06-05", 
+              "Last_date":"2018-06-22"
             },
             {
               "Idx":3, 
@@ -158,8 +158,8 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
               "Level":3, 
               "Order":1, 
               "Complete":"N", 
-              "Reg_date":"2018-12-12", 
-              "Last_date":"2017-12-2"
+              "Reg_date":"2018-06-12", 
+              "Last_date":"2018-06-20"
             },
             {
               "Idx":4, 
@@ -168,8 +168,8 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
               "Level":3, 
               "Order":1, 
               "Complete":"N", 
-              "Reg_date":"2018-12-12", 
-              "Last_date":"2017-12-2"
+              "Reg_date":"2018-06-10", 
+              "Last_date":"2017-07-25"
             },
             {
               "Idx":6, 
@@ -178,8 +178,8 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
               "Level":3, 
               "Order":1, 
               "Complete":"N", 
-              "Reg_date":"2018-12-12", 
-              "Last_date":"2017-12-2"
+              "Reg_date":"2018-06-15", 
+              "Last_date":"2018-06-20"
             },
             {
               "Idx":5, 
@@ -188,8 +188,8 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
               "Level":3, 
               "Order":1, 
               "Complete":"N", 
-              "Reg_date":"2018-12-12", 
-              "Last_date":"2017-12-2"
+              "Reg_date":"2018-06-18", 
+              "Last_date":"2017-06-20"
             }
           ],
           "Content":"태스크 리스트1 태스크3 Content"
@@ -231,12 +231,12 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
           "Level":2, 
           "Order":1, 
           "Writer":"안정화2",
-          "Write_date":"2018-12-1222",
-          "Start_date":"2018-12-1222", 
+          "Write_date":"2018-12-12",
+          "Start_date":"2018-12-22", 
           "End_date":"2018-12-3022", 
           "Complete":"N", 
-          "Reg_date":"2018-12-1222", 
-          "Last_date":"2018-12-1222", 
+          "Reg_date":"2018-12-12", 
+          "Last_date":"2018-12-22", 
           "AssiMember":[
             {
               "Idx":100, 
@@ -270,7 +270,7 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
               "Order":1, 
               "Complete":"N", 
               "Reg_date":"2018-12-12", 
-              "Last_date":"2017-1212"
+              "Last_date":"2017-12-12"
             }
           ],
           "Content":"태스크 리스트2 태스크2 Content"
@@ -286,7 +286,7 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
           "Start_date":"2018-12-12", 
           "End_date":"2018-12-30", 
           "Complete":"Y", 
-          "Reg_date":"2018-12-12", 
+          "Reg_date":"2018-06-12", 
           "Last_date":"2018-12-12", 
           "AssiMember":[], 
           "Tag":[], 
@@ -408,7 +408,7 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
       projectId: this.projectId,
       type: this.type,
       taskId: this.taskId,
-      infoBoxData: this.taskData,
+      infoBoxData: _data,
       viewInfo: _isView
     };
     return infoBoxProp;    

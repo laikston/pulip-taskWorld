@@ -1,0 +1,60 @@
+<dl>
+  <dt>설명</dt>
+  <dd class="direct-text">
+    <textarea *ngIf="data" [(ngModel)]="data.Content" rows="4" (focusout)="changeDataContent()" (keydown.enter)="changeDataContent($event)"></textarea>
+  </dd>
+</dl>
+<dl>
+  <dt>프로젝트</dt>
+  <dd>
+    <div>{{projectName}}</div>
+  </dd>
+</dl>
+<dl>
+  <dt>시작일</dt>
+  <dd>
+    <a href="javascript:;" class="btn btn-default btn-sm pick-option"><span class="glyphicon glyphicon-plus"></span></a>
+    <div *ngIf="data">{{data.Reg_date}}</div>
+  </dd>
+</dl>
+<dl>
+  <dt>마감일</dt>
+  <dd>
+    <a href="javascript:;" class="btn btn-default btn-sm pick-option"><span class="glyphicon glyphicon-plus"></span></a>
+    <div *ngIf="data">{{data.Last_date}}</div>
+  </dd>
+  
+</dl>
+<dl>
+  <dt>배정된 멤버</dt>
+  <dd>
+    <a href="javascript:;" class="btn btn-default btn-sm pick-option"><span class="glyphicon glyphicon-plus"></span></a>
+    <ul>
+      <li></li>
+    </ul>
+  </dd>
+</dl>
+<dl>
+  <dt>태그</dt>
+  <dd>
+    <a href="javascript:;" class="btn btn-default btn-sm pick-option"><span class="glyphicon glyphicon-plus"></span></a>
+    <ul>
+      <li></li>
+    </ul>
+  </dd>
+</dl>
+<dl>
+  <dt>작업시간</dt>
+  <dd>
+    <a href="javascript:;" class="btn btn-default btn-sm pick-option"><span class="glyphicon glyphicon-plus"></span></a>
+    <ul>
+      <li></li>
+    </ul>
+  </dd>
+</dl>
+<dl *ngIf="data" >
+  <dt>체크리스트</dt>
+  <dd><app-check-list-box [checkListdata]="data.CheckList" [hasEdit]="true" [hasAddListItem]="true" ></app-check-list-box></dd>
+</dl>
+
+

@@ -72,8 +72,9 @@ export class InfoBoxContainerComponent implements OnInit {
                   setTimeout(() => {
                     if(this.type == 'project'){
                       this.childComponent.instance['data'] = this.data = this.projectInfoBoxService.getProjectData();
+                      console.log(this.data)
                     }else if(this.type == 'task'){
-                      this.childComponent.instance['data'] = this.data = this.projectInfoBoxService.getTaskData();
+                      this.childComponent.instance['data'] = this.data = this.projectInfoBoxService.getTaskData();                      
                     }else{
                       this.childComponent.instance['data'] = this.data = undefined;
                     }
@@ -89,7 +90,7 @@ export class InfoBoxContainerComponent implements OnInit {
     /* 이미 로드된 ViewChild에 projectInfoBoxService를 이용(projectId 바뀔 때 마다), projectId, data 세팅 */
     this.projectInfoBoxService.getProjectIdEvent.subscribe((_id) => { 
       this.childComponent.instance['projectId'] = this.projectId = this.projectInfoBoxService.getProjectId();
-      //this.childComponent.instance['data'] = this.projectInfoBoxService.getProjectData();
+      // this.childComponent.instance['data'] = this.projectInfoBoxService.getProjectData();
     });  
     this.projectInfoBoxService.getProjectDataEvent.subscribe((_data) => { 
       if(this.type == 'project')  this.childComponent.instance['data'] = this.projectInfoBoxService.getProjectData();
@@ -100,7 +101,7 @@ export class InfoBoxContainerComponent implements OnInit {
       //this.childComponent.instance['data'] = this.projectInfoBoxService.getTaskData();
     });
     this.projectInfoBoxService.getTaskDataEvent.subscribe((_data) => { 
-      if(this.type == 'task')  console.log(_data);this.childComponent.instance['data'] = this.projectInfoBoxService.getTaskData();
+      if(this.type == 'task')  this.childComponent.instance['data'] = this.projectInfoBoxService.getTaskData();
     });
   }  
 }

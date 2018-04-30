@@ -1,9 +1,14 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, Component }  from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { Routes, RouterModule } from '@angular/router';
+
+import { DropdownModule } from './dropdown-box/dropdown-box.module'; /* dropdown menu :: bootstrap customizing */
+import { MyDatePickerModule } from './datepicker-box/my-date-picker.module'; /* date picker :: angular4-datepicker customizing :: https://www.npmjs.com/package/angular4-datepicker */
+import { MemberBoxModule } from './member-box/member-box.module'; /* select member :: custom */
+import { TagBoxModule } from './tag-box/tag-box.module'; /* select tag :: custom */
 
 import { AppComponent } from './app.component';
 import { AppContainerComponent } from './app-container/app-container.component';
@@ -306,6 +311,10 @@ const appRoutes: Routes = [
     FormsModule,
     HttpClientModule,
     HttpModule,
+    MyDatePickerModule,
+    MemberBoxModule,
+    DropdownModule,
+    TagBoxModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [

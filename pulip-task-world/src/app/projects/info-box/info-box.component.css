@@ -4,11 +4,11 @@
 .info-box .info-box-close a{display: inline-block;width:30px; height: 30px;background: #fff;line-height: 36px;}
 
 .info-box .info-box-header{margin-top: 15px;}
+.info-box-header .head-line{margin-right:10px;}
 .info-box-header .head-line h3.direct-text{margin-bottom:5px;padding:0 0 0 15px;float:left;width:calc(100% - 40px);}
+.info-box-header .head-line h3.direct-text p{padding:10px 0;font-size:18px;line-height:18px;}
 .info-box-header .head-line h3.direct-text input[type="text"]{font-size:18px;line-height:18px;}
-.info-box-header .head-line a.dropdown-toggle{float:right;margin-right:10px;}
-.info-box-header .head-line .dropdown .dropdown-menu{top:40px;}
-.info-box-header .head-line a span.glyphicon{color:#6d6e8c;font-size:21px;top:8px;}
+
 .head-txt{overflow:hidden;margin-bottom:15px;padding:0 22px;clear:both;font-size:15px;line-height:15px;}
 .head-txt dt, .head-txt dd{float:left;}
 .head-txt dt:before{content:'';margin-left:10px;}
@@ -19,6 +19,6 @@
 .head-tab li a{color: #9d9d9d;display:block;padding: 10px 0;width:100%;}
 .head-tab li.active{border-bottom:2px solid #c61728;}
 .head-tab.task li{width:33.333%;}
-.head-tab.project li{width:50%;}
+.head-tab.project li{width:100%;}
 
 .info-box .info-box-body{padding-bottom: 15px; border-bottom: 1px solid rgb(240, 240, 240);padding:15px;}

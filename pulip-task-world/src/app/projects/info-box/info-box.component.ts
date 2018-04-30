@@ -20,6 +20,7 @@ export class InfoBoxComponent implements OnInit {
   public detailLink: any = {};
   public currentSnb: string;
   public firedEnterKeyEvent: boolean = false;
+  public dropdownMenu: Array<any> = [];
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -29,6 +30,14 @@ export class InfoBoxComponent implements OnInit {
   ngOnInit() {
     this.detailLink = this.constantService.getProjectInfoBoxDetailLinkUrl();
     this.url = this.constantService.getLinkUrl('projects'); 
+    this.dropdownMenu = [
+      {
+        name: '업무삭제', function: this.deleteTask, params: undefined
+      },
+      {
+        name: '이동', function: this.moveTask, params: undefined
+      }
+    ];
   }
   ngOnChanges(changes: SimpleChanges) { /* input 변수 바뀌었을 때(init 제외) projectInfoBoxService에 해당 변수 저장(info-box-container에 전달하기 위한) */
     // if(changes.projectId != undefined)  this.projectInfoBoxService.setProjectId(changes.projectId.currentValue);  
@@ -82,4 +91,6 @@ export class InfoBoxComponent implements OnInit {
       }
     }
   }
+  deleteTask(){console.log('deleteTask');}
+  moveTask(){console.log('moveTask');}
 }

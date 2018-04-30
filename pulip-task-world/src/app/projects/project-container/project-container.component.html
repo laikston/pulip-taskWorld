@@ -1,6 +1,6 @@
 <div [hidden]="!viewSnb" class="projects-snb">
   <div class="content-header">
-    <h3 *ngIf="projectName" class="project-name direct-text"><input type="text" [(ngModel)]="projectName"/></h3>
+    <h3 *ngIf="projectName" class="project-name direct-text"><p>{{projectName}}</p></h3>
     <a href="javascript:;" (click)="changeProjectList()" class="btn btn-default btn-sm project-list-toggle"><span class="glyphicon" [ngClass]="{'glyphicon-menu-down':viewProjectList==false, 'glyphicon-menu-up':viewProjectList==true}"></span></a>
     <div *ngIf="viewProjectList" class="project-list-wrap">
       <ul *ngIf="projectListData" class="project-list">

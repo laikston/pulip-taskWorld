@@ -73,7 +73,7 @@ export class ProjectContainerComponent implements OnInit {
     }
     if(_isView == false){
       this.type = undefined
-    }else{
+    }else{     
       if(this.type == 'project'){
         this.infoBoxData = this.projectInfoBoxService.getProjectData();
       }else if(this.type == 'task'){

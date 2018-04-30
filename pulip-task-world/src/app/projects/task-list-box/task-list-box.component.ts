@@ -20,6 +20,7 @@ export class TaskListBoxComponent{
   public taskId: number;
   public taskListId: number;
   public firedEnterKeyEvent: boolean = false;
+  public dropdownMenu: Array<any> = [];
   constructor(
     private dataService: DataService,
     private projectInfoBoxService: ProjectInfoBoxService
@@ -27,6 +28,14 @@ export class TaskListBoxComponent{
   ngOnInit(){    
     this.taskTitle = this.taskListData['Name'];
     this.taskListId = this.taskListData['Idx'];
+    this.dropdownMenu = [
+      {
+        name: '업무리스트 삭제', function: this.deleteTaskList, params: this.taskListData['Idx']
+      },
+      {
+        name: '이동', function: this.moveTaskList, params: undefined
+      }
+    ];
     // console.log('taskListData :: ', this.taskListData);
   }
   sendTaskId(_taskId){
@@ -42,7 +51,8 @@ export class TaskListBoxComponent{
       section: 'task-list',
       method: 'delete'
     });
-    // console.log(_taskListIdx)
+
+    console.log(_taskListIdx)
     // this.dataService.deleteTaskGroup(taskList, this.deleteTaskListComplete, this)
   }
   deleteTaskListComplete(_data, _this){
@@ -79,4 +89,5 @@ export class TaskListBoxComponent{
       }
     }
   }
+  moveTaskList(){console.log('moveTaskList')}
 }
