@@ -1,7 +1,13 @@
 .selectiongroup{position:relative;margin-top:3px;}
-.select-list{float:left;}
+.select-list{margin-left:42px;}
+.select-list li{display:inline-block;background:#eee;border-radius:15px;padding-right:5px;margin:3px 5px 3px 0;}
+.select-list li .member-img{display:block;width:25px;height:25px;overflow:hidden;border-radius:100%;float:left;margin-right:5px;}
+.select-list li .member-img img{width:100%}
+.select-list li .member-name{display:block;float:left;margin:5px 3px 0 0;}
 .dropdown-search{padding:5px;}
 .dropdown-search input[type="text"]{border: 1px solid #e5e5e5;}
 .dropdown-search input[type="text"]:hover, .dropdown-search input[type="text"]:focus{background:#fff;}
 .dropdown-menu{width:365px;height:200px;overflow-x: auto;left:0;}
 .dropdown-item{border:none;}
+.dropdown-item span{float:right;display:none;}
+.dropdown-item.selected span{display: inline;}

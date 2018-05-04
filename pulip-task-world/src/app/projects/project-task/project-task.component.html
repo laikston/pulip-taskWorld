@@ -1,18 +1,20 @@
-<ul class="row">
-  <li *ngFor="let taskListData of taskListDatas|orderBy:order:ascending" class="col-sx-12 col-md-4 col-lg-3">    
-    <app-task-list-box [taskListData]="taskListData" [projectId]="projectId" (sendTaskIdEvent)="goTaskDetail($event)" (changeTaskListDataEvent)="changeTaskListData($event)"></app-task-list-box>
-  </li>
-  <li class="col-sx-12 col-md-4 col-lg-3 add-task-list-wrap">
-    <a href="javascript:;" class="add-task-list" (click)="openAddTaskListInput()" [ngClass]="{'input-mode':isAddList }">
-      <div class="add-task-list-title" *ngIf="!isAddList">
-        <span class="glyphicon glyphicon-plus"></span>
-        업무리스트 추가
-      </div>
-      <div class="add-task-list-title" *ngIf="isAddList">
-        <input type="text" (keydown.enter)="addTaskList()" [(ngModel)]="newTaskList['task_group_name']" #taskListName placeholder="업무리스트 추가">
-        <button id="closeTaskListInputBtn" type="button" class="close" aria-label="Close" (click)="cancelAddTaskListInput()"><span aria-hidden="true">&times;</span></button>
-      </div>
-    </a>
-  </li>
-</ul>
+<div class="row">
+  <ul class="row" dnd-sortable-container [sortableData]="taskListDatas">
+    <li *ngFor="let taskListData of taskListDatas;let i = index;" class="col-sx-12 col-md-4 col-lg-3" dnd-sortable [sortableIndex]="i"><!--//|orderBy:order:ascending-->
+      <app-task-list-box [taskListData]="taskListData" [projectId]="projectId" (sendTaskIdEvent)="goTaskDetail($event)" (changeTaskListDataEvent)="changeTaskListData($event)"></app-task-list-box>
+    </li>
+    <li class="col-sx-12 col-md-4 col-lg-3 add-task-list-wrap">
+      <a href="javascript:;" class="add-task-list" (click)="openAddTaskListInput()" [ngClass]="{'input-mode':isAddList }">
+        <div class="add-task-list-title" *ngIf="!isAddList">
+          <span class="glyphicon glyphicon-plus"></span>
+          업무리스트 추가
+        </div>
+        <div class="add-task-list-title" *ngIf="isAddList">
+          <input type="text" (keydown.enter)="addTaskList()" [(ngModel)]="newTaskList['task_group_name']" #taskListName placeholder="업무리스트 추가">
+          <button id="closeTaskListInputBtn" type="button" class="close" aria-label="Close" (click)="cancelAddTaskListInput()"><span aria-hidden="true">&times;</span></button>
+        </div>
+      </a>
+    </li>
+  </ul>
+</div>
 <input id="focusoutInput"/>

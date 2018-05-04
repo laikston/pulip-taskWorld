@@ -1,1 +1,12 @@
+.project-list{margin:0 auto;padding:30px;}
+@media (min-width: 768px){
+    .project-list{width:750px;}
+}
+@media (min-width: 992px){
+    .project-list{width:970px;}
+}
+@media (min-width: 1200px){
+    .project-list{width:1170px;}
+}
+ul.row{margin:0;}
 li{padding: 5px;}

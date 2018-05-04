@@ -1,5 +1,5 @@
-.projects-snb{position: relative;}
-.projects-snb .content-header{width:45%;overflow: hidden;line-height:30px;padding:10px 0;float:left;}
+.projects-snb{position: relative;margin:0 20px;}
+.projects-snb .content-header{width:20%;overflow: hidden;line-height:30px;padding:10px 0;float:left;}
 .projects-snb .content-header h3.direct-text{width:calc(100% - 40px);word-wrap:normal;overflow: hidden;float:left;padding:0;}
 .projects-snb .content-header h3.direct-text input[type="text"]{font-size:18px;line-height:18px;background:#ebf0f8;white-space: nowrap;text-overflow:ellipsis;}
 .projects-snb .content-header h3.direct-text input[type="text"]:hover, div.direct-text input[type="text"]:focus{background:#fff;}
@@ -8,7 +8,7 @@
 .projects-snb .content-header .project-list-wrap li{padding:10px 0 10px 10px;}
 .projects-snb .projects-info{position: absolute;top:15px;right:0;}
 
-.projects-tab{overflow: hidden;margin:15px 20px;float:left;width:calc(55% - 80px);}
+.projects-tab{overflow: hidden;margin:15px 20px;float:left;width:calc(80% - 80px);}
 .projects-tab ul{text-align: center;}
 .projects-tab li{display:inline-block;}
 .projects-tab li.active{border-bottom:2px solid #2f4c7d;}

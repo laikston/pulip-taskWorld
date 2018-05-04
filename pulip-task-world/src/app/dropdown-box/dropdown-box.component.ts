@@ -6,7 +6,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./dropdown-box.component.css']
 })
 export class DropdownBoxComponent implements OnInit {
-  @Input()  public data: any;
+  @Input()  public data: Array<any>;
 
   constructor() { }
 

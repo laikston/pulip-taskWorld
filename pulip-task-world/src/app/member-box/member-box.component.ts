@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-member-box',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./member-box.component.css']
 })
 export class MemberBoxComponent implements OnInit {
+  @Input()  public data: Array<any>;
+  public selectedMember: Array<any> = [];
 
   constructor() { }
 
@@ -13,5 +15,16 @@ export class MemberBoxComponent implements OnInit {
   }
   noBubbling(_e){
     _e.stopPropagation();
+  }
+  selectMember(_member){
+    _member.selected = true;
+    this.selectedMember.push(_member);
+  }
+  removeMember(_id){
+    this.selectedMember.forEach((value: any, key: number) => {
+      if(value.id == _id){
+        this.selectedMember.splice(key, 1);
+      }
+    });
   }
 }

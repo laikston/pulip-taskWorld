@@ -1,7 +1,7 @@
 <div class="task-list-wrap">
   <h4 class="direct-text"><input type="text" [(ngModel)]="taskListData['Name']"  (focusout)="changeDataTaskListName()" (keydown.enter)="updateTaskList(taskListData['Name'])"/></h4>
   <app-dropdown-box [data]="dropdownMenu"></app-dropdown-box>
-  <ul>
-    <li *ngFor="let taskData of taskListData['Task']|orderBy:order:ascending"><app-task-box [taskData]="taskData" (sendTaskIdEvent)="sendTaskId($event)"></app-task-box></li>
+  <ul dnd-sortable-container [sortableData]="taskListData['Task']">
+    <li *ngFor="let taskData of taskListData['Task'];let ii = index;" dnd-sortable [sortableIndex]="ii"><app-task-box [taskData]="taskData" (sendTaskIdEvent)="sendTaskId($event)"></app-task-box></li><!--|orderBy:order:ascending-->
   </ul>
 </div>

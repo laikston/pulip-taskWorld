@@ -21,6 +21,36 @@ export class TaskPropertyComponent implements OnInit {
   }; 
   public startDate: any = { date: { year: 2018, month: 10, day: 9 } };
   public endDate: any = { date: { year: 2018, month: 10, day: 9 } };
+  public memberData: Array<any> = [
+    {id: 0, name: 'UITeam', team: '연구소', role: '', img: '../assets/images/member-sample-img.jpg', selected: false},
+    {id: 1, name: 'Dev Team', team: '연구소', role: '', img: '../assets/images/member-sample-img.jpg', selected: false},
+    {id: 2, name: 'DX Group', team: '', role: '', img: '../assets/images/member-sample-img.jpg', selected: false},
+    {id: 3, name: 'Ops Team', team: '연구소', role: '운영팀', img: '../assets/images/member-sample-img.jpg', selected: false},
+    {id: 4, name: '안정화', team: '', role: '', img: '../assets/images/member-sample-img.jpg', selected: false},
+    {id: 5, name: '유용관', team: '연구소', role: '선임', img: '../assets/images/member-sample-img.jpg', selected: false},
+    {id: 6, name: '이 성헌', team: '연구소', role: '이사', img: '../assets/images/member-sample-img.jpg', selected: false},
+    {id: 7, name: '충한 이', team: '연구소', role: '', img: '../assets/images/member-sample-img.jpg', selected: false},
+    {id: 8, name: '한대범', team: '연구소', role: '', img: '../assets/images/member-sample-img.jpg', selected: false}
+  ];
+  public tagData: Array<any> = [
+    {id: 0, name: '강묘정', selected: false, group: 'green'},
+    {id: 1, name: '김경희', selected: false, group: 'red'},
+    {id: 2, name: '강민성', selected: false, group: 'blue'},
+    {id: 3, name: '김나현', selected: false, group: 'rainbow'},
+    {id: 4, name: '김은주', selected: false, group: 'yellow'},
+    {id: 5, name: '김종수', selected: false, group: 'navy'},
+    {id: 6, name: '김종환', selected: false, group: 'red'},
+    {id: 7, name: '김진원', selected: false, group: 'navy'},
+    {id: 8, name: '박정문', selected: false, group: 'rainbow'},
+    {id: 9, name: '안노기', selected: false, group: 'green'},
+    {id: 10, name: '유용관', selected: false, group: 'brown'},
+    {id: 11, name: '윤정호', selected: false, group: 'rainbow'},
+    {id: 12, name: '이상화', selected: false, group: 'purple'},
+    {id: 13, name: '이성헌', selected: false, group: 'rainbow'},
+    {id: 14, name: '전상돈', selected: false, group: 'purple'},
+    {id: 15, name: '정덕영', selected: false, group: 'blue'},
+    {id: 16, name: '조한필', selected: false, group: 'green'}
+  ];
   constructor(
     private projectInfoBoxService: ProjectInfoBoxService
   ) { }

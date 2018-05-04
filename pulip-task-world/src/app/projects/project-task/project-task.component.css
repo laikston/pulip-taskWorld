@@ -1,4 +1,6 @@
-li{padding: 15px;}
+div.row{position:relative;display:flex;overflow-x: scroll;margin:0 0 0 -13px;height:calc(100% - 60px);}
+ul.row{position:relative;display:flex;margin:0 20px;flex-direction: row;align-items: stretch;}
+li{padding: 15px;max-width:300px;width:300px;flex:none;float:none;}
 .add-task-list{display:block;position: relative;padding: 15px;background: #f5f7fc;border-radius: 5px;box-shadow: 0 1px 8px 0 rgba(0,0,0,0.15);overflow: hidden;}
 .add-task-list::before{content: '';position: absolute;left: 0;top: 0; right: 0;height: 3px;background:linear-gradient(to bottom right, #c1c2d6  0%, #494b6b 100%);}
 .add-task-list-title{font-size:15px;line-height:15px;color:#6d6e8c;}

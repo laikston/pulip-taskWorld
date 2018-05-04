@@ -308,11 +308,91 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
       ]
     },
     {
-      "Idx": 15,
-      "Name": "태스크 test",
+      "Idx": 7,
+      "Name": "태스크7 test",
       "Parent_idx": 3080,
       "Level": 1,
       "Order": 3,
+      "Reg_date": "2018-04-24",
+      "Last_date": "2018-04-24",
+      "Task": []
+    },
+    {
+      "Idx": 8,
+      "Name": "태스크8 test",
+      "Parent_idx": 3080,
+      "Level": 1,
+      "Order": 4,
+      "Reg_date": "2018-04-24",
+      "Last_date": "2018-04-24",
+      "Task": []
+    },
+    {
+      "Idx": 9,
+      "Name": "태스크9 test",
+      "Parent_idx": 3080,
+      "Level": 1,
+      "Order": 5,
+      "Reg_date": "2018-04-24",
+      "Last_date": "2018-04-24",
+      "Task": []
+    },
+    {
+      "Idx": 10,
+      "Name": "태스크10 test",
+      "Parent_idx": 3080,
+      "Level": 1,
+      "Order": 6,
+      "Reg_date": "2018-04-24",
+      "Last_date": "2018-04-24",
+      "Task": []
+    },
+    {
+      "Idx": 11,
+      "Name": "태스크11 test",
+      "Parent_idx": 3080,
+      "Level": 1,
+      "Order": 7,
+      "Reg_date": "2018-04-24",
+      "Last_date": "2018-04-24",
+      "Task": []
+    },
+    {
+      "Idx": 16,
+      "Name": "태스크16 test",
+      "Parent_idx": 3080,
+      "Level": 1,
+      "Order": 8,
+      "Reg_date": "2018-04-24",
+      "Last_date": "2018-04-24",
+      "Task": []
+    },
+    {
+      "Idx": 17,
+      "Name": "태스크17 test",
+      "Parent_idx": 3080,
+      "Level": 1,
+      "Order": 9,
+      "Reg_date": "2018-04-24",
+      "Last_date": "2018-04-24",
+      "Task": []
+    },
+    {
+      "Idx": 18,
+      "Name": "태스크18 test",
+      "Parent_idx": 3080,
+      "Level": 1,
+      "Order": 10,
+      "Reg_date": "2018-04-24",
+      "Last_date": "2018-04-24",
+      "Task": []
+    },
+    {
+      "Idx": 19,
+      "Name": "태스크19 test",
+      "Parent_idx": 3080,
+      "Level": 1,
+      "Order": 11,
       "Reg_date": "2018-04-24",
       "Last_date": "2018-04-24",
       "Task": []
@@ -459,6 +539,9 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
     });
   }
   changeTaskListData(_e){
+    console.log(_e)
+  }
+  transferDataSuccess(_e){
     console.log(_e)
   }
 }

@@ -49,25 +49,25 @@ export class ConstantService {
   private snbDetailLinkUrl: any = {
     home: [
       {
-        link : '/task',
+        link : '/home/task',
         title : '업무'
       },
       {
-        link : '/feedback',
+        link : '/home/feedback',
         title : '피드백'
       }
     ],
     summary: [
       {
-        link : '/task',
+        link : '/summary/task',
         title : '업무'
       },
       {
-        link : '/calendar',
+        link : '/summary/calendar',
         title : '캘린더'
       },
       {
-        link : '/timeline',
+        link : '/summary/timeline',
         title : '타임라인'
       }
     ],
