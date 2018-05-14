@@ -37,7 +37,8 @@ export class AppContainerComponent implements OnInit {
   }
   initGnb(_link: any){
     if(_link.title == 'projects'){
-      this.projectInfoBoxService.setViewInfoEvent(false);
+      this.projectInfoBoxService.setInfoBoxType(undefined);
+      this.projectInfoBoxService.setViewInfoEvent(false);   
     }
   }
 }

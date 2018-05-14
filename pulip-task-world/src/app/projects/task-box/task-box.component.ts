@@ -33,4 +33,14 @@ export class TaskBoxComponent implements OnInit {
     // console.log(this.isComplete)
   }
   updateView(){} //updateView
+  viewCheckList(){
+    let data: Array<any> = this.taskData['CheckList'], isView: boolean = true, count: number = 0;
+    data.forEach((value: any, key: number) => {
+      if(value['Complete'] == 'Y'){
+        count += 1;
+      }
+    });
+    if(count == data.length)  isView = false;
+    return isView;
+  }
 }

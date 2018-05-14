@@ -9,8 +9,6 @@ import { DropdownModule } from './dropdown-box/dropdown-box.module'; /* dropdown
 import { MyDatePickerModule } from './datepicker-box/my-date-picker.module'; /* date picker :: angular4-datepicker customizing :: https://www.npmjs.com/package/angular4-datepicker */
 import { MemberBoxModule } from './member-box/member-box.module'; /* select member :: custom */
 import { TagBoxModule } from './tag-box/tag-box.module'; /* select tag :: custom */
-import { DndModule } from 'ng2-dnd';
-import { NgxDnDModule } from '@swimlane/ngx-dnd';
 
 import { AppComponent } from './app.component';
 import { AppContainerComponent } from './app-container/app-container.component';
@@ -317,8 +315,6 @@ const appRoutes: Routes = [
     MemberBoxModule,
     DropdownModule,
     TagBoxModule,
-    NgxDnDModule,
-    DndModule.forRoot(),
     RouterModule.forRoot(appRoutes)
   ],
   providers: [

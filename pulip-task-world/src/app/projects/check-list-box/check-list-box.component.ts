@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef  } from '@angular/core';
 import { ProjectInfoBoxService } from '../../service/project-info-box.service';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-check-list-box',
@@ -8,18 +9,23 @@ import { ProjectInfoBoxService } from '../../service/project-info-box.service';
 })
 export class CheckListBoxComponent implements OnInit {
   @ViewChild('checkListName')  public checkListName: ElementRef;
-  @Input()  public checkListdata: any;
+  @Input()  public checkListdata: Array<any>;
   @Input()  public hasEdit: boolean;
   @Input()  public hasAddListItem: boolean;  
   public isAddList: boolean = false;  
   public newCheckList: any = {};
-  public isCancel: boolean = false;
+  public isCancel: boolean = false;         
+  public noCompleteCheckListData: Array<any> = [];                                  
   constructor(
     private projectInfoBoxService: ProjectInfoBoxService,
   ) { }
   ngOnInit() {
     // console.log('checkListdata :: ', this.checkListdata);
     if(this.hasAddListItem)  this.initNewCheckList();
+    this.noCompleteCheckListData = [];
+    this.checkListdata.forEach((val: any, key: number) => {
+      if(val['Complete'] == 'N')  this.noCompleteCheckListData.push(val);
+    });
   }
   private initNewCheckList(){
     this.newCheckList = {
@@ -29,7 +35,7 @@ export class CheckListBoxComponent implements OnInit {
       'Level': 3,
       'Name': undefined,
       'Order': 5,
-      'Parent_idx': this.checkListdata[0]['Parent_idx'],
+      'Parent_idx': (this.checkListdata[0]) ? this.checkListdata[0]['Parent_idx'] : undefined,
       'Reg_date': '2018-12-12'
     };
   }
@@ -70,6 +76,7 @@ export class CheckListBoxComponent implements OnInit {
     setTimeout(() => this.isCancel = false, 100);
   }
   changeCheckData(_e){
+    this.noCompleteCheckListData = [];
     if(this.hasAddListItem){
       this.checkListdata.forEach((val: any, key: number) => {
         if(val['Idx'] == _e.checkData['Idx']){
@@ -79,5 +86,23 @@ export class CheckListBoxComponent implements OnInit {
         }
       });
     }
+    this.checkListdata.forEach((val: any, key: number) => {
+      if(val['Complete'] === 'N')  this.noCompleteCheckListData.push(val);
+    });
+  }
+  countingList(_isComplete, _idx){
+    let isView: boolean = (_isComplete == 'N') ? true : false; 
+    this.noCompleteCheckListData = [];
+    this.checkListdata.forEach((val: any, key: number) => {
+      if(val['Complete'] === 'N')  this.noCompleteCheckListData.push(val);
+    });
+    if(this.noCompleteCheckListData.length > 3){
+      this.noCompleteCheckListData.forEach((value: any, key: number) => {
+        if(_idx == value['Idx']){
+          isView = (key < 3) ? true : false;
+        }
+      });
+    }
+    return isView;
   }
 }

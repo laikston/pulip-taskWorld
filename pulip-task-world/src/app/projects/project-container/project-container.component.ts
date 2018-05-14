@@ -63,7 +63,7 @@ export class ProjectContainerComponent implements OnInit {
            }); 
     this.detailLink = this.constantService.getSnbDetailLinkUrl(this.gnbTitle); 
     this.projectInfoBoxService.getViewInfoEvent.subscribe((_isView) => {
-      this.viewInfo = false;
+      setTimeout(() => { this.viewInfo = _isView; } );
     });    
   } 
   changeInfoBoxState(_isView: boolean, _type: string){ /* info-box state control */

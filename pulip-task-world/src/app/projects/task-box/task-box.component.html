@@ -4,7 +4,7 @@
       <input type="checkbox" [id]="taskData.Idx" [(ngModel)]="isComplete" required (change)="changeCompleteState()">
       <div class="checkbox-title" [ngClass]="{'complete':isComplete}"><h5>{{taskData.Name}}</h5></div>
     </div>
-    <app-check-list-box [checkListdata]="taskData['CheckList']" [hasEdit]="false" [hasAddListItem]="false"></app-check-list-box>
+    <app-check-list-box [checkListdata]="taskData['CheckList']" [hasEdit]="false" [hasAddListItem]="false" *ngIf="viewCheckList()"></app-check-list-box>
     <div class="foot-info">
       <div class="pull-right">
         <a href="javascript:;">

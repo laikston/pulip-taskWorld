@@ -10,6 +10,7 @@ export class ConstantService {
       list: this.apiBaseUrl + 'getprojectlist',
       detail: this.apiBaseUrl + 'getProjectDetail',      
       tasklist: this.apiBaseUrl + 'taskgroup',
+      gettasklist: this.apiBaseUrl + 'getdata',
       task: this.apiBaseUrl + 'task'
     }
   };

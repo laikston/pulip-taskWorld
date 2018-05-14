@@ -1,7 +1,8 @@
 dl{padding:10px 0;}
 dl.datepicker-box{overflow:visible;padding:0;}
 dt{display:inline-block;width:20%;white-space: nowrap;font-size:14px;padding-top:7px;vertical-align: top;}
-dl.datepicker-box dt, dl.member-box dt{padding:14px 0 0;}
+dl.datepicker-box dt{padding:14px 0 0;}
+dl.member-box dt{padding:8px 0 0;}
 dd{display:inline-block;width:78%;}
 dl.datepicker-box dd{overflow:visible;padding:5px 0;}
 dd div{float:left;font-size:14px;padding:8px 0;}

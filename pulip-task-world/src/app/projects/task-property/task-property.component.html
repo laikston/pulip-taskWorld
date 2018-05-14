@@ -27,16 +27,7 @@
 <dl>
   <dt>태그</dt>
   <dd>
-    <app-tag-box [data]="tagData"></app-tag-box>
-  </dd>
-</dl>
-<dl>
-  <dt>작업시간</dt>
-  <dd>
-    <a href="javascript:;" class="btn btn-default btn-sm pick-option"><span class="glyphicon glyphicon-plus"></span></a>
-    <ul>
-      <li></li>
-    </ul>
+    <app-tag-box [data]="tagData" (updateDataEvent)="updateTagData($event)"></app-tag-box>
   </dd>
 </dl>
 <dl *ngIf="data" >

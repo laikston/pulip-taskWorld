@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { TaskBox } from '../task-box/task-box';
 import { CheckListBoxComponent } from '../check-list-box/check-list-box.component';
+import { MemeberBox } from '../../member-box/member-box';
+import { TagBox } from '../../tag-box/tag-box';
 import { ProjectInfoBoxService } from '../../service/project-info-box.service';
 import { IMyDpOptions } from '../../datepicker-box/interfaces/my-options.interface'; /* angular4-datepicker :: https://www.npmjs.com/package/angular4-datepicker */
 
@@ -21,7 +23,7 @@ export class TaskPropertyComponent implements OnInit {
   }; 
   public startDate: any = { date: { year: 2018, month: 10, day: 9 } };
   public endDate: any = { date: { year: 2018, month: 10, day: 9 } };
-  public memberData: Array<any> = [
+  public memberData: MemeberBox[] = [
     {id: 0, name: 'UITeam', team: '연구소', role: '', img: '../assets/images/member-sample-img.jpg', selected: false},
     {id: 1, name: 'Dev Team', team: '연구소', role: '', img: '../assets/images/member-sample-img.jpg', selected: false},
     {id: 2, name: 'DX Group', team: '', role: '', img: '../assets/images/member-sample-img.jpg', selected: false},
@@ -32,7 +34,7 @@ export class TaskPropertyComponent implements OnInit {
     {id: 7, name: '충한 이', team: '연구소', role: '', img: '../assets/images/member-sample-img.jpg', selected: false},
     {id: 8, name: '한대범', team: '연구소', role: '', img: '../assets/images/member-sample-img.jpg', selected: false}
   ];
-  public tagData: Array<any> = [
+  public tagData: TagBox[] = [
     {id: 0, name: '강묘정', selected: false, group: 'green'},
     {id: 1, name: '김경희', selected: false, group: 'red'},
     {id: 2, name: '강민성', selected: false, group: 'blue'},
@@ -103,5 +105,16 @@ export class TaskPropertyComponent implements OnInit {
         this.firedEnterKeyEvent = false;
       }
     }
+  }
+  updateTagData(_data){
+    if(_data.selected == true){
+      this.tagData.push(_data);  
+    }else{
+      this.tagData.forEach((value: any, key: number) => {
+        if(value.id == _data.id){
+          this.tagData[key] = _data;
+        }
+      })
+    }    
   }
 }

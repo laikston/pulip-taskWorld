@@ -97,7 +97,7 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
               "Name":"프로젝트리스트 쿼리, 프로젝트리스트 쿼리", 
               "Level":3, 
               "Order":1, 
-              "Complete":"Y", 
+              "Complete":"N", 
               "Reg_date":"2018-03-12", 
               "Last_date":"2017-06-30"
             },
@@ -107,7 +107,7 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
               "Name":"프로젝트리스트, 프로젝트리스트 쿼리", 
               "Level":3, 
               "Order":1, 
-              "Complete":"Y", 
+              "Complete":"N", 
               "Reg_date":"2018-03-15", 
               "Last_date":"2017-05-12"
             }
@@ -134,7 +134,7 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
             {
               "Idx":1, 
               "Parent_idx":3, // 추가
-              "Name":"프로젝트리스트 쿼리 2018-06-12", 
+              "Name":"2018-06-12", 
               "Level":3, 
               "Order":1, 
               "Complete":"Y", 
@@ -144,17 +144,17 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
             {
               "Idx":2, 
               "Parent_idx":3, // 추가
-              "Name":"프로젝트리스트 쿼리 2017-12-2", 
+              "Name":"2017-12-2", 
               "Level":3, 
               "Order":1, 
-              "Complete":"Y", 
+              "Complete":"N", 
               "Reg_date":"2018-06-05", 
               "Last_date":"2018-06-22"
             },
             {
               "Idx":3, 
               "Parent_idx":3, // 추가
-              "Name":"프로젝트리스트 쿼리 33333333333", 
+              "Name":"33333333333", 
               "Level":3, 
               "Order":1, 
               "Complete":"N", 
@@ -164,7 +164,7 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
             {
               "Idx":4, 
               "Parent_idx":3, // 추가
-              "Name":"프로젝트리스트 쿼리 2018-12-12", 
+              "Name":"2018-12-12", 
               "Level":3, 
               "Order":1, 
               "Complete":"N", 
@@ -174,7 +174,7 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
             {
               "Idx":6, 
               "Parent_idx":3, // 추가
-              "Name":"프로젝트리스트 쿼리 2017-12-2", 
+              "Name":"프2017-12-2", 
               "Level":3, 
               "Order":1, 
               "Complete":"N", 
@@ -184,7 +184,7 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
             {
               "Idx":5, 
               "Parent_idx":3, // 추가
-              "Name":"프로젝트리스트 쿼리 33333333333", 
+              "Name":"133333333333", 
               "Level":3, 
               "Order":1, 
               "Complete":"N", 
@@ -258,7 +258,7 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
               "Name":"프로젝트리스트 쿼리 454545", 
               "Level":3, 
               "Order":1, 
-              "Complete":"Y", 
+              "Complete":"N", 
               "Reg_date":"2018-12-12", 
               "Last_date":"2017-1212"
             },
@@ -298,7 +298,7 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
               "Name":"프로젝트리스트 쿼리 1212", 
               "Level":3, 
               "Order":1, 
-              "Complete":"Y", 
+              "Complete":"N", 
               "Reg_date":"2018-12-12", 
               "Last_date":"2017-12-2"
             }
@@ -398,6 +398,7 @@ export class ProjectTaskComponent implements OnInit, OnDestroy {
       "Task": []
     }
   ];
+  // public taskListDatas: TaskListBox[] = [];
   public isAddList: boolean = false;
   public order: string = "Order";
   public ascending: boolean = true;    

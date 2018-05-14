@@ -36,9 +36,25 @@ export class DataService {
       )
     );
   }
-  addTaskList(_params, _completeFunc, _component) {
+  getTaskList(_params, _completeFunc, _component) {
     let params = _params,
         url = this.constantService.getApiUrl('projects', 'tasklist'),
+        data = this.http.post(url, params, postOptions);
+    data.subscribe(
+      data => {
+        console.log(data)
+      },
+      err => console.error(err),
+      () => data.subscribe(
+        data => {
+          _completeFunc(data, _component);
+        }
+      )
+    );
+  }
+  addTaskList(_params, _completeFunc, _component) {
+    let params = _params,
+        url = this.constantService.getApiUrl('projects', 'gettasklist'),
         data = this.http.post(url, params, postOptions);
     data.subscribe(
       data => {

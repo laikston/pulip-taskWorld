@@ -1,6 +1,7 @@
 .check-list{background:#f2f2f2;margin-top: 5px;border-radius:5px;padding:5px;overflow:hidden;position: relative;}
-li{padding:0;border-bottom:1px dashed #cbcbcb;margin:0 25px;position: relative;width:calc(100% - 50px);}
-li:last-child{border-bottom: none;}
+li{padding:0;border-top:1px dashed #cbcbcb;margin:0 25px;position: relative;width:calc(100% - 50px);}
+li:first-child{border-top: none;}
+li.show-all-check-list{text-align:center;padding:7px 0;font-size:12px;color:#898989;border-top:1px solid #cbcbcb;}
 .add-check-list-wrap{width:100%;background:#f2f2f2;margin-top: -5px;border-radius:5px;padding:5px 15px;overflow:hidden;position: relative;}
 .add-check-list{display:block;position: relative;padding: 15px 0;overflow: hidden;width:100%;border-top:1px dashed #cbcbcb;}
 .add-check-list-wrap.no-check-list{margin-top: 0px;}
