@@ -1,15 +1,16 @@
-import { Component, OnInit, Input, SimpleChanges, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, EventEmitter, Output, OnChanges } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TaskListBox } from '../task-list-box/task-list-box';
 import { ConstantService } from '../../service/constant.service';
 import { ProjectInfoBoxService } from '../../service/project-info-box.service';
+import { DataService } from '../../service/data.service';
 
 @Component({
   selector: 'app-info-box',
   templateUrl: './info-box.component.html',
   styleUrls: ['./info-box.component.css']
 })
-export class InfoBoxComponent implements OnInit {
+export class InfoBoxComponent implements OnInit, OnChanges {
   @Input()  public type: string;
   @Input()  public projectId: number;
   @Input()  public taskId: number;
@@ -20,30 +21,27 @@ export class InfoBoxComponent implements OnInit {
   public detailLink: any = {};
   public currentSnb: string;
   public firedEnterKeyEvent: boolean = false;
-  public dropdownMenu: Array<any> = [];
+  public dropdownMenu: Array<any> = [
+    {name: '업무 삭제', function: this.deleteTask, params: {'content': {'project_idx': this.projectId, 'task_idx': this.taskId}, 'component': this}},
+    {name: '이동', function: this.moveTask, params: {'content': {}, 'component': this}}
+  ];
+  public taskTitle: string;
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private constantService: ConstantService,
-    private projectInfoBoxService: ProjectInfoBoxService
+    private projectInfoBoxService: ProjectInfoBoxService,
+    private dataService: DataService
   ) { }
   ngOnInit() {
     this.detailLink = this.constantService.getProjectInfoBoxDetailLinkUrl();
     this.url = this.constantService.getLinkUrl('projects'); 
-    this.dropdownMenu = [
-      {
-        name: '업무삭제', function: this.deleteTask, params: undefined
-      },
-      {
-        name: '이동', function: this.moveTask, params: undefined
-      }
-    ];
   }
-  ngOnChanges(changes: SimpleChanges) { /* input 변수 바뀌었을 때(init 제외) projectInfoBoxService에 해당 변수 저장(info-box-container에 전달하기 위한) */
-    // if(changes.projectId != undefined)  this.projectInfoBoxService.setProjectId(changes.projectId.currentValue);  
-    // if(changes.taskId != undefined)  this.projectInfoBoxService.setTaskId(changes.taskId.currentValue);
+  ngOnChanges(changes: SimpleChanges) { 
+    if(changes.projectId != undefined && changes.projectId.currentValue != undefined)  this.dropdownMenu[0]['params']['content']['project_idx'] = this.projectId;  
+    if(changes.taskId != undefined && changes.taskId.currentValue != undefined)  this.dropdownMenu[0]['params']['content']['task_idx'] = this.taskId; 
     // if(changes.type != undefined)  this.projectInfoBoxService.setInfoBoxType(changes.type.currentValue);
-    // if(changes.infoBoxData != undefined)  console.log(changes.infoBoxData)
+    if(changes.infoBoxData != undefined && changes.infoBoxData.currentValue != undefined)  this.taskTitle = changes.infoBoxData.currentValue;
   }
   changeInfoBoxState(_type){ /* info-box 열기, 닫기, routing */
     var currentPage: string = this.projectInfoBoxService.getCurrentPage(), type: string = this.type, url: string; 
@@ -57,7 +55,7 @@ export class InfoBoxComponent implements OnInit {
         break;
 
       case 'task' :
-        url = this.url.base + this.url[type] + this.projectId + this.url.taskDetail;
+        url = this.url.base + this.url[type] + this.projectId + this.url.taskDetail;        
         break;
 
       default :
@@ -76,21 +74,49 @@ export class InfoBoxComponent implements OnInit {
     if(this.currentSnb !== currentSnb)  setTimeout(() => {this.currentSnb = this.projectInfoBoxService.getCurrentSnb();})    
     return link;
   }
-  changeDataTaskName(_e){
-    let element: HTMLElement = document.querySelector('#focusoutInput') as HTMLElement;
-    if(_e){
-      this.firedEnterKeyEvent = true;
-      this.projectInfoBoxService.setTaskSubData('Name', this.infoBoxData['Name']);
-      element.focus();
+  changeDataTaskName(_infoBoxData){
+    if(this.firedEnterKeyEvent == true){
+      this.firedEnterKeyEvent = false;
     }else{
-      if(this.firedEnterKeyEvent == false){
-        this.projectInfoBoxService.setTaskSubData('Name', this.infoBoxData['Name']);
-      }else{
-        this.firedEnterKeyEvent = false;
-        element.focus();
-      }
+      this.changeTask(_infoBoxData);
     }
   }
-  deleteTask(){console.log('deleteTask');}
+  changeTask(_infoBoxData){
+    let newTask = {
+      'project_idx': this.projectId,
+      'task_group_idx': _infoBoxData['Parent_idx'],
+      'task_idx': _infoBoxData['Idx'],
+      'task_name': _infoBoxData['Name'],
+      'task_member_idx': _infoBoxData['AssiMember'],
+      'task_info': "",
+      'task_tags': _infoBoxData['Tag'],
+      'isfinish': "N",
+      'order_no': _infoBoxData['Order']
+    };
+    if(this.firedEnterKeyEvent != true)  this.firedEnterKeyEvent = true;
+    if(_infoBoxData['Name'] != this.taskTitle)  this.dataService.changeTask(newTask, this.changeTaskComplete, this);
+  }
+  deleteTask(_obj: any){
+    let params: any = _obj['content'],
+        _this = _obj['component'];
+    _this.dataService.deleteTask(params, _this.deleteTaskComplete, _this);
+  }
+  deleteTaskComplete(_data, _this){
+    let url: string, goTitle: string = 'task'; 
+    console.log('deleteTask :: ', _data.msg);
+    if(_data.msg == '성공'){
+      _this.projectInfoBoxService.setInfoBoxType(undefined);  
+      _this.projectInfoBoxService.setTaskId(undefined);
+      _this.projectInfoBoxService.setViewInfoEvent(false);
+
+      url = _this.url['base'] + _this.url[goTitle] + _this.projectId + '/' + goTitle;
+      _this.router.navigate([url]);
+    }
+  }
+  changeTaskComplete(_data, _this){
+    let element: HTMLElement = document.querySelector('#focusoutInput') as HTMLElement;
+    console.log('changeTask :: ', _data.msg);
+    element.focus();
+  }
   moveTask(){console.log('moveTask');}
 }

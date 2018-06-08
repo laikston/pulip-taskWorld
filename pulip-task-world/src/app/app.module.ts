@@ -9,6 +9,7 @@ import { DropdownModule } from './dropdown-box/dropdown-box.module'; /* dropdown
 import { MyDatePickerModule } from './datepicker-box/my-date-picker.module'; /* date picker :: angular4-datepicker customizing :: https://www.npmjs.com/package/angular4-datepicker */
 import { MemberBoxModule } from './member-box/member-box.module'; /* select member :: custom */
 import { TagBoxModule } from './tag-box/tag-box.module'; /* select tag :: custom */
+import { FileDropModule } from 'ngx-file-drop'; /* drag & drop file :: https://libraries.io/npm/ngx-file-drop/3.0.2 */
 
 import { AppComponent } from './app.component';
 import { AppContainerComponent } from './app-container/app-container.component';
@@ -18,6 +19,7 @@ import { ConstantService } from './service/constant.service';
 import { DataService } from './service/data.service';
 import { ProjectInfoBoxService } from './service/project-info-box.service';
 import { SocketService } from './service/socket.service';
+import { LoginService } from './service/login.service';
 
 import { HomeComponent } from './home/home.component';
 import { HomeContainerComponent } from './home/home-container/home-container.component';
@@ -50,6 +52,7 @@ import { CheckListBoxComponent } from './projects/check-list-box/check-list-box.
 import { CheckBoxComponent } from './projects/check-box/check-box.component';
 
 import { OrderByPipe } from './pipe/order-by.pipe';
+import { TaskFileBoxComponent } from './projects/task-file-box/task-file-box.component';
 
 let projectInfoBoxTypeProjectDetail:Routes = [
   {
@@ -304,7 +307,8 @@ const appRoutes: Routes = [
     TaskBoxComponent,
     CheckListBoxComponent,
     CheckBoxComponent,
-    OrderByPipe
+    OrderByPipe,
+    TaskFileBoxComponent
   ],
   imports: [
     BrowserModule, 
@@ -315,6 +319,7 @@ const appRoutes: Routes = [
     MemberBoxModule,
     DropdownModule,
     TagBoxModule,
+    FileDropModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [
@@ -322,7 +327,8 @@ const appRoutes: Routes = [
     ConstantService,
     DataService,
     ProjectInfoBoxService,
-    SocketService
+    SocketService,
+    LoginService
   ],
   bootstrap: [AppComponent]
 })

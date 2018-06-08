@@ -1,11 +1,11 @@
 <div class="dropdown">
-  <a href="javascript:;" class="btn btn-default btn-sm pick-option dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" (click)="matchTag='';tagBox=true;newTagBox=false;newTag['name']=undefined;"><span class="glyphicon glyphicon-plus"></span></a>
+  <a href="javascript:;" class="btn btn-default btn-sm pick-option dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" (click)="tagBox=true;newTagBox=true;newTag['name']=undefined;"><span class="glyphicon glyphicon-plus"></span></a>
   <button aria-label="Close" class="close dropdown-toggle dropdown-menu" type="button" aria-labelledby="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span aria-hidden="true">×</span></button>
   <ul class="select-list">
-    <li *ngFor="let tag of selectedTag" [ngClass]="setTagClass(tag.group)">{{tag.name}}<button aria-label="Close" class="close" type="button" (click)="removeTag(tag.id)"><span aria-hidden="true">×</span></button></li>
+    <li *ngFor="let tag of selectedTag" [ngClass]="setTagClass(tag.tag_class)">{{tag.tag_name}}<button aria-label="Close" class="close" type="button" (click)="deleteTag(tag.tag_idx)"><span aria-hidden="true">×</span></button></li>
   </ul>
   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" (click)="noBubbling($event)" >    
-    <div class="menu-box tag-box" [ngClass]="{'active':tagBox}">
+    <!-- <div class="menu-box tag-box" [ngClass]="{'active':tagBox}">
       <div class="dropdown-header">
         <div class="dropdown-title">
           <h4>태그 추가</h4>
@@ -25,10 +25,10 @@
       <div class="dropdown-new">
         <a href="javascript:;" (click)="tagBox=false;newTagBox=true;newTag['name']=undefined;">+ 새 태그 만들기</a>
       </div>
-    </div>
+    </div> -->
     <div class="menu-box new-tag-box" [ngClass]="{'active':newTagBox}">
       <div class="dropdown-title">
-        <button (click)="tagBox=true;newTagBox=false;"><</button><h4>새 태그 만들기</h4>
+        <h4>새 태그 만들기</h4>
       </div>
       <div class="dropdown-tagname direct-text">
         <input type="text" placeholder="태그 이름" [(ngModel)]="newTag['name']"/>
@@ -37,7 +37,7 @@
         <h5>색상 선택</h5>
         <ul class="color-list">
           <li *ngFor="let tagC of tagColor;" [ngClass]="tagC">
-            <input type="radio" [id]="tagC" name="tagColor" [value]="tagC" (change)="selectTagColor(tagC)" [(ngModel)]="newTag['group']">
+            <input type="radio" [id]="tagC" name="tagColor" [value]="tagC" (change)="selectTagColor(tagC)" [(ngModel)]="newTag['color']">
             <label [for]="tagC"></label>
           </li>
         </ul>

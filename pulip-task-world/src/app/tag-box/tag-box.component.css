@@ -43,8 +43,7 @@
 /* new-tag-box */
 .menu-box.new-tag-box{height:195px;}
 .new-tag-box .dropdown-title{border:1px solid #eee;}
-.new-tag-box .dropdown-title h4{display:inline-block;font-size:14px;font-weight: bold;}
-.new-tag-box .dropdown-title button{border:0;background:#fff;padding:10px 10px 13px;}
+.new-tag-box .dropdown-title h4{font-size:14px;font-weight: bold;background:#fff;padding:10px 10px 13px;}
 .new-tag-box .dropdown-tagname{margin:10px;border:1px solid #eee;border-radius:5px;}
 .new-tag-box .dropdown-tagcolor{padding:0 10px;}
 .new-tag-box .dropdown-tagcolor h5{font-size:14px;font-weight: bold;padding-bottom:10px;}

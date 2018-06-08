@@ -1,7 +1,7 @@
 <dl>
   <dt>설명</dt>
   <dd class="direct-text">
-    <textarea *ngIf="data" [(ngModel)]="data.Content" rows="4" (focusout)="changeDataContent()" (keydown.enter)="changeDataContent($event)"></textarea>
+    <textarea *ngIf="data" [(ngModel)]="data.Properties" rows="4" (keydown.enter)="changeDataContent($event, data.Properties)"></textarea>
   </dd>
 </dl>
 <dl>
@@ -20,17 +20,17 @@
 </dl>
 <dl class="member-box">
   <dt>배정된 멤버</dt>
-  <dd>
-    <app-member-box [data]="memberData"></app-member-box>
+  <dd *ngIf="data">
+    <app-member-box [data]="data['AssiMember']" [optionData]="memberData" [projectId]="projectId" [taskId]="taskId"></app-member-box>
   </dd>
 </dl>
 <dl>
   <dt>태그</dt>
-  <dd>
-    <app-tag-box [data]="tagData" (updateDataEvent)="updateTagData($event)"></app-tag-box>
+  <dd *ngIf="data">
+    <app-tag-box [data]="data['Tag']" [projectId]="projectId" [taskId]="taskId"></app-tag-box>
   </dd>
 </dl>
 <dl *ngIf="data" >
   <dt>체크리스트</dt>
-  <dd><app-check-list-box [checkListdata]="data.CheckList" [hasEdit]="true" [hasAddListItem]="true" ></app-check-list-box></dd>
+  <dd><app-check-list-box [checkListdata]="data.CheckList" [hasEdit]="true" [hasAddListItem]="true" [projectId]="projectId" [taskId]="taskId"></app-check-list-box></dd>
 </dl>

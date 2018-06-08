@@ -1,7 +1,11 @@
 div.task-list-wrap{position: relative;padding: 15px;background: #f5f7fc;border-radius: 5px;box-shadow: 0 1px 8px 0 rgba(0,0,0,0.15);}
 div.task-list-wrap::before{content: '';position: absolute;left: 0;top: 0; right: 0;height: 3px;background:linear-gradient(to bottom right, #c474e8  0%, #da6b84 100%);}
-ul{padding-top:10px;clear:both;}
-li{margin-top: 10px;background: #fff;border-radius: 5px;box-shadow: 0 1px 8px 0 rgba(0,0,0,0.15);}
-h4.direct-text{width:calc(100% - 32px);float:left;}
+div.new-task ul{display:block;}
+div.new-task li{float:left;}
+div.new-task .btn-group li{float:right;}
+ul.task-list{padding-top:10px;clear:both;}
+.task-list li{margin-top: 10px;background: #fff;border-radius: 5px;box-shadow: 0 1px 8px 0 rgba(0,0,0,0.15);}
+h4.direct-text{width:calc(100% - 32px);display:inline-block;}
 h4.direct-text input[type="text"]{font-size:16px;line-height:16px;background:#f5f7fc;}
 h4.direct-text input[type="text"]:hover{background:#fff;}
+app-dropdown-box{float:right;}

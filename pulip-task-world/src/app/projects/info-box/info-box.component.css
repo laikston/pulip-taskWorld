@@ -1,4 +1,4 @@
-.info-box{position: fixed;top:57px;right:0;bottom:0;width: 500px;padding: 0 0 10px 0;background: #fff;box-shadow: 0 1px 8px 0 rgba(0,0,0,0.15);z-index:9999;}
+.info-box{position: fixed;top:50px;right:0;bottom:0;width: 500px;padding: 0 0 10px 0;background: #fff;box-shadow: 0 1px 8px 0 rgba(0,0,0,0.15);z-index:8;}
 
 .info-box .info-box-close{position: absolute;left: -30px;top: 0;text-align: center;box-shadow: 0 1px 0px 0 rgba(0,0,0,0.15);}
 .info-box .info-box-close a{display: inline-block;width:30px; height: 30px;background: #fff;line-height: 36px;}
@@ -21,4 +21,4 @@
 .head-tab.task li{width:33.333%;}
 .head-tab.project li{width:100%;}
 
-.info-box .info-box-body{padding-bottom: 15px; border-bottom: 1px solid rgb(240, 240, 240);padding:15px;}
+.info-box .info-box-body{padding-bottom: 15px; padding:15px;}

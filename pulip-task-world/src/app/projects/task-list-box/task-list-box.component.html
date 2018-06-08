@@ -1,7 +1,14 @@
 <div class="task-list-wrap">
-  <h4 class="direct-text"><input type="text" [(ngModel)]="taskListData['Name']"  (focusout)="changeDataTaskListName()" (keydown.enter)="updateTaskList(taskListData['Name'])"/></h4>
+  <h4 class="direct-text"><input type="text" [(ngModel)]="taskListData['task_group_name']" (keydown.enter)="changeTaskList(taskListData)"/></h4>
   <app-dropdown-box [data]="dropdownMenu"></app-dropdown-box>
-  <ul>
-    <li *ngFor="let taskData of taskListData['Task']|orderBy:order:ascending" ><app-task-box [taskData]="taskData" (sendTaskIdEvent)="sendTaskId($event)"></app-task-box></li>
+  <div class="new-task" *ngIf="isViewAddTaskForm">
+    <input type="text" [(ngModel)]="newTaskName"/>
+    <ul class="btn-group">
+      <li><button class="btn btn-primary btn-sm btn-confirm" type="button">취소</button></li>
+      <li><button class="btn btn-primary btn-sm btn-confirm" type="button" (click)="addTask()">만들기</button></li>
+    </ul>
+  </div>
+  <ul *ngIf="taskListData['Task'] != null" class="task-list">
+    <li *ngFor="let taskData of taskListData['Task']|orderBy:order:ascending"><app-task-box [taskData]="taskData" [projectId]="projectId" (sendTaskIdEvent)="sendTaskId($event)"></app-task-box></li>
   </ul>
 </div>

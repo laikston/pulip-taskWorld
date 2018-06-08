@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { TaskBox } from '../task-box/task-box';
 import { CheckListBoxComponent } from '../check-list-box/check-list-box.component';
 import { MemeberBox } from '../../member-box/member-box';
-import { TagBox } from '../../tag-box/tag-box';
 import { ProjectInfoBoxService } from '../../service/project-info-box.service';
+import { DataService } from '../../service/data.service';
 import { IMyDpOptions } from '../../datepicker-box/interfaces/my-options.interface'; /* angular4-datepicker :: https://www.npmjs.com/package/angular4-datepicker */
 
 @Component({
@@ -18,43 +18,16 @@ export class TaskPropertyComponent implements OnInit {
   public data: TaskBox;
   public firedEnterKeyEvent: boolean = false;
   public datePickerOptions: IMyDpOptions = { // date-picker option
-    dateFormat: 'yyyy-mm-dd' ,
+    dateFormat: 'yyyy-mm-dd',
     editableDateField: false
   }; 
+  public todate: any;
   public startDate: any = { date: { year: 2018, month: 10, day: 9 } };
   public endDate: any = { date: { year: 2018, month: 10, day: 9 } };
-  public memberData: MemeberBox[] = [
-    {id: 0, name: 'UITeam', team: '연구소', role: '', img: '../assets/images/member-sample-img.jpg', selected: false},
-    {id: 1, name: 'Dev Team', team: '연구소', role: '', img: '../assets/images/member-sample-img.jpg', selected: false},
-    {id: 2, name: 'DX Group', team: '', role: '', img: '../assets/images/member-sample-img.jpg', selected: false},
-    {id: 3, name: 'Ops Team', team: '연구소', role: '운영팀', img: '../assets/images/member-sample-img.jpg', selected: false},
-    {id: 4, name: '안정화', team: '', role: '', img: '../assets/images/member-sample-img.jpg', selected: false},
-    {id: 5, name: '유용관', team: '연구소', role: '선임', img: '../assets/images/member-sample-img.jpg', selected: false},
-    {id: 6, name: '이 성헌', team: '연구소', role: '이사', img: '../assets/images/member-sample-img.jpg', selected: false},
-    {id: 7, name: '충한 이', team: '연구소', role: '', img: '../assets/images/member-sample-img.jpg', selected: false},
-    {id: 8, name: '한대범', team: '연구소', role: '', img: '../assets/images/member-sample-img.jpg', selected: false}
-  ];
-  public tagData: TagBox[] = [
-    {id: 0, name: '강묘정', selected: false, group: 'green'},
-    {id: 1, name: '김경희', selected: false, group: 'red'},
-    {id: 2, name: '강민성', selected: false, group: 'blue'},
-    {id: 3, name: '김나현', selected: false, group: 'rainbow'},
-    {id: 4, name: '김은주', selected: false, group: 'yellow'},
-    {id: 5, name: '김종수', selected: false, group: 'navy'},
-    {id: 6, name: '김종환', selected: false, group: 'red'},
-    {id: 7, name: '김진원', selected: false, group: 'navy'},
-    {id: 8, name: '박정문', selected: false, group: 'rainbow'},
-    {id: 9, name: '안노기', selected: false, group: 'green'},
-    {id: 10, name: '유용관', selected: false, group: 'brown'},
-    {id: 11, name: '윤정호', selected: false, group: 'rainbow'},
-    {id: 12, name: '이상화', selected: false, group: 'purple'},
-    {id: 13, name: '이성헌', selected: false, group: 'rainbow'},
-    {id: 14, name: '전상돈', selected: false, group: 'purple'},
-    {id: 15, name: '정덕영', selected: false, group: 'blue'},
-    {id: 16, name: '조한필', selected: false, group: 'green'}
-  ];
+  public memberData: MemeberBox[];
   constructor(
-    private projectInfoBoxService: ProjectInfoBoxService
+    private projectInfoBoxService: ProjectInfoBoxService,
+    private dataService: DataService
   ) { }
   ngOnInit() { 
     setTimeout(() => {
@@ -67,54 +40,81 @@ export class TaskPropertyComponent implements OnInit {
     this.projectInfoBoxService.getTaskDataEvent.subscribe((_data) => { 
       this.setDatePickerDates(_data);
     });  
+    if(this.projectId)  this.dataService.getMemberList({'project_idx':this.projectId}, this.getMemberListComplete, this);
+    this.todate = {
+      year: new Date().getFullYear(),
+      month: new Date().getMonth() + 1,
+      date: ''
+    };
   }  
-  setDatePickerDates(_data){
-    let originStartDate: string = _data['Reg_date'], 
-        arrStartDate: any = originStartDate.split('-'), 
-        originEndtDate: string = _data['Last_date'], 
-        arrEndDate: any = originEndtDate.split('-');              
+  getMemberListComplete(_data, _this){
+    _this.memberData = _data;
+    _this.memberData.forEach((value: any, key: number) => {
+      value.selected = false;      
+    });
+  }
+  setDatePickerDates(_data){   
+    let originStartDate: string = _data['Start_date'], 
+        originEndDate: string = _data['End_date'], 
+        arrStartDate: any = (originStartDate != '') ? originStartDate.split('-') : originStartDate,         
+        arrEndDate: any = (originEndDate != '') ? originEndDate.split('-') : originEndDate; 
     this.startDate = {
       date: {
-        year : arrStartDate[0],
-        month : parseInt(arrStartDate[1]),
-        day : parseInt(arrStartDate[2])
+        year : (originStartDate != '') ? arrStartDate[0] : '',
+        month : (originStartDate != '') ? parseInt(arrStartDate[1]) : '',
+        day : (originStartDate != '') ? parseInt(arrStartDate[2]) : ''
       }
     };
     this.endDate = {
       date: {
-        year : arrEndDate[0],
-        month : parseInt(arrEndDate[1]),
-        day : parseInt(arrEndDate[2])
+        year : (originEndDate != '') ? arrEndDate[0] : '',
+        month : (originEndDate != '') ? parseInt(arrEndDate[1]) : '',
+        day : (originEndDate != '') ? parseInt(arrEndDate[2]) : ''
       }
     };
   }
   startDateChanged(_e){
-     if(this.data != undefined)  this.data['Reg_date'] = _e.formatted;
-  }
-  endDateChanged(_e){
-    if(this.data != undefined)  this.data['Last_date'] = _e.formatted;
-  }
-  changeDataContent(_e){
-    if(_e){ // 동기화 되는 화면이 없으므로 바로 api처리, sevice에 해당하는 data도 있으므로 service에 넣어줄 것
-      this.firedEnterKeyEvent = true;
-      this.projectInfoBoxService.setTaskSubData('Content', this.data['Content']);
-    }else{
-      if(this.firedEnterKeyEvent == false){
-        this.projectInfoBoxService.setTaskSubData('Content', this.data['Content']);
-      }else{
-        this.firedEnterKeyEvent = false;
-      }
+    let newStartDate: any = {};
+    if(this.data != undefined && _e.formatted != this.data['Start_date']){
+      newStartDate['project_idx'] = this.projectId;
+      newStartDate['task_idx'] = this.taskId;
+      newStartDate['set_date'] = this.data['Start_date'] = _e.formatted;
+      this.dataService.changeStartDate(newStartDate, this.changeStartDateComplete, this);      
     }
   }
-  updateTagData(_data){
-    if(_data.selected == true){
-      this.tagData.push(_data);  
+  changeStartDateComplete(_data, _this){
+    console.log(_data);
+  }
+  endDateChanged(_e){
+    let newEndDate: any = {};
+    if(this.data != undefined && _e.formatted != this.data['End_date']){
+      newEndDate['project_idx'] = this.projectId;
+      newEndDate['task_idx'] = this.taskId;
+      newEndDate['set_date'] = this.data['End_date'] = _e.formatted;
+      this.dataService.changeEndDate(newEndDate, this.changeEndDateComplete, this);      
+    }
+  }
+  changeEndDateComplete(_data, _this){
+    console.log(_data);
+  }
+  changeDataContent(_e, _property){
+    _e.preventDefault();
+    if(this.firedEnterKeyEvent == true){
+      this.firedEnterKeyEvent = false;
     }else{
-      this.tagData.forEach((value: any, key: number) => {
-        if(value.id == _data.id){
-          this.tagData[key] = _data;
-        }
-      })
-    }    
+      this.changeTaskProperty(_property);
+    }
+  }
+  changeTaskProperty(_property){
+    let newTask = {
+      'project_idx': this.projectId,
+      'task_idx': this.taskId,
+      'properties': _property
+    };
+    if(this.firedEnterKeyEvent != true)  this.firedEnterKeyEvent = true;
+    this.dataService.changeProperty(newTask, this.changeTaskPropertyComplete, this);
+  }
+  changeTaskPropertyComplete(_data, _this){
+    if(console)  console.log(_data.msg);
   }
 }

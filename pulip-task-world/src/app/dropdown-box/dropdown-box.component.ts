@@ -7,11 +7,6 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class DropdownBoxComponent implements OnInit {
   @Input()  public data: Array<any>;
-
   constructor() { }
-
-  ngOnInit() {
-    
-  }
-
+  ngOnInit() { }
 }

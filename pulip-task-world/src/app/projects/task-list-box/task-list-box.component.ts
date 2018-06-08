@@ -2,13 +2,14 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { TaskListBox } from '../task-list-box/task-list-box';
 import { DataService } from '../../service/data.service';
 import { ProjectInfoBoxService } from '../../service/project-info-box.service';
+import { IMyDpOptions } from '../../datepicker-box/interfaces/my-options.interface'; /* angular4-datepicker :: https://www.npmjs.com/package/angular4-datepicker */
 
 @Component({
   selector: 'app-task-list-box',
   templateUrl: './task-list-box.component.html',
   styleUrls: ['./task-list-box.component.css']
 })
-export class TaskListBoxComponent{
+export class TaskListBoxComponent implements OnInit {
   @Input()  public taskListData: TaskListBox;
   @Input()  public projectId: number;
   @Output()  public changeTaskListDataEvent: EventEmitter<any> = new EventEmitter<any>(); /* change data */
@@ -16,78 +17,75 @@ export class TaskListBoxComponent{
   
   public order: string = 'Order';
   public ascending: boolean = true;
-  public taskTitle: string;
+  public taskListTitle: string;
   public taskId: number;
   public taskListId: number;
+  public taskParentId: number;
   public firedEnterKeyEvent: boolean = false;
   public dropdownMenu: Array<any> = [];
+  public isViewAddTaskForm: boolean = false;
+  public newTaskName: string = undefined;
   constructor(
     private dataService: DataService,
     private projectInfoBoxService: ProjectInfoBoxService
   ) { }
   ngOnInit(){    
-    this.taskTitle = this.taskListData['Name'];
-    this.taskListId = this.taskListData['Idx'];
+    this.taskListTitle = this.taskListData['task_group_name'];
+    this.taskListId = this.taskListData['task_group_idx'];
+    this.taskParentId = this.taskListData['Parent_idx'];
     this.dropdownMenu = [
-      {
-        name: '업무리스트 삭제', function: this.deleteTaskList, params: this.taskListData['Idx']
-      },
-      {
-        name: '이동', function: this.moveTaskList, params: undefined
-      }
+      {name: '업무 추가', function: this.openAddTaskForm, params: {'content': {}, 'component': this}},
+      {name: '업무리스트 삭제', function: this.deleteTaskList, params: {'content': {'project_idx': this.taskParentId, 'task_group_idx': this.taskListId}, 'component': this}},
+      {name: '이동', function: this.moveTaskList, params: {'content': {}, 'component': this}}
     ];
-    // console.log('taskListData :: ', this.taskListData);
-  }
+    // console.log('taskListData :: ', this.taskListData['Task']);
+  }  
   sendTaskId(_taskId){
     this.sendTaskIdEvent.emit(_taskId);
     this.taskId = _taskId;
   }
-  deleteTaskList(_taskListIdx){
-    let taskList = {
-      'task_group_idx': _taskListIdx
-    };    
-    this.changeTaskListDataEvent.emit({
-      data: taskList,
-      section: 'task-list',
-      method: 'delete'
-    });
-
-    console.log(_taskListIdx)
-    // this.dataService.deleteTaskGroup(taskList, this.deleteTaskListComplete, this)
+  deleteTaskList(_obj: any){
+    let params: any = _obj['content'],
+        _this = _obj['component'];
+    _this.dataService.deleteTaskList(params, _this.deleteTaskListComplete, _this);
   }
-  deleteTaskListComplete(_data, _this){
-    let data = {
-      data: _data,
-      section: 'task-list',
-      method: 'delete'
-    };
-    this.changeTaskListDataEvent.emit(data);
-  }
-  updateTaskList(_taskListName){
+  deleteTaskListComplete(_data, _this){if(console)  console.log('deleteTaskGroup :: ', _data.msg);}
+  changeTaskList(_taskList){
     let newTaskList = {
-      'task_group_idx': this.taskListData['Idx'],
-      'task_group_name': _taskListName,
-      'projectid': this.projectId,
-      'order_no': this.taskListData['Order'],
-      'memberidx': 31321  
+      'project_idx': this.projectId,
+      'task_group_idx': _taskList['task_group_idx'],
+      'task_group_name': _taskList['task_group_name'],
+      'order_no': _taskList['order_no']
     };
-    if(_taskListName != this.taskTitle)  this.dataService.updateTaskList(newTaskList, this.updateTaskListComplete, this);
+    if(this.firedEnterKeyEvent != true)  this.firedEnterKeyEvent = true;
+    if(_taskList['task_group_idx'] != this.taskListTitle)  this.dataService.changeTaskList(newTaskList, this.changeTaskListComplete, this);
   }
-  updateTaskListComplete(_data, _this){
-    
-  }
-  changeDataTaskListName(_e){
-    console.log(this.taskListData['Idx'])
-    if(_e){ // 동기화 되는 화면이 없으므로 바로 api처리, sevice에 해당하는 data도 없음
-      this.firedEnterKeyEvent = true;
-      // this.projectInfoBoxService.setTaskSubData('Name', this.taskListData['Name']);
+  changeDataTaskListName(_taskList){
+    if(this.firedEnterKeyEvent == true){
+      this.firedEnterKeyEvent = false;
     }else{
-      if(this.firedEnterKeyEvent == false){
-        // this.projectInfoBoxService.setTaskSubData('Name', this.taskListData['Name']);
-      }else{
-        this.firedEnterKeyEvent = false;
-      }
+      this.changeTaskList(_taskList);
     }
   }
-  moveTaskList(){console.log('moveTaskList')}
+  changeTaskListComplete(_data, _this){if(console)  console.log('changeTaskGroup :: ', _data.msg);}
+  moveTaskList(){if(console)  console.log('moveTaskList')}
+  openAddTaskForm(_obj: any){
+    let _this = _obj['component'];
+    _this.isViewAddTaskForm = true;
+  }
+  addTask(){
+    let newTask: any = {
+      'project_idx': this.projectId,
+      'task_group_idx': this.taskListId,
+      'task_name': this.newTaskName,
+      'order_no': 110
+    };
+    this.dataService.addTask(newTask, this.addTaskComplete, this);
+  }
+  addTaskComplete(_data, _this){
+    _this.newTaskName = undefined;
+  }
+  dateChanged(_e){
+    // if(this.data != undefined)  this.data['Last_date'] = _e.formatted;
+  }
 }

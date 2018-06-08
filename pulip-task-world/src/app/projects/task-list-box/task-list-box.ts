@@ -1,12 +1,13 @@
 import { TaskBox } from '../task-box/task-box';
 
 export class TaskListBox{
-  public Idx: number;
-  public Name: string;
+  public task_group_idx: number;
+  public task_group_name: string;
   public Parent_idx: number;
-  public Level: number;
-  public Order: number;
-  public Reg_date: string;
-  public Last_date: string;
+  public memberidx: number;
+  public order_no: number;
+  public regdatetime: string;
+  public lastdatetime: string;
   public Task: TaskBox[]; 
+  public isdel: string;
 }

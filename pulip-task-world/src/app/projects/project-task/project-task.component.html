@@ -10,11 +10,12 @@
           업무리스트 추가
         </div>
         <div class="add-task-list-title" *ngIf="isAddList">
-          <input type="text" (keydown.enter)="addTaskList()" [(ngModel)]="newTaskList['task_group_name']" #taskListName placeholder="업무리스트 추가">
+          <input type="text" (keydown.enter)="addTaskList()" (focusout)="hideAddTaskListForm(newTaskList['task_group_name'])" [(ngModel)]="newTaskList['task_group_name']" #taskListName placeholder="업무리스트 추가">
           <button id="closeTaskListInputBtn" type="button" class="close" aria-label="Close" (click)="cancelAddTaskListInput()"><span aria-hidden="true">&times;</span></button>
         </div>
       </a>
     </li>
-  </ul>
+  </ul>  
 </div>
 <input id="focusoutInput"/>
+<a href="javascript:;" (click)="updateView()" class="updateView"></a>

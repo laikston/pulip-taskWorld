@@ -80,11 +80,13 @@ export class ProjectInfoBoxService {
   filterTaskData(_data: TaskListBox[], _type: string, _projectId: number, _taskId: number){  
     _data.forEach((value: TaskListBox, key: number) => {
       if(value.Parent_idx == Number(_projectId)){
-        value['Task'].forEach((v: any, k: number) => {
-          if(v.Idx == Number(_taskId)){
-            this.setTaskData(v);
-          }          
-        });
+        if(value['Task'] != null){
+          value['Task'].forEach((v: any, k: number) => {
+            if(v.Idx == Number(_taskId)){
+              this.setTaskData(v);
+            }          
+          });
+        }
       }
     });
     return this.taskData;

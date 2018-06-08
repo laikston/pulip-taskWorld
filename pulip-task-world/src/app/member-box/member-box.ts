@@ -1,8 +1,8 @@
 export class MemeberBox {
-    public id: number;
-    public name: string;
-    public team: string;
-    public role: string;
-    public img: string;
+    public Idx: number;
+    public MemeberFileIdx: string;
+    public MemeberName: string;
+    public PosName: string;
+    public DutyName: string;
     public selected: boolean;
   }

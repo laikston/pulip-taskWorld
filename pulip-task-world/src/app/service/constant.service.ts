@@ -3,19 +3,38 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class ConstantService {
   constructor() { }
+  
   /* api url */
-  private apiBaseUrl: string = 'https://taskapi.pulipinc.com/'
+  private baseUrl: string = 'taskapi.pulipinc.com';
+  private apiBaseUrl: string = 'http://' + this.baseUrl + '/';
+  // private apiBaseUrl: string = 'http://ec2-52-78-187-248.ap-northeast-2.compute.amazonaws.com:4000/api/'
   private apiUrl: any = {
+    global : {
+      member : this.apiBaseUrl + 'member',
+      tag : this.apiBaseUrl + 'tag',
+      startDate: this.apiBaseUrl + 'taskStartDate',
+      endDate: this.apiBaseUrl + 'taskEndDate'
+    },
     projects : {
-      list: this.apiBaseUrl + 'getprojectlist',
-      detail: this.apiBaseUrl + 'getProjectDetail',      
-      tasklist: this.apiBaseUrl + 'taskgroup',
-      gettasklist: this.apiBaseUrl + 'getdata',
-      task: this.apiBaseUrl + 'task'
+      list: this.apiBaseUrl + 'getProjectList',
+      detail: this.apiBaseUrl + 'getProjectDetail',
+      gettasklist: this.apiBaseUrl + 'getData',            
+      tasklist: this.apiBaseUrl + 'taskGroup',      
+      task: this.apiBaseUrl + 'task',
+      taskcomment: this.apiBaseUrl + 'comment',
+      taskfile: this.apiBaseUrl + 'file',
+      taskproperty: this.apiBaseUrl + 'properties',
+      check: this.apiBaseUrl + 'checkList',
     }
   };
   getApiUrl(_gnbTitle, _sectionTitle){
     return this.apiUrl[_gnbTitle][_sectionTitle];
+  }
+
+  /* socket url */
+  private socketBaseUrl: string = 'ws://' + this.baseUrl + ':7001/ws?id='; // projectId
+  getSockeBasetUrl(){
+    return this.socketBaseUrl;
   }
 
   /* link url */
@@ -127,5 +146,4 @@ export class ConstantService {
   getProjectInfoBoxDetailLinkUrl(){
     return this.projectInfoBoxDetailLinkUrl;
   }
-
 }

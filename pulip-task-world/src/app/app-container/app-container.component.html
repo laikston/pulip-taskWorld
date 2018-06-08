@@ -1,5 +1,6 @@
 <!-- todo 메뉴추가 -->
 <aside class="aside">
+    <h1><img src="../../assets/images/img_pulip_log.png" alt="플립테스크" width="50"></h1>
     <ul>
       <li *ngFor="let link of detailLink" [ngClass]="{'active':link.title == currentGnb}"><a [routerLink]="link.link" (click)="initGnb(link)"><span class="glyphicon" [ngClass]="{'glyphicon-home':link.title=='home', 'glyphicon-list':link.title=='summary', 'glyphicon-folder-open':link.title=='projects'}"></span></a></li>
     </ul>

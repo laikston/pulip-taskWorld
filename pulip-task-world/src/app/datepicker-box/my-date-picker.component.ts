@@ -6,8 +6,8 @@ import { UtilService } from "./services/my-date-picker.util.service";
 
 // webpack1_
 declare var require: any;
-const myDpStyles: string = require("./my-date-picker.component.css");
-const myDpTpl: string = require("./my-date-picker.component.html");
+var myDpStyles: string = require("./my-date-picker.component.css");
+var myDpTpl: string = require("./my-date-picker.component.html");
 // webpack2_
 
 export const MYDP_VALUE_ACCESSOR: any = {
@@ -345,7 +345,15 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
 
     writeValue(value: any): void {
         if (value && (value["date"] || value["jsdate"] || value["formatted"])) {
-            this.selectedDate = value["date"] ? this.parseSelectedDate(value["date"]) : value["jsdate"] ? this.parseSelectedDate(this.jsDateToMyDate(value["jsdate"])) : this.parseSelectedDate(value["formatted"]);
+            // this.selectedDate = value["date"] ? this.parseSelectedDate(value["date"]) : value["jsdate"] ? this.parseSelectedDate(this.jsDateToMyDate(value["jsdate"])) : this.parseSelectedDate(value["formatted"]);
+            if(value["date"]){
+                this.selectedDate = this.parseSelectedDate(value["date"]);
+                if(value["jsdate"]){
+                    this.parseSelectedDate(this.jsDateToMyDate(value["jsdate"]))
+                }else{
+                    this.parseSelectedDate(value["formatted"])
+                }
+            }
             let cvc: boolean = this.visibleMonth.year !== this.selectedDate.year || this.visibleMonth.monthNbr !== this.selectedDate.month;
             if (cvc) {
                 this.visibleMonth = {monthTxt: this.opts.monthLabels[this.selectedDate.month], monthNbr: this.selectedDate.month, year: this.selectedDate.year};
@@ -654,7 +662,7 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
         this.emitDateChanged(date);
 
         if (!this.opts.inline) {
-            this.selectionDayTxt = clear ? "" : this.utilService.formatDate(date, this.opts.dateFormat, this.opts.monthLabels);
+            this.selectionDayTxt = clear ? "" : this.utilService.formatDate(date, this.opts.dateFormat, this.opts.monthLabels);           
             this.inputFieldChanged.emit({value: this.selectionDayTxt, dateFormat: this.opts.dateFormat, valid: !clear});
             this.invalidDate = false;
         }
@@ -815,6 +823,13 @@ export class MyDatePicker implements OnChanges, ControlValueAccessor {
             date = selDate;
         }
         this.selectionDayTxt = this.utilService.formatDate(date, this.opts.dateFormat, this.opts.monthLabels);
+        //
+        if(!date.day){
+            date.year = new Date().getFullYear();
+            date.month = new Date().getMonth() + 1;
+            date.day = 0;
+        }
+        //
         return date;
     }
 

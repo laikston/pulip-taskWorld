@@ -1,14 +1,16 @@
-<div class="check-list" *ngIf="checkListdata.length != 0">
-  <ul class="row">
-    <ng-container *ngFor="let checkData of checkListdata;let idx=index;">
-        <li class="col-lg-12" *ngIf="(hasAddListItem == false) ? countingList(checkData['Complete'], checkData['Idx']) : true">
-          <app-check-box [checkData]="checkData" [hasEdit]="hasEdit" (changeCheckDataEvent)="changeCheckData($event)"></app-check-box>
-        </li>
-    </ng-container>    
-    <li *ngIf="(checkListdata.length > 3) && (hasAddListItem == false)" class="show-all-check-list">모든 체크리스트 보기</li>
-  </ul>
-</div>
-<div class="col-lg-12 add-check-list-wrap" *ngIf="hasAddListItem" [ngClass]="{'no-check-list':checkListdata.length == 0}">
+<ng-container *ngIf="checkListdata != null">
+  <div class="check-list" *ngIf="checkListdata.length != 0">
+    <ul class="row">
+      <ng-container *ngFor="let checkData of checkListdata;let idx=index;">
+          <li class="col-lg-12" *ngIf="(hasAddListItem == false) ? countingList(checkData['Complete'], checkData['Idx']) : true">
+            <app-check-box [checkData]="checkData" [hasEdit]="hasEdit" [projectId]="projectId" [taskId]="taskId" (changeCheckDataEvent)="changeCheckData($event)"></app-check-box>
+          </li>
+      </ng-container>    
+      <li *ngIf="(checkListdata.length > 3) && (hasAddListItem == false)" class="show-all-check-list col-lg-12">모든 체크리스트 보기</li>
+    </ul>
+  </div>
+</ng-container>
+<div class="col-lg-12 add-check-list-wrap" *ngIf="hasAddListItem" [ngClass]="{'no-check-list':checkListdata == null}">
   <a href="javascript:;" class="add-check-list" (click)="openAddCheckListInput()" [ngClass]="{'input-mode':isAddList }">
     <div class="add-check-list-title" *ngIf="!isAddList">
       <span class="glyphicon glyphicon-plus"></span>

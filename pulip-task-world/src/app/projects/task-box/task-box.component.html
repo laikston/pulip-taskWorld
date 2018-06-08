@@ -4,16 +4,18 @@
       <input type="checkbox" [id]="taskData.Idx" [(ngModel)]="isComplete" required (change)="changeCompleteState()">
       <div class="checkbox-title" [ngClass]="{'complete':isComplete}"><h5>{{taskData.Name}}</h5></div>
     </div>
-    <app-check-list-box [checkListdata]="taskData['CheckList']" [hasEdit]="false" [hasAddListItem]="false" *ngIf="viewCheckList()"></app-check-list-box>
+    <ng-container *ngIf="taskData['CheckList'] != null">
+      <app-check-list-box [checkListdata]="taskData['CheckList']" [hasEdit]="false" [hasAddListItem]="false" [projectId]="projectId" [taskId]="taskId" *ngIf="viewCheckList()"></app-check-list-box>
+    </ng-container>
     <div class="foot-info">
       <div class="pull-right">
         <a href="javascript:;">
             <span class="glyphicon glyphicon glyphicon-comment" aria-hidden="true"></span>
-            <span class="count">21</span>
+            <span class="count">{{(taskData['Comment'] != null) ? taskData['Comment'].length : 0}}</span>
         </a>
         <a href="javascript:;">
             <span class="glyphicon glyphicon glyphicon-paperclip" aria-hidden="true"></span>
-            <span class="count">21</span>
+            <span class="count">{{(taskData['File'] != null) ? taskData['File'].length : 0}}</span>
         </a>
       </div>
     </div>

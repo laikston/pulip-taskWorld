@@ -6,6 +6,7 @@ import { TaskListBox } from '../task-list-box/task-list-box';
 import { DataService } from '../../service/data.service';
 import { ConstantService } from '../../service/constant.service';
 import { ProjectInfoBoxService } from '../../service/project-info-box.service';
+import { LoginService } from '../../service/login.service';
 @Component({
   selector: 'app-project-list',
   templateUrl: './project-list.component.html',
@@ -21,12 +22,14 @@ export class ProjectListComponent implements OnInit, OnDestroy {
   public projectId: number;
   public projectData: ProjectListBox;
   public projectListData: ProjectListBox[]; 
+  public memberId: string;
   constructor(
     private activatedRoute: ActivatedRoute, 
     private router: Router,
     private dataService: DataService,
     private constantService: ConstantService,
-    private projectInfoBoxService: ProjectInfoBoxService,
+    private projectInfoBoxService: ProjectInfoBoxService,    
+    private loginService: LoginService,
     private location: PlatformLocation
   ) { }
   ngOnInit() {
@@ -34,9 +37,10 @@ export class ProjectListComponent implements OnInit, OnDestroy {
       this.projectInfoBoxService.setInfoBoxType(undefined);
       setTimeout(() => { this.init(); });
     });
+    this.memberId = this.loginService.getMemberId(); /* memberId */
     this.snbEvent.emit(this.snbTitle);   
     this.url = this.constantService.getLinkUrl(this.gnbTitle); 
-    this.dataService.getProjectList({}, this.setData, this); /* call data :: params :: params - type object / completeFunc - type function */      
+    this.dataService.getProjectList({'memberid':this.memberId}, this.setData, this); /* call data :: params :: params - type object / completeFunc - type function */      
   }
   ngOnDestroy(){ 
     window.removeEventListener('popstate', () => { /* history back event destroyed */

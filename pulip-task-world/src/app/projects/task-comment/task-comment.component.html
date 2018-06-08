@@ -1,0 +1,24 @@
+<div class="comment-list-wrap">
+    <div *ngIf="data" >
+        <ul *ngIf="data['Comment'] != null" class="comment-list">
+            <li *ngFor="let comment of data['Comment']">
+                <div class="reg-date">
+                    <span>{{comment['Reg_date']}}</span>
+                </div>
+                <dl class="each-comment">
+                    <dt>memberIdx</dt>
+                    <dd class="member-idx">{{comment['memberIdx']}}</dd>
+                    <dt>Comments</dt>
+                    <dd class="direct-text change-comment"><input type="text" [(ngModel)]="comment['Comments']" (keydown.enter)="changeComment($event, comment)"></dd>
+                    <dt>icon</dt>
+                    <dd class="icon-group">
+                        <button aria-label="Close" class="close" type="button"><span aria-hidden="true" (click)="deleteComment(comment['Idx'])">×</span></button>
+                    </dd>
+                </dl>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="direct-text input-comment">
+    <textarea rows="4" (keydown.enter)="addComment($event)" [(ngModel)]="commentContents"></textarea>
+</div>
